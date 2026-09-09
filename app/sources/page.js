@@ -2,24 +2,24 @@ import SiteNav from "../../components/SiteNav.js";
 import SiteFooter from "../../components/SiteFooter.js";
 import SectionLabel from "../../components/SectionLabel.js";
 import Reveal from "../../components/Reveal.js";
-import { sourceGroups, photoCredits, method } from "../../content/sources.js";
+import { sourceGroups, photoCredits, cautions, method } from "../../content/sources.js";
 
 export const metadata = {
   title: "Sources & Credits — Kampot Durian",
   description:
-    "The published research, reporting, trade standards, and photograph credits behind this field guide.",
+    "The grower interviews, methodological cautions and photograph credits behind this field guide.",
 };
 
 export default function Sources() {
   return (
     <>
-      <a className="skip" href="#sources">Skip to the bibliography</a>
+      <a className="skip" href="#sources">Skip to the sources</a>
       <SiteNav current="/sources" />
 
       <header className="page-head">
         <div className="inner">
           <SectionLabel no="01">Sources &amp; Credits</SectionLabel>
-          <h1 className="headline-sm">Everything this guide rests on.</h1>
+          <h1 className="headline-sm">Where it came from.</h1>
           <p className="sub">{method}</p>
         </div>
       </header>
@@ -67,35 +67,38 @@ export default function Sources() {
                 <li key={credit.file}>
                   <span className="biblio-name">{credit.caption}</span>
                   <span className="biblio-note">
-                    {credit.own ? (
-                      <>
-                        Photograph by {credit.author} — the curator's own work,
-                        taken in Kampot. Primary material, like the grower
-                        interviews above.
-                      </>
-                    ) : (
-                      <>
-                        {credit.author}, via Wikimedia Commons, licensed{" "}
-                        <a href={credit.licenseUrl} target="_blank" rel="noreferrer">
-                          {credit.license}
-                        </a>
-                        .{" "}
-                        <a href={credit.page} target="_blank" rel="noreferrer">
-                          File page
-                        </a>
-                        .
-                      </>
-                    )}
+                    Photograph by {credit.author}, taken in Kampot.
                   </span>
                 </li>
               ))}
             </Reveal>
             <Reveal>
               <p className="body-copy note-foot">
-                Attribution and licence link are preserved wherever these images
-                appear. Corrections are welcome — reach the curator through the
-                course.
+                No stock, no licensed image, nothing borrowed. Corrections
+                are welcome — reach the compiler through the course.
               </p>
+            </Reveal>
+          </div>
+        </section>
+
+        <section className="section">
+          <div className="inner reading">
+            <Reveal>
+              <SectionLabel
+                no={String(sourceGroups.length + 3).padStart(2, "0")}
+              >
+What travels with all of it
+              </SectionLabel>
+              <p className="body-copy">
+                Four things travel with every figure in this guide.
+              </p>
+            </Reveal>
+            <Reveal as="ul" className="biblio">
+              {cautions.map((c) => (
+                <li key={c}>
+                  <span className="biblio-note">{c}</span>
+                </li>
+              ))}
             </Reveal>
           </div>
         </section>

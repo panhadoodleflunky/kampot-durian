@@ -719,26 +719,40 @@ img { max-width: 100%; height: auto; display: block; }
   margin: -14px 0 26px;
 }
 
+/* Pills wrap onto two rows on narrow cards, so the rows need to sit on an
+   even rhythm and every pill needs the same height regardless of its text. */
 .entry-tags {
   display: flex;
   flex-wrap: wrap;
-  gap: 8px;
+  align-items: center;
+  gap: 9px 8px;
   list-style: none;
   margin: 30px 0 0;
-  padding: 26px 0 0;
+  padding: 24px 0 0;
   border-top: 1px solid var(--line);
 }
+
+/* On a card the tag band is sandwiched between two hairlines. The slack a
+   short card gets from the grid used to land inside that band, via the auto
+   top margin on `.entry-src`, so the pills sat pinned to the upper line with
+   a void beneath. The slack goes above the band instead, and the band keeps
+   the same 24px on either side of the pills whatever the card's height. */
+.entry .entry-tags { margin-top: auto; }
+.entry .entry-tags + .entry-src { margin-top: 0; padding-top: 24px; }
 
 .entry-tag {
   font-family: var(--mono);
   font-size: 10.5px;
   font-weight: 500;
   letter-spacing: 1.6px;
+  line-height: 1;
   text-transform: uppercase;
   color: var(--dim);
   border: 1px solid var(--line);
   border-radius: 999px;
-  padding: 6px 13px;
+  /* Right padding is short by the trailing letter-space the last character
+     carries, so the text sits centred in the pill rather than left of it. */
+  padding: 8px 11.4px 8px 13px;
 }
 
 .entry-tag:lang(km) {
@@ -746,6 +760,7 @@ img { max-width: 100%; height: auto; display: block; }
   text-transform: none;
   letter-spacing: 0;
   font-size: 12px;
+  padding-right: 13px;
 }
 
 /* ---------------- specs ---------------- */
@@ -988,25 +1003,80 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--dim);
 }
 
+/* An entry cites one to three sittings, each a few words long. Stacked as a
+   bulleted list under a heading they made a tall box with an empty right
+   half. The label and the citations run along one line instead: the box
+   takes the full reading column and is only as tall as the citations need,
+   growing a line at a time if they wrap. */
 .entry-sources {
-  margin: 10px 0 40px;
-  padding: 34px 36px;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px 22px;
+  margin: 10px 0 22px;
+  padding: 16px 24px;
   border: 1px solid var(--line);
-  border-radius: 20px;
+  border-radius: 14px;
   background: rgba(255, 255, 255, 0.02);
 }
 
-.entry-sources ul { margin: 18px 0 22px; padding-left: 20px; }
+.entry-sources .tile-label { flex: none; }
 
-.entry-sources li {
-  font-size: 16px;
-  line-height: 1.62;
-  font-weight: 300;
-  color: var(--muted);
-  margin-bottom: 10px;
+.entry-sources ul {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 2px 0;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
 }
 
-.entry-sources li::marker { color: var(--flesh); }
+.entry-sources li {
+  font-size: 15px;
+  line-height: 1.5;
+  font-weight: 300;
+  color: var(--muted);
+  margin: 0;
+}
+
+/* The separator trails its own citation rather than leading the next one, so
+   a wrapped line never opens with a stray dot. */
+.entry-sources li:not(:last-child)::after {
+  content: "\00b7";
+  margin: 0 10px;
+  color: var(--dim);
+}
+
+/* The pointer to the full record sits under the box, not inside it: it is a
+   sentence, and inside it would wrap the strip onto a second and third line
+   and make the box tall again. */
+.entry-sources-note {
+  margin: 0 0 40px;
+  font-size: 13.5px;
+  line-height: 1.5;
+  color: var(--dim);
+}
+
+/* The back link at the head of an entry. Same type as `.link`, but the
+   chevron goes before the text and points the other way, so it does not read
+   as "onward" at the top of a page whose only other links go onward. */
+.entry-back {
+  display: inline-block;
+  margin-bottom: 26px;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.entry-back::before { content: "\2039  "; }
+.entry-back:hover { color: var(--flesh); text-decoration: underline; }
 
 .entry-next {
   display: flex;
@@ -1080,7 +1150,7 @@ img { max-width: 100%; height: auto; display: block; }
   .page-head { padding: 84px 22px 0; }
   .page-head .inner { padding-bottom: 44px; }
   .entry-brief { padding: 36px 28px; }
-  .entry-sources { padding: 26px 24px; }
+  .entry-sources { padding: 14px 20px; gap: 6px 16px; }
   .entry-khmer-lg { font-size: 24px; }
 }
 

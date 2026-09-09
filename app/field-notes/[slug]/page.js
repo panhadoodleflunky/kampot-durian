@@ -3,7 +3,7 @@ import { notFound } from "next/navigation";
 import SiteNav from "../../../components/SiteNav.js";
 import SiteFooter from "../../../components/SiteFooter.js";
 import Reveal from "../../../components/Reveal.js";
-import fieldNotes, { getNote, getNextNote } from "../../../content/field-notes.js";
+import fieldNotes, { getNote, getNextNote, bodyText } from "../../../content/field-notes.js";
 
 /* Every entry is known at build time, so every entry page is static. */
 export function generateStaticParams() {
@@ -23,8 +23,8 @@ export async function generateMetadata({ params }) {
   const note = getNote(slug);
   if (!note) return { title: "Entry not found — Kampot Durian" };
   return {
-    title: `Fig. ${note.figNumber} — ${note.title}`,
-    description: summarise(note.body),
+    title: `${note.title} — Kampot Durian`,
+    description: summarise(bodyText(note)),
   };
 }
 
@@ -43,6 +43,9 @@ export default async function FieldNote({ params }) {
         <article className="section">
           <div className="inner reading">
             <Reveal>
+              <Link className="entry-back" href="/field-notes">
+                All field notes
+              </Link>
               <p className="sec-label">
                 <span className="sec-no">{note.figNumber}</span>
                 <span className="sec-rule" aria-hidden="true" />
@@ -54,7 +57,7 @@ export default async function FieldNote({ params }) {
               ) : null}
               {note.status === "in-progress" ? (
                 <p className="entry-status entry-status-block">
-                  In progress — the published record on this is thin.
+                  In progress — the material behind this entry is thin.
                 </p>
               ) : null}
             </Reveal>
@@ -74,26 +77,25 @@ export default async function FieldNote({ params }) {
             ) : null}
 
             <Reveal>
-              <p className="reading-body">{note.body}</p>
+              {(Array.isArray(note.body) ? note.body : [note.body]).map((para) => (
+                <p className="reading-body" key={para.slice(0, 48)}>
+                  {para}
+                </p>
+              ))}
             </Reveal>
 
-            <Reveal as="section" className="entry-sources">
-              <h2 className="tile-label">Sources</h2>
-              <ul>
-                {note.sources.map((source) => (
-                  <li key={source.text}>
-                    {source.url ? (
-                      <a href={source.url} target="_blank" rel="noreferrer">
-                        {source.text}
-                      </a>
-                    ) : (
-                      source.text
-                    )}
-                  </li>
-                ))}
-              </ul>
-              <p className="body-copy">
-                Full bibliography on <Link href="/sources">Sources &amp; Credits</Link>.
+            <Reveal>
+              <section className="entry-sources">
+                <h2 className="tile-label">Sources</h2>
+                <ul>
+                  {note.sources.map((source) => (
+                    <li key={source.text}>{source.text}</li>
+                  ))}
+                </ul>
+              </section>
+              <p className="entry-sources-note">
+                What each sitting covered is set out on{" "}
+                <Link href="/sources">Sources &amp; Credits</Link>.
               </p>
             </Reveal>
 
@@ -107,7 +109,7 @@ export default async function FieldNote({ params }) {
 
             <Reveal className="entry-next">
               <Link href={`/field-notes/${next.slug}`}>
-                <span className="tile-label">Next — Fig. {next.figNumber}</span>
+                <span className="tile-label">Next</span>
                 <span className="entry-next-title">{next.title}</span>
               </Link>
               <Link className="link" href="/field-notes">All field notes</Link>

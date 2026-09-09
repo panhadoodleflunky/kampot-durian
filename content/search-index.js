@@ -17,9 +17,9 @@ export const norm = (s) =>
 
 /* What this archive treats as searchable: the title and Khmer name (what a
    reader knows the fruit by), the body (where the method lives), the tags and
-   fig number (how the guide files things), and the source titles — in a guide
-   whose whole claim is traceability, "which entries rest on the ASEAN
-   standard" is a real question. URLs are out; nobody searches by hostname.
+   fig number (how the guide files things), and the source lines — in a guide
+   whose whole claim is traceability, "which entries rest on the second
+   sitting" is a real question.
 
    Fields join on a newline, which a single-line input cannot produce, so no
    query can match the separator and return everything. */
@@ -27,7 +27,7 @@ function haystack(note) {
   return [
     note.title,
     note.khmerName,
-    note.body,
+    ...(Array.isArray(note.body) ? note.body : [note.body]),
     note.figNumber,
     ...(note.tags || []),
     ...(note.sources || []).map((s) => s.text),

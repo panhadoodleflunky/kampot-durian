@@ -1,179 +1,81 @@
 import collection from "../collection.config.js";
 
-/* The bibliography behind every Field Note, grouped as the Sources page
-   renders it. Photo credits mirror public/credits.json — the licence line
-   travels with the image wherever it is used. */
+/* Where this guide's material comes from. There is one group, because there
+   is one kind of source: people who grow durian at Teuk Chhou, asked
+   directly. No publication, news report, trade standard, or website is cited
+   anywhere on this site, and none should be added — see AGENTS.md.
+
+   Photo credits mirror public/credits.json. */
 
 export const sourceGroups = [
   {
-    heading: "Regional and news reporting",
+    heading: "The interviews",
     items: [
       {
-        name: "Cambodianess — Chhum Chantha, 4 May 2026",
-        note: "“Kampot Durian Growers Report Declining Yields and Quality as Climate Shifts in Cambodia.” Source for Fig. 09: Uon Cheang Meng and Pov Veasna on heat, irrigation, and premature fruit drop in Teuk Chhou.",
-        url: "https://cambodianess.com/article/kampot-durian-growers-report-declining-yields-and-quality-as-climate-shifts-in-cambodia",
+        name: "Interview, 1 September 2026",
+        note: "The first sitting with the two growers who own and work the orchard at Teuk Chhou. They are the compiler's parents and asked not to be named, so the relationship, the place and the date are recorded here instead. Four questions, covering how a fruit is read for ripeness — the stem-joint swelling, the thorn-tip colour, the knock-test sound; the rule against spraying into the canopy while the trees are in flower; why Sadong Kit has become rare to grow and sell, and what it tastes like; the orchard's size and variety split; and how they adapted to the 2024 drought.",
       },
       {
-        name: "Cambodianess",
-        note: "“Alarm Raised Over Health Risks from Allegedly Imported Durians.” Source for Fig. 08: Ouk Kong of the Cambodian Durian Association on relabeled imports and the price gap.",
-        url: "https://cambodianess.com/article/alarm-raised-over-health-risks-from-allegedly-imported-durians",
+        name: "Interview, 4 September 2026",
+        note: "The second sitting, and much the longer of the two: 220 questions across every entry in the guide, and the source of most of what is on this site. It covers the tapping stick and the full sound scale; the days from petal drop to harvest for all four varieties, a figure this project has not found written down anywhere; the flavour, sub-types and grafting requirement of Ov Khak; the harvest window and spoilage rate of Sadong Kit; Monthong's arrival in Kampot and why it was planted; the 2021 Musang King top-working and its failure rate; the mechanics of counterfeit relabelling and the farm-gate-to-retail price spread; the 2024 drought in detail and the 2014 flood; the orchard year month by month; and the export programme as it looks from a two-hectare farm with no part in it.",
       },
       {
-        name: "Cambodianess, July 2026",
-        note: "“Cambodia's Durian Exports to China Surge Nearly 40-Fold as New Rail Corridor Speeds Trade.” Source for the 2025 national area and production figures, credited to the Department of Long-Term Crop Development.",
-        url: "https://cambodianess.com/article/cambodias-durian-exports-to-china-surge-nearly-40-fold-as-new-rail-corridor-speeds-trade",
-      },
-      {
-        name: "Khmer Times, 9 May 2020",
-        note: "“Durian lovers to feast on Kampot durians.” The only figure this guide could find for Kampot province's own durian area and yield — about 1,300 hectares, 940 of them harvested. It is listed here but no longer published on the site: it dates from 2020, rests on this single report, and has not been restated since, which is too thin to state as current fact. The Region says so in place of the number.",
-        url: "https://www.khmertimeskh.com/50721478/durian-lovers-to-feast-on-kampot-durians/",
-      },
-      {
-        name: "South China Morning Post",
-        note: "Cambodia's first direct durian air shipments to China.",
-        url: "https://www.scmp.com/economy/china-economy/article/3321602/chinas-durian-diplomacy-expands-cambodias-first-direct-air-shipments-fruit",
-      },
-      {
-        name: "The Star (Malaysia), 17 June 2025",
-        note: "Cambodian durian farmers and their export ambitions.",
-        url: "https://www.thestar.com.my/aseanplus/aseanplus-news/2025/06/17/durian-farmers-in-north-eastern-cambodia-win-local-hearts-eye-global-markets",
-      },
-      {
-        name: "FreshPlaza, May 2025",
-        note: "“China seeks more Cambodian Au Khak durians.” Source for Fig. 04: the Chinese ambassador's Kampot farm visit and his remark that Ov Khak is “the best durian in the world.”",
-        url: "https://www.freshplaza.com/asia/article/9731346/china-seeks-more-cambodian-au-khak-durians/",
-      },
-      {
-        name: "Cambodianess",
-        note: "“Chinese Authorities Approve Export of Fresh Durian from Cambodia to China.” Source for Fig. 11: the 17 April 2025 phytosanitary protocol and the 112 orchards / 30 packing facilities approved by China's customs authority (GACC).",
-        url: "https://cambodianess.com/article/chinese-authorities-approve-export-of-fresh-durian-from-cambodia-to-china",
-      },
-      {
-        name: "Agence Kampuchea Presse (AKP), 2026",
-        note: "“Cambodia's Fresh Durian Exports to China Reach 5,738 Tonnes.” Source for Fig. 11: the January–July 2026 export volume, the year-on-year increase, and the Laos overland route cutting transit from 15–20 days by sea to about five, per MAFF spokesperson Khim Finan.",
-        url: "https://www.akp.gov.kh/post/detail/376689",
-      },
-      {
-        name: "VOA News, 18 February 2016",
-        note: "“Cambodia's Kampot Pepper Wins Coveted EU Protection.” Source for Fig. 08: Kampot pepper's 2016 EU Geographical Indication status.",
-        url: "https://www.voanews.com/a/ap-cambodia-kampot-pepper-wins-coveted-eu-protection/3215893.html",
-      },
-      {
-        name: "Khmer Times \u2014 \u201cKampot durian fakes raise a stink\u201d",
-        note: "Reporting on cheap imports from Thailand and Vietnam relabelled and sold as Kampot fruit. Background for Fig. 08. Located by search; the publisher blocks automated retrieval, so the article itself has not been read for this guide \u2014 the link is here so a reader can check it directly.",
-        url: "https://www.khmertimeskh.com/13670/kampot-durian-fakes-raise-a-stink/",
-      },
-      {
-        name: "Phnom Penh Post",
-        note: "Profile of a Cambodian durian farmer, and wider industry context. Deliberately unlinked: the paper has published more than one article of this description and the site blocks automated retrieval, so naming a single URL would be a guess.",
-      },
-    ],
-  },
-  {
-    heading: "Family and community knowledge",
-    items: [
-      {
-        name: "The curator's family, Kampot durian growers",
-        note: "Khmer vocabulary used in the field — the knock test, ripe/unripe/overripe, the dry season, dropped vs. cut fruit, grafting, orchard, grower, middleman, and farming community — plus confirmation of ឪខាក់ (Ov Khak), សាដង់កិត (Sadong Kit), and ដើមទុរេន/ដើម (durian tree, full and short form) as spoken locally. Provided directly for this project, not drawn from a publication.",
-      },
-      {
-        name: "The curator's parents, durian growers at Teuk Chhou, Kampot — grower interview, 1 September 2026",
-        note: "First-hand answers from the two growers who own and work the orchard. They asked not to be named, so the relationship, the place and the date are recorded here instead of a name. This first sitting covers reading ripeness (the stem-joint swelling, the thorn-tip colour change, and the knock-test sound); the rule against spraying anything into the canopy while the trees are in flower; why Sadong Kit has become rare to grow and sell, and what it tastes like; the orchard's own size and variety split; and adapting to the 2024 drought. Provided directly for this project, not drawn from a publication.",
-      },
-      {
-        name: "The curator's parents, durian growers at Teuk Chhou, Kampot — grower interview, 4 September 2026",
-        note: "A second and much longer sitting: 220 questions across every entry in the guide, and the source of most of the first-hand material on this site. It covers the tapping stick and the full sound scale; the days from petal drop to harvest for all four varieties, a figure this project could not find written down anywhere else; the flavour, sub-types and grafting requirement of Ov Khak; the harvest window and spoilage rate of Sadong Kit; Monthong's arrival in Kampot and why it was planted; the 2021 Musang King top-working and its failure rate; the mechanics of counterfeit relabeling and the farm-gate-to-retail price spread; the 2024 drought in detail and the 2014 flood; the orchard year month by month; and the export protocol as it looks from a two-hectare farm. Three cautions travel with it. Prices are peak-season farm-gate figures and can fall by roughly half in a tight market. Tree counts are the growers' own estimates — they keep no exact tally, since trees die and are replanted continuously. And where their observation disagrees with a published study, as it does over whether moths pollinate durian, both are printed and neither is quietly dropped. The growers asked that the location of the farm's water source not be published, and it is not. Provided directly for this project, not drawn from a publication.",
-      },
-    ],
-  },
-  {
-    heading: "Official and technical sources",
-    items: [
-      {
-        name: "ASEAN Standard for Durian (ASEAN Stan 1:2006, Rev.1-2012)",
-        note: "Read directly. Annex 2 gives the commercial weight ranges quoted here — Ov khak and San dang ket at 1.0–4.0 kg, Montong at 1.5–6.0 kg, D197 at 1.0–3.0 kg. Annex 3 gives the maturity tests behind Fig. 01. Annex 4 records Cambodia's vernacular name for the fruit as “Turian”.",
-        url: "https://asean.org/wp-content/uploads/2012/05/1-ASEAN-STANDARD-FOR-DURIAN-REV-2012.pdf",
-      },
-      {
-        name: "Eguchi, Hassan & Numata (2024) — International Journal of Biometeorology 69(2), 403\u2013409",
-        note: "\u201cDry spells trigger durian flowering in aseasonal tropics.\u201d Source for Fig. 02: a drought of roughly fifteen days preceded each of five flowering events, with peak flowering about fifty days after the fifteen-day rainfall moving average fell below 1 mm \u2014 and the dry period need not be unbroken.",
-        url: "https://doi.org/10.1007/s00484-024-02819-x",
-      },
-      {
-        name: "Aziz et al. (2017) — Ecology and Evolution 7(21), 8670\u20138684",
-        note: "\u201cPollination by the locally endangered island flying fox (Pteropus hypomelanus) enhances fruit production of the economically important durian.\u201d Source for Fig. 02: flowers open around 16:15 and the corolla drops between 01:00 and 02:00; only bats were found to be mutualists, while bees acted largely as pollen robbers and moths were barely recorded. Fig. 02 sets this against the growers’ own account, which puts hawk moths on the flowers as well; the disagreement is printed rather than resolved.",
-        url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC5677486/",
-      },
-      {
-        name: "Youryon & Supapvanich (2022) — Current Applied Science and Technology 22(6)",
-        note: "\u201cQuality Comparison of Naturally and Artificially Ripened \u2018Monthong\u2019 Durian Fruits Harvested at Various Maturity Stages.\u201d Source for Fig. 03 and the early-cut figure in Fig. 01: 110 days after anthesis is about 80 percent maturity, 115 about 85, 120 about 90, with tree-ripened fruit taken around 130.",
-        url: "https://doi.org/10.55003/cast.2022.06.22.002",
-      },
-      {
-        name: "Paull et al., CTAHR F_N-27, June 2014",
-        note: "\u201cDurian: Postharvest Quality-Maintenance Guidelines\u201d, University of Hawai\u2018i at M\u0101noa. Read directly. Source for Fig. 01 and Fig. 06: the abscission zone, carpel sutures, and tapping are named as the most reliable maturity criteria; a fruit picked up off the ground keeps two to three days against seven to eight for one cut from the tree; Monthong ripens in four to six days after harvest, Chanee in two to four.",
-        url: "https://www.ctahr.hawaii.edu/oc/freepubs/pdf/F_N-27.pdf",
+        name: "Khmer field vocabulary",
+        note: "The words used in the field, given directly across both sittings: the knock test, ripe and unripe and overripe, the dry season, dropped and cut fruit, grafting, orchard, grower, middleman, farming community, and the spoken forms of the variety names. This edition is in English and does not print the Khmer itself. The terms are recorded in full and will carry the Khmer edition, where they belong in the growers' own script rather than in translation.",
       },
     ],
   },
 ];
 
-/* Photograph credits. `own` marks the curator's own work — primary material,
-   like the grower interviews above, and credited as such rather than being
-   passed off as, or hidden among, the licensed Wikimedia images. */
+/* What travels with the interviews, and is repeated on the entries that lean
+   hardest on each caution. Kept here so the three of them stay worded the
+   same way in every place they appear. */
+export const cautions = [
+  "Prices are peak-season farm-gate figures and can fall by roughly half in a tight market.",
+  "Tree counts are the growers' own estimates. They keep no exact tally, since trees die and are replanted continuously.",
+  "This is one orchard of about two hectares. Nothing here is a sample of Kampot, of Teuk Chhou, or of anywhere else.",
+  "The growers asked that the location of the farm's water source not be published, and it is not.",
+];
+
+/* Photograph credits. Every image on this site was taken by the compiler, at
+   the orchard or nearby — primary material, like the interviews. */
 export const photoCredits = [
   {
     file: "ov-khak-opened.jpg",
     caption: "An opened durian held beneath a fruiting tree",
     author: collection.curator,
-    own: true,
   },
   {
     file: "tree-in-fruit.jpg",
     caption: "A durian tree carrying mature fruit, branches braced",
     author: collection.curator,
-    own: true,
   },
   {
     file: "harvest-ready-to-sell.jpg",
     caption: "Harvest laid out on tarpaulins, ready for the buyer",
     author: collection.curator,
-    own: true,
   },
   {
     file: "durian-flower.jpg",
     caption: "Durian flowers in close-up, open at night for their pollinators",
     author: collection.curator,
-    own: true,
   },
   {
     file: "sadong-kit.jpg",
     caption: "A Sadong Kit fruit on the tree, in the family's own orchard",
     author: collection.curator,
-    own: true,
   },
   {
     file: "drought-damage-tree.jpg",
     caption: "A drought-stressed durian tree, its leaves browned and dropping",
     author: collection.curator,
-    own: true,
   },
   {
     file: "teuk-chou-scenic.jpg",
     caption: "The Teuk Chhou river at dusk, with the hills behind it",
     author: collection.curator,
-    own: true,
-  },
-  {
-    file: "kampot-durian-monument.jpg",
-    caption: "The durian monument at the Kampot roundabout",
-    author: "Myrmux",
-    license: "CC BY-SA 4.0",
-    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
-    page:
-      "https://commons.wikimedia.org/wiki/File:Durian_Skulptur_in_Kampot,_Kambodscha.jpg",
   },
 ];
 
 export const method =
-  "Compiled from published horticultural research, regional news reporting, the official ASEAN trade standard for durian, and recorded interviews with growers in the curator's family.";
+  "Two recorded interviews with the growers at Teuk Chhou, on 1 and 4 September 2026, and the Khmer they use in the field.";

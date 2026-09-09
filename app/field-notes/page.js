@@ -9,15 +9,10 @@ import fieldNotes from "../../content/field-notes.js";
 export const metadata = {
   title: "Field Notes — Kampot Durian",
   description:
-    "Sourced entries on Kampot's durian varieties, growing season, trade, and the pressures on it.",
+    "Entries on one Teuk Chhou orchard's varieties, season, trade and troubles, as its growers tell it.",
 };
 
 export default function FieldNotesIndex() {
-  /* Counted, not typed. The copy below used to say "Two of them are marked
-     in progress" and had gone stale — one entry was promoted on 2 Sept and
-     the sentence stayed behind. Same class of drift as the hectares bug. */
-  const open = fieldNotes.filter((n) => n.status === "in-progress").length;
-
   return (
     <>
       <a className="skip" href="#notes">Skip to the entries</a>
@@ -27,15 +22,8 @@ export default function FieldNotesIndex() {
         <div className="inner">
           <SectionLabel no="01">Field Notes</SectionLabel>
           <h1 className="headline-sm">
-            {fieldNotes.length} entries, each traced to a source.
+            {fieldNotes.length} entries, one orchard.
           </h1>
-          <p className="sub">
-            Entries are numbered in the order they were compiled.{" "}
-            {open === 1
-              ? "One of them is marked in progress: the record for it is"
-              : `${open} of them are marked in progress: the record for those is`}{" "}
-            genuinely thin, and saying so is more useful than filling the gap.
-          </p>
         </div>
       </header>
 
@@ -49,8 +37,8 @@ export default function FieldNotesIndex() {
             <EntrySearch notes={fieldNotes} />
             <Reveal>
               <p className="body-copy note-foot">
-                Every claim in this guide is listed on its entry page and
-                gathered in{" "}
+                Each entry names the sitting it came from. The full record is
+                on{" "}
                 <Link href="/sources">Sources &amp; Credits</Link>.
               </p>
             </Reveal>

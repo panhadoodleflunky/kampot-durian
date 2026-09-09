@@ -16,7 +16,7 @@ export default function SearchBox({ value, onChange, inputRef, count }) {
           type="search"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="A variety, a Khmer term, a subject — ទុរេន, Ov Khak, harvest"
+          placeholder="A variety, a subject, a season — Ov Khak, drought, harvest"
           autoComplete="off"
           spellCheck="false"
           aria-describedby="entry-search-count"

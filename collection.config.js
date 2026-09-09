@@ -12,14 +12,14 @@ const collection = {
 
   // One sentence: what is this archive, and why does it matter?
   description:
-    "A field guide to Kampot's durian — the varieties grown here, the season that governs them, and the working knowledge that has never been written down.",
+    "One orchard at Teuk Chhou. Four varieties, one working year, and what two growers know about them.",
 
   // Who is building this archive? Your name, as you want it shown.
   curator: "Sovanpanha Nonn",
 
   // Where does your knowledge come from? A person, a place, a community.
   source:
-    "Published horticultural research, regional reporting, the ASEAN trade standard, and first-hand interviews with Kampot growers",
+    "Two recorded interviews with the growers, September 2026",
 
   // Which province is this archive rooted in?
   province: "Kampot",

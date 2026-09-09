@@ -7,6 +7,7 @@ out
 
 # Working material and private notes. Local only, never committed.
 workspace/
+# PROJECT.md lives one level up, outside this repo, and holds private material.
 
 # Agent rules. Lives at the repo root so tools auto-load it, but is not pushed.
 /AGENTS.md

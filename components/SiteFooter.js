@@ -1,34 +1,20 @@
 import Link from "next/link";
 import collection from "../collection.config.js";
-import { photoCredits } from "../content/sources.js";
 
-/* The licence line travels with the photographs, so it is rendered from the
-   same credit list the Sources page uses rather than typed out again. */
+/* The footer used to print all seven photograph captions in full, on every
+   page — a hundred words of repetition under every entry. The credits belong
+   on the Sources page, which lists them properly; the footer just points
+   there. */
 export default function SiteFooter() {
   return (
     <footer className="foot">
       <div className="foot-inner">
         <p className="foot-fine">
           A student field guide built for ICT 340 — Vibe Coding at the American
-          University of Phnom Penh, Fall 2026. Compiled from published sources
-          and from interviews with growers in the curator's family; see{" "}
-          <Link href="/sources">Sources &amp; Credits</Link>. In progress all
-          semester. Photographs:{" "}
-          {photoCredits.map((credit, i) => (
-            <span key={credit.file}>
-              {i > 0 ? "; " : ""}
-              {credit.caption} by {credit.author}
-              {credit.own ? null : (
-                <>
-                  , via Wikimedia Commons,{" "}
-                  <a href={credit.licenseUrl} target="_blank" rel="noreferrer">
-                    {credit.license}
-                  </a>
-                </>
-              )}
-            </span>
-          ))}
-          .
+          University of Phnom Penh, Fall 2026. Compiled from interviews with
+          durian growers in Teuk Chhou district, Kampot. Photographs by{" "}
+          {collection.curator}. Interviews and credits in full on{" "}
+          <Link href="/sources">Sources &amp; Credits</Link>.
         </p>
         <div className="foot-bottom">
           <span>Compiled by {collection.curator}</span>

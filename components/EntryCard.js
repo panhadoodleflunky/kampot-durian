@@ -2,17 +2,22 @@ import Link from "next/link";
 import Reveal from "./Reveal.js";
 
 /* Khmer block, U+1780–U+17FF. One Khmer character anywhere is enough:
-   the passage is Khmer, and it needs the Khmer font and line height. */
+   the passage is Khmer, and it needs the Khmer font and line height. No entry
+   in this English edition carries any, so this returns undefined throughout —
+   it is kept working for the Khmer edition. */
 const KHMER = /[ក-៿]/;
 
 function lang(text) {
   return KHMER.test(text) ? "km" : undefined;
 }
 
-/* Cards carry an opening, not the whole entry — the entry page has that.
-   Cutting on a word boundary keeps a mid-word stub off the card. */
+/* Cards carry an opening, not the whole entry — the entry page has that. The
+   first paragraph is written to stand alone, so the excerpt comes from that
+   rather than from the run-on of all of them. Cutting on a word boundary
+   keeps a mid-word stub off the card. */
 function excerpt(text, limit) {
-  const body = typeof text === "string" ? text.trim() : "";
+  const first = Array.isArray(text) ? text[0] : text;
+  const body = typeof first === "string" ? first.trim() : "";
   if (body.length <= limit) return body;
   const cut = body.slice(0, limit);
   return `${cut.slice(0, cut.lastIndexOf(" "))}…`;

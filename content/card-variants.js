@@ -6,10 +6,12 @@
    index reads as a laid-out page instead of a list of identical blocks. */
 export const VARIANTS = ["lead", "plain", "brief", "brief", "plain"];
 
-/* Entries per page when browsing. Searching is not paged: a query is already
-   the reader narrowing the list, and paging their matches would hide results
+/* Entries per page when browsing. Four, which puts the eleven entries across
+   three pages and lands each page on one full turn of the variant cycle:
+   lead, plain, brief, brief. Searching is not paged — a query is already the
+   reader narrowing the list, and paging their matches would hide results
    behind a control they did not ask for. */
-export const PER_PAGE = 6;
+export const PER_PAGE = 4;
 
 /* Positions 2 and 3 of the cycle are the paired half-width cards. A filtered
    result can stop on position 2, leaving its partner unrendered and half the

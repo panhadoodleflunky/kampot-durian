@@ -1,9 +1,9 @@
 # Kampot Durian — a field guide
 
-A researched field guide to Kampot's durian world: the region it grows in, the
-varieties grown there, how the fruit actually develops, and what is changing
-now — a new export route to China, a counterfeit-labelling problem, and a
-climate story growers are reporting season by season.
+A field guide to one durian orchard at Teuk Chhou, Kampot — its varieties, its
+season, how its growers read a fruit for ripeness, what a counterfeit looks
+like on a highway stall, and what the 2024 drought cost them. Every word of it
+came out of two recorded interviews with the two people who work the land.
 
 Live: **https://ict-340-vibe-coding.vercel.app**
 
@@ -12,22 +12,30 @@ Fall 2026. Compiled by Sovanpanha Nonn.
 
 ---
 
-## What makes this one different
+## The rule this site is built on
 
-An earlier version of this site carried fabricated content — invented speakers,
-invented quotes, invented recording dates. It was deleted and rebuilt from
-sources. The rule that replaced it governs everything here:
+**Primary sources only. Real people, asked directly. Nothing off the internet.**
 
-> Every claim traces to a published source, or to the curator's family, who are
-> real Kampot durian growers and are credited as such. Where the record is thin,
-> the site says so rather than filling the gap.
+> Every claim on this site comes from one of two recorded sittings with durian
+> growers at Teuk Chhou, Kampot, or from the Khmer vocabulary their family uses
+> in the field. No publication, news report, trade standard, research paper, or
+> website is cited anywhere, and no borrowed photograph appears.
+
+This is the third version of the site, and each rule replaced a worse one. v1
+carried fabricated content — invented speakers, invented quotes, invented
+recording dates — and was deleted outright. v2 rebuilt it from published
+research and reporting with interview material threaded through. v3, this one,
+removed the published half entirely: seventeen citations, every statistic that
+came from a government series or a news report, and one licensed photograph.
+
+The honest cost is that nothing here can be checked by a reader against an
+outside source. The gain is that nothing here is second-hand, and two things on
+it — the days from petal drop to harvest for four Cambodian varieties, and a
+description of Sadong Kit — do not appear to exist anywhere else.
 
 That is why entries carry a `status` of `published` or `in-progress`, why
 `/about` has a section called "What is missing", and why a Khmer name appears
-on an entry only where a real one is documented. Where a claim comes from the
-curator's family rather than from the literature, the entry says so and dates
-it; where the two disagree, both are printed rather than one being quietly
-dropped.
+on an entry only where the growers actually use one.
 
 ## Running it
 
@@ -62,11 +70,11 @@ That is a deliberate constraint, not an omission.
 ```
 app/
   page.js                  home — hero, three featured entries, method note
-  region/page.js           the belt, the setting, the scale, the pressure
-  field-notes/page.js      browse + search over every entry, six to a page
+  region/page.js           the orchard, the setting, the scale, the pressure
+  field-notes/page.js      browse + search over every entry, four to a page
   field-notes/[slug]/      one entry per page, statically generated
   about/page.js            what this is, method, what is missing, why
-  sources/page.js          full bibliography and photograph credits
+  sources/page.js          the interview record, cautions, photograph credits
   globals.css              the whole stylesheet
 components/
   EntrySearch.js           client component: owns the search query and the page
@@ -79,7 +87,7 @@ content/
   field-notes.js           the entries — the data behind every page
   search-index.js          which fields are searchable, and the matcher
   card-variants.js         the grid cycle and the paging maths, as pure functions
-  sources.js               bibliography, photo credits, shared method string
+  sources.js               the interview record, cautions, photo credits, method string
 collection.config.js       archive identity: name, description, curator, source
 ```
 
@@ -100,13 +108,14 @@ about the entry shape rather than about the box that displays it. It also means
 the search can be reasoned about, and tested, on its own.
 
 It matches against title, Khmer name, body, fig number, tags, **and source
-titles** — in a guide whose whole claim is traceability, "which entries rest on
-the ASEAN standard" is a real question a reader might have. URLs are excluded.
+lines** — in a guide whose whole claim is traceability, "which entries rest on
+the second sitting" is a real question a reader might have.
 Every word of the query must appear somewhere in the entry, so `kampot drought`
 finds the entry about both rather than everything about either.
 
-**Browsing is paged; searching is not.** Six entries to a page when you are
-browsing, and no pager at all once you type — a query is already the reader
+**Browsing is paged; searching is not.** Four entries to a page when you are
+browsing — eleven entries across three pages, each page one full turn of the
+card-variant cycle — and no pager at all once you type — a query is already the reader
 narrowing the list, and paging their matches would hide results behind a
 control they did not ask for.
 
@@ -132,9 +141,10 @@ twice.
 
 ## Credits
 
-Photographs marked as the curator's own work were taken in Kampot and are the
-only primary visual material here. The one licensed image carries its author,
-licence, and file page wherever it appears; all of it is listed on
+Every photograph on this site is the curator's own work, taken in Kampot. There
+is no stock, licensed, or borrowed image anywhere in it — the one Wikimedia
+photograph the site used to carry was removed with the published sources. All
+of it is listed on
 [`/sources`](https://ict-340-vibe-coding.vercel.app/sources).
 
 Corrections are welcome.
