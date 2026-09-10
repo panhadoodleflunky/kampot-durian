@@ -97,7 +97,7 @@ export default function Region() {
 
         <section className="section">
           <div className="inner reading">
-            <Reveal>
+            <Reveal className="prose-row">
               <SectionLabel no="04">The pressure</SectionLabel>
               <h2 className="headline-sm">Water, and 2024.</h2>
               <p className="reading-body">

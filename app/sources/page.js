@@ -28,26 +28,26 @@ export default function Sources() {
         {sourceGroups.map((group, i) => (
           <section className="section" key={group.heading}>
             <div className="inner reading">
-              <Reveal>
+              <Reveal className="prose-row">
                 <SectionLabel no={String(i + 2).padStart(2, "0")}>
                   {group.heading}
                 </SectionLabel>
-              </Reveal>
-              <Reveal as="ul" className="biblio">
-                {group.items.map((item) => (
-                  <li key={item.name}>
-                    <span className="biblio-name">
-                      {item.url ? (
-                        <a href={item.url} target="_blank" rel="noreferrer">
-                          {item.name}
-                        </a>
-                      ) : (
-                        item.name
-                      )}
-                    </span>
-                    <span className="biblio-note">{item.note}</span>
-                  </li>
-                ))}
+                <ul className="biblio">
+                  {group.items.map((item) => (
+                    <li key={item.name}>
+                      <span className="biblio-name">
+                        {item.url ? (
+                          <a href={item.url} target="_blank" rel="noreferrer">
+                            {item.name}
+                          </a>
+                        ) : (
+                          item.name
+                        )}
+                      </span>
+                      <span className="biblio-note">{item.note}</span>
+                    </li>
+                  ))}
+                </ul>
               </Reveal>
             </div>
           </section>
@@ -55,24 +55,22 @@ export default function Sources() {
 
         <section className="section">
           <div className="inner reading">
-            <Reveal>
+            <Reveal className="prose-row">
               <SectionLabel
                 no={String(sourceGroups.length + 2).padStart(2, "0")}
               >
                 Photography
               </SectionLabel>
-            </Reveal>
-            <Reveal as="ul" className="biblio">
-              {photoCredits.map((credit) => (
-                <li key={credit.file}>
-                  <span className="biblio-name">{credit.caption}</span>
-                  <span className="biblio-note">
-                    Photograph by {credit.author}, taken in Kampot.
-                  </span>
-                </li>
-              ))}
-            </Reveal>
-            <Reveal>
+              <ul className="biblio">
+                {photoCredits.map((credit) => (
+                  <li key={credit.file}>
+                    <span className="biblio-name">{credit.caption}</span>
+                    <span className="biblio-note">
+                      Photograph by {credit.author}, taken in Kampot.
+                    </span>
+                  </li>
+                ))}
+              </ul>
               <p className="body-copy note-foot">
                 No stock, no licensed image, nothing borrowed. Corrections
                 are welcome — reach the compiler through the course.
@@ -83,22 +81,22 @@ export default function Sources() {
 
         <section className="section">
           <div className="inner reading">
-            <Reveal>
+            <Reveal className="prose-row">
               <SectionLabel
                 no={String(sourceGroups.length + 3).padStart(2, "0")}
               >
-What travels with all of it
+                What travels with all of it
               </SectionLabel>
               <p className="body-copy">
                 Four things travel with every figure in this guide.
               </p>
-            </Reveal>
-            <Reveal as="ul" className="biblio">
-              {cautions.map((c) => (
-                <li key={c}>
-                  <span className="biblio-note">{c}</span>
-                </li>
-              ))}
+              <ul className="biblio">
+                {cautions.map((c) => (
+                  <li key={c}>
+                    <span className="biblio-note">{c}</span>
+                  </li>
+                ))}
+              </ul>
             </Reveal>
           </div>
         </section>

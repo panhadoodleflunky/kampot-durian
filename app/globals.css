@@ -142,6 +142,11 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .gnav a:hover { color: var(--flesh); }
+
+/* The page being read is stated in the nav, not left for the reader to
+   infer from the URL. */
+.gnav a[aria-current="page"] { color: var(--cream); }
+
 .gnav-spacer { flex: 1; }
 
 /* ---------------- layout ---------------- */
@@ -325,7 +330,10 @@ img { max-width: 100%; height: auto; display: block; }
 
 .masthead {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+  /* Three facts, three equal tracks. auto-fit used to cut five tracks here
+     and leave the right two standing empty, so the row ended at two-thirds
+     of the hairline above it. */
+  grid-template-columns: repeat(3, 1fr);
   gap: 26px 34px;
   margin: 88px 0 0;
   padding-top: 36px;
@@ -512,7 +520,11 @@ img { max-width: 100%; height: auto; display: block; }
   line-height: 1.06;
   letter-spacing: -0.028em;
   color: var(--cream);
-  max-width: 18ch;
+  /* 18ch put the comma at a line ending. The wider measure gives three
+     even lines with the pause inside the second one; `balance` keeps them
+     even as the clamp resizes the type. */
+  max-width: 24ch;
+  text-wrap: balance;
   margin-inline: auto;
 }
 
@@ -525,6 +537,19 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--flesh);
   opacity: 0.34;
   margin-bottom: 0.16em;
+}
+
+/* The closing mark, the mirror of the opening: same oversized cut, same
+   colour, same weight of presence — set below the line as the opening is
+   set above it. */
+.pull blockquote::after {
+  content: "\201D";
+  display: block;
+  font-size: 1.9em;
+  line-height: 0.5;
+  color: var(--flesh);
+  opacity: 0.34;
+  margin-top: 0.34em;
 }
 
 .pull figcaption {
@@ -664,37 +689,13 @@ img { max-width: 100%; height: auto; display: block; }
   letter-spacing: 0;
 }
 
-/* Drop cap — the editorial cue that this is a first-person account. */
-.entry-body::first-letter {
-  font-family: var(--serif);
-  float: left;
-  font-size: 62px;
-  line-height: 0.82;
-  padding: 6px 12px 0 0;
-  color: var(--flesh);
-}
-
-/* A Khmer cluster is several code points; ::first-letter would tear the
-   vowel sign off its consonant. No drop cap there. */
-.entry-body:lang(km)::first-letter {
-  font-family: inherit;
-  float: none;
-  font-size: inherit;
-  line-height: inherit;
-  padding: 0;
-  color: inherit;
-}
+/* No drop cap on the excerpts. There was one, and it kept tearing the first
+   word of a card apart — "Ov Khak" opened as a giant O beside "v Khak". A cap
+   earns its keep on a long text block, and the cards only ever carry three or
+   four lines. */
 
 /* Nothing recorded yet for this field. */
 .entry-empty { color: var(--dim); font-style: italic; }
-.entry-empty::first-letter {
-  font-family: inherit;
-  float: none;
-  font-size: inherit;
-  line-height: inherit;
-  padding: 0;
-  color: inherit;
-}
 
 /* Date sits opposite the provenance, at the far edge of the header rule. */
 .entry-date {
@@ -737,7 +738,9 @@ img { max-width: 100%; height: auto; display: block; }
    top margin on `.entry-src`, so the pills sat pinned to the upper line with
    a void beneath. The slack goes above the band instead, and the band keeps
    the same 24px on either side of the pills whatever the card's height. */
-.entry .entry-tags { margin-top: auto; }
+/* 24px above the pills and 24px below them, so the row sits centred in its
+   band instead of resting on the lower line. */
+.entry .entry-tags { margin-top: auto; padding-bottom: 24px; }
 .entry .entry-tags + .entry-src { margin-top: 0; padding-top: 24px; }
 
 .entry-tag {
@@ -846,13 +849,16 @@ img { max-width: 100%; height: auto; display: block; }
   .band-copy { padding-bottom: 70px; }
   .entry { padding: 36px 28px; border-radius: 20px; }
   .entry-body { font-size: 17px; }
-  .entry-body::first-letter { font-size: 50px; }
   .entry-no { font-size: 32px; }
   /* The header runs out of room for three columns; the date drops under it. */
   .entry-head { flex-wrap: wrap; }
   .entry-date { margin-left: 54px; flex-basis: 100%; }
   .entry-khmer { font-size: 20px; margin-top: -10px; }
-  .masthead { margin-top: 38px; gap: 22px; }
+  .masthead {
+    margin-top: 38px;
+    gap: 22px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
   .section-head { margin-bottom: 34px; }
 }
 
@@ -883,8 +889,16 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* ---------------- reading column ---------------- */
 
-/* Long-form prose wants a narrower measure than the full grid. */
-.reading { max-width: 720px; }
+/* Long-form prose wants a narrower measure than the full grid. The column
+   keeps the grid's own left edge rather than centring: centred, its text
+   started 200px to the right of the page heading above it, and every reading
+   page looked like two layouts pasted together. When the wrap has no spare
+   width the max() collapses to the plain left edge. */
+.reading {
+  max-width: 720px;
+  margin-left: max(0px, calc((100% - var(--wrap)) / 2));
+  margin-right: auto;
+}
 
 .reading-body {
   font-family: var(--sans);
@@ -897,7 +911,21 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .reading-body a { color: var(--flesh); text-decoration-thickness: 1px; }
-.reading .tile-label { margin-top: 46px; }
+
+/* The cautions list on About ran on bare browser bullets, cramped against
+   its markers, in a design where every other list is styled. */
+.reading ul.body-copy {
+  margin: 0 0 38px;
+  padding-left: 22px;
+  display: grid;
+  gap: 12px;
+}
+
+.reading ul.body-copy li::marker { color: var(--flesh); }
+
+/* Section labels inside a reading column: air on both sides, where the
+   bare tile-label sat flush on top of its paragraph. */
+.reading .tile-label { margin-top: 46px; margin-bottom: 14px; }
 .reading > .reveal:first-child .tile-label { margin-top: 0; }
 
 .note-foot {
@@ -922,14 +950,43 @@ img { max-width: 100%; height: auto; display: block; }
 .entry-brief { padding: 40px 40px; }
 .entry-brief .entry-title { font-size: clamp(26px, 2.6vw, 34px); max-width: 15ch; }
 .entry-brief .entry-body { font-size: 17px; }
-/* No drop cap on the short cards — the cap outgrew the excerpt. */
-.entry-brief .entry-body::first-letter {
-  font-family: inherit;
-  float: none;
-  font-size: inherit;
-  line-height: inherit;
-  padding: 0;
-  color: inherit;
+
+/* A full-width card used to stack a 64ch paragraph down its left side and
+   leave the right half of the card standing empty. Where there is room it
+   opens like a spread instead: title on the left page, account on the right,
+   with the header rule and the footer band running the full width. The rows
+   are placed explicitly because the number header and the Khmer name are
+   both optional. */
+@media (min-width: 901px) {
+  .entry-lead,
+  .entry-plain {
+    display: grid;
+    grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+    column-gap: 72px;
+    /* Row 4 is the slack: it holds the tag band and footer to the bottom
+       of the card whatever the title and body columns add up to. */
+    grid-template-rows: auto auto auto 1fr auto auto;
+  }
+  .entry-lead > .entry-head,
+  .entry-plain > .entry-head { grid-column: 1 / -1; grid-row: 1; }
+  .entry-lead > .entry-title,
+  .entry-plain > .entry-title { grid-column: 1; grid-row: 2; }
+  .entry-lead > .entry-khmer,
+  .entry-plain > .entry-khmer { grid-column: 1; grid-row: 3; }
+  .entry-lead > .entry-body,
+  .entry-plain > .entry-body {
+    grid-column: 2;
+    grid-row: 2 / 5;
+    margin-bottom: 34px;
+    /* The excerpt is half the spread — at body size it read as a caption
+       beside the title rather than its equal. */
+    font-size: 21px;
+    line-height: 1.7;
+  }
+  .entry-lead > .entry-tags,
+  .entry-plain > .entry-tags { grid-column: 1 / -1; grid-row: 5; }
+  .entry-lead > .entry-src,
+  .entry-plain > .entry-src { grid-column: 1 / -1; grid-row: 6; }
 }
 
 .entry-title a {
@@ -1020,7 +1077,9 @@ img { max-width: 100%; height: auto; display: block; }
   background: rgba(255, 255, 255, 0.02);
 }
 
-.entry-sources .tile-label { flex: none; }
+/* The label is part of the strip, not a section heading — the reading
+   column's 46px label margin was what kept making this box tall. */
+.entry-sources .tile-label { flex: none; margin: 0; }
 
 .entry-sources ul {
   display: flex;
@@ -1057,6 +1116,48 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 13.5px;
   line-height: 1.5;
   color: var(--dim);
+}
+
+/* Without this the pointer's link fell through to the browser's own blue. */
+.entry-sources-note a { color: var(--flesh); text-decoration-thickness: 1px; }
+
+/* ---------------- entry page: text + side rail ----------------
+
+   The entry used to run as a single 720px column with 400px of empty page
+   to its right. The apparatus — sources, the pointer to the full record,
+   the subject pills — moves into that space as a rail that rides along
+   while the entry is read. The text keeps its measure; the page uses its
+   width. */
+
+.entry-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 300px;
+  column-gap: 84px;
+  align-items: start;
+}
+
+.entry-main { min-width: 0; max-width: 720px; }
+
+.entry-side {
+  position: sticky;
+  top: calc(var(--nav-h) + 44px);
+}
+
+.entry-layout > .entry-next { grid-column: 1 / -1; }
+
+/* In the rail the citations stack, one per line, rather than running along
+   a strip — the strip shape belonged to the old full-width box. */
+.entry-side .entry-sources { display: block; padding: 20px 22px; margin: 0 0 16px; }
+.entry-side .entry-sources ul { display: block; margin: 12px 0 0; }
+.entry-side .entry-sources li { line-height: 1.55; }
+.entry-side .entry-sources li:not(:last-child) { margin-bottom: 7px; }
+.entry-side .entry-sources li:not(:last-child)::after { content: none; }
+.entry-side .entry-sources-note { margin: 0 0 30px; }
+.entry-side .entry-tags { margin: 0; }
+
+@media (max-width: 1000px) {
+  .entry-layout { grid-template-columns: 1fr; }
+  .entry-side { position: static; max-width: 720px; margin-top: 14px; }
 }
 
 /* The back link at the head of an entry. Same type as `.link`, but the
@@ -1346,4 +1447,105 @@ a.section-count:hover { text-decoration: underline; }
   .search-input { font-size: 16px; padding: 14px 20px; }
   .search-none { padding: 36px 28px; border-radius: 20px; }
   .search-none-head { font-size: 23px; }
+}
+
+/* ---------------- image slot (development only) ---------------- */
+
+/* Stands in the flow where a photograph will go, at roughly the presence of
+   the figure that will replace it. Deliberately unlike the rest of the page —
+   dashed, green-flagged — so it never reads as finished design and never
+   ships unnoticed. `ImageSlot` renders nothing in a production build. */
+.image-slot {
+  margin: 0 0 40px;
+  padding: 24px 26px;
+  border: 1px dashed var(--leaf);
+  border-radius: 18px;
+  background: rgba(76, 184, 120, 0.05);
+}
+
+.image-slot-head {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin: 0 0 12px;
+  font-family: var(--mono);
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 1.9px;
+  text-transform: uppercase;
+  color: var(--leaf);
+}
+
+.image-slot-no {
+  font-family: var(--serif);
+  font-size: 22px;
+  line-height: 1;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--leaf);
+}
+
+.image-slot-brief {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 15.5px;
+  line-height: 1.6;
+  font-weight: 300;
+  color: var(--muted);
+}
+
+.image-slot-how {
+  margin: 14px 0 0;
+  font-family: var(--sans);
+  font-size: 13px;
+  line-height: 1.55;
+  font-weight: 300;
+  color: var(--dim);
+}
+
+.image-slot-how code {
+  font-family: var(--mono);
+  font-size: 12px;
+  color: var(--flesh);
+}
+
+@media (max-width: 734px) {
+  .image-slot { padding: 20px 20px; }
+}
+
+/* ---------------- prose pages: label rail ----------------
+
+   A reading section is a label and its paragraphs. Stacked, the label took
+   one short line and the whole right third of the page stood empty. Where
+   there is room, the label steps into a left rail and the text answers it
+   from the right, so a section spans the grid instead of hugging its left
+   edge. The text column stays at the same measure it had — the width comes
+   from the rail, not from stretching the lines. Below the breakpoint the
+   label stacks back on top. */
+
+@media (min-width: 901px) {
+  .reading:has(> .prose-row) { max-width: 1010px; }
+
+  .prose-row {
+    display: grid;
+    grid-template-columns: 240px minmax(0, 1fr);
+    column-gap: 64px;
+    /* start, not stretch: a stretched .sec-label is a flex row that centres
+       itself down the whole section's height. */
+    align-items: start;
+  }
+
+  .prose-row > * { grid-column: 2; }
+
+  .prose-row > .tile-label,
+  .prose-row > .sec-label {
+    grid-column: 1;
+    grid-row: 1;
+    /* Optical: drops the caps to the first text line's own top. */
+    margin: 6px 0 0;
+  }
+
+  .prose-row + .prose-row { margin-top: 40px; }
+
+  .prose-row > .headline-sm { margin-bottom: 24px; }
 }
