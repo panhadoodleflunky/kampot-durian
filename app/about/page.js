@@ -19,8 +19,24 @@ const SPECS = [
   { h: "Status", p: "Ongoing. Entries get added as the growers are asked more." },
 ];
 
+/* The entries spell their numbers out — "two hundred and fifteen trees",
+   "eighteen thousand riel" — so a count written into that prose does too. */
+const WORDS = ["No", "One", "Two", "Three", "Four", "Five", "Six", "Seven",
+  "Eight", "Nine", "Ten", "Eleven", "Twelve"];
+
+function spell(n) {
+  return WORDS[n] ?? String(n);
+}
+
 export default function About() {
   const open = fieldNotes.filter((n) => n.status === "in-progress").length;
+
+  /* Counted, not typed. This sentence used to name Monthong and Musang King,
+     and by the time three more entries were written it was naming two of the
+     five that actually have no photograph. On a page whose whole argument is
+     that the gaps are stated out loud, an undercount of the gaps is the worst
+     sentence on the site to leave stale. */
+  const unillustrated = fieldNotes.filter((n) => !n.image).length;
 
   return (
     <>
@@ -41,7 +57,7 @@ export default function About() {
       <main id="about">
         <section className="section">
           <div className="inner reading">
-            <Reveal>
+            <Reveal className="prose-row">
               <h2 className="tile-label">What this is</h2>
               <p className="reading-body">
                 A field guide to one durian orchard at Teuk Chhou, Kampot,
@@ -54,7 +70,7 @@ export default function About() {
               </p>
             </Reveal>
 
-            <Reveal>
+            <Reveal className="prose-row">
               <h2 className="tile-label">Method</h2>
               <p className="reading-body">
                 {method} The growers are my own parents. They own and work the
@@ -92,15 +108,17 @@ export default function About() {
               </p>
             </Reveal>
 
-            <Reveal>
+            <Reveal className="prose-row">
               <h2 className="tile-label">What is missing</h2>
               <p className="reading-body">
                 {open} of the {fieldNotes.length} entries {open === 1 ? "is" : "are"}{" "}
                 marked in progress. The drought entry follows three seasons
                 on one farm and cannot say how far that ran across the
                 district. The export entry can describe standing outside a
-                programme, not the programme. Monthong and Musang King have no
-                photograph. And this is the English edition — the growers&apos;
+                programme, not the programme. {spell(unillustrated)} of the{" "}
+                {spell(fieldNotes.length).toLowerCase()} entries{" "}
+                {unillustrated === 1 ? "has" : "have"} no photograph. And this
+                is the English edition — the growers&apos;
                 Khmer for the tap, the stem joint, the flowering season and
                 much else is held for a Khmer one not built yet, so the words
                 the work is actually done in are not on the page. The gaps are
@@ -108,7 +126,7 @@ export default function About() {
               </p>
             </Reveal>
 
-            <Reveal>
+            <Reveal className="prose-row">
               <h2 className="tile-label">Course context</h2>
               <p className="reading-body">
                 Built for ICT 340 — Vibe Coding at the American University of
@@ -116,7 +134,7 @@ export default function About() {
               </p>
             </Reveal>
 
-            <Reveal>
+            <Reveal className="prose-row">
               <h2 className="tile-label">Why this exists</h2>
               <p className="reading-body">
                 I grew up with this fruit. Kampot is home, my family grows

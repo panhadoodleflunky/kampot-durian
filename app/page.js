@@ -11,7 +11,7 @@ import SectionLabel from "../components/SectionLabel.js";
 const MASTHEAD = [
   { k: "Compiled by", v: collection.curator },
   { k: "Province", v: `${collection.province}, Cambodia` },
-  { k: "Method", v: "Asked at the orchard" },
+  { k: "Method", v: "Interview" },
 ];
 
 /* Three entries that between them cover the whole guide: a native variety,
@@ -21,9 +21,14 @@ const FEATURED = ["ov-khak", "a-name-worth-protecting", "when-the-rain-doesnt-co
   .filter(Boolean);
 
 /* Drawn from the Sadong Kit entry — the line the guide's honesty rests on.
-   It is the guide's own sentence, not anyone's quoted words. */
+   It is the guide's own sentence, not anyone's quoted words.
+
+   The space after the comma is non-breaking. Set centred at up to 82px, the
+   line wrapped straight after "years," and left the comma hanging at the end
+   of a line, where it read as missing punctuation rather than as a pause.
+   Tying "years," to "nobody" means the wrap cannot fall there at any width. */
 const PULL_QUOTE = {
-  text: "In more than thirty years, nobody has come to look at these trees.",
+  text: "In more than thirty years,\u00A0nobody has come to look at these trees.",
   attribution: "Sadong Kit",
   href: "/field-notes/sadong-kit",
 };
@@ -95,7 +100,7 @@ export default function Home() {
               <Reveal as="article" className="tile" delay={90}>
                 <p className="tile-label">Varieties recorded</p>
                 <p className="tile-value">
-                  Ov Khak · Sadong Kit · Monthong · Musang King
+                  Ov Khak, Sadong Kit, Monthong, Musang King
                 </p>
               </Reveal>
             </div>
@@ -117,6 +122,9 @@ export default function Home() {
                 </Link>
               </div>
             </Reveal>
+            {/* The section head already carries the "Read all" link — a
+                second one under the cards said the same thing twice on one
+                screen. */}
             <div className="entry-list">
               {FEATURED.map((note, i) => (
                 <EntryCard
@@ -128,13 +136,6 @@ export default function Home() {
                 />
               ))}
             </div>
-            <Reveal>
-              <p className="body-copy note-foot">
-                <Link href="/field-notes">
-                  Read all {fieldNotes.length} entries
-                </Link>
-              </p>
-            </Reveal>
           </div>
         </section>
 
@@ -181,7 +182,7 @@ export default function Home() {
 
         <section className="section" id="method">
           <div className="inner reading">
-            <Reveal>
+            <Reveal className="prose-row">
               <SectionLabel no="04">How this was made</SectionLabel>
               <p className="reading-body">
                 Everything here comes from interviews with the growers at Teuk
