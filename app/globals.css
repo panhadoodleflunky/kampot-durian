@@ -549,7 +549,11 @@ img { max-width: 100%; height: auto; display: block; }
   line-height: 0.5;
   color: var(--flesh);
   opacity: 0.34;
-  margin-top: 0.34em;
+  /* Larger than the opening's 0.16em because quote glyphs sit high in
+     their box: above the text that bias adds distance, below it the same
+     bias pulls the mark against the last line. 0.75em lands the visible
+     gap at the same ~110px the opening shows. Measured, not guessed. */
+  margin-top: 0.75em;
 }
 
 .pull figcaption {
