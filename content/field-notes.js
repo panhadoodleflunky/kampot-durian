@@ -10,6 +10,11 @@
    Khmer field vocabulary recorded in the same sittings. The interview record
    is in content/sources.js.
 
+   `image` is null on the entries with no photograph yet. Those carry
+   `imageWanted` instead — a note on what to shoot, rendered in place on the
+   entry page while running `next dev` and never in a production build. When
+   the photograph exists, fill in `image` and delete the `imageWanted` line.
+
    khmerName is empty throughout this edition. The site is English-only for
    now; the growers' Khmer terms are held for the Khmer edition and recorded in
    full in PROJECT.md §8. The field and its rendering are kept so that
@@ -34,6 +39,8 @@ const fieldNotes = [
     ],
     sources: [VOCAB, INT1, INT2],
     image: null,
+    imageWanted:
+      "The tapping stick — thirty centimetres of hardwood wrapped in motorcycle inner tube — held against a fruit on the branch, both hands in frame: one tapping the belt of the husk, the other on the stem. Second choice: the nylon nets slung under a cluster, or the rice straw beds under the low branches.",
     tags: ["harvest", "ripeness"],
     status: "published",
   },
@@ -134,6 +141,8 @@ const fieldNotes = [
     ],
     sources: [VOCAB, INT2],
     image: null,
+    imageWanted:
+      "A Monthong fruit, on the tree or opened. Opened is the stronger picture: it is the pale sweet flesh and the four-to-six kilo size that the entry turns on. Shoot it beside an Ov Khak if one is to hand — the contrast is the whole variety.",
     tags: ["monthong", "variety", "trade"],
     status: "published",
   },
@@ -148,6 +157,8 @@ const fieldNotes = [
     ],
     sources: [VOCAB, INT1, INT2],
     image: null,
+    imageWanted:
+      "The top-worked row, from far enough back that the whole row reads: seventy percent shade netting over the grafted canopy, blue tags at the trunk bases. This is the most visually distinctive thing on the farm. A close-up of one bound graft union would carry the entry too.",
     tags: ["musang king", "grafting", "export"],
     status: "published",
   },
@@ -163,6 +174,8 @@ const fieldNotes = [
     ],
     sources: [VOCAB, INT2],
     image: null,
+    imageWanted:
+      "The middlewoman weighing at the gate, or the roadside stalls on National Road 3 where relabelled fruit is sold. Alternative, and cheaper to get: a close-up of real Teuk Chhou surface — fine mountain dust, uneven thorns — since reading a fake off the skin is what the entry describes.",
     tags: ["market", "counterfeit", "price"],
     status: "published",
   },
@@ -221,6 +234,8 @@ const fieldNotes = [
     ],
     sources: [INT2],
     image: null,
+    imageWanted:
+      "Fruit being weighed or loaded for the middlewoman, since the export trade itself is not photographable from this farm. The sharper picture is the other side of the entry: hillside land around Teuk Chhou cleared by Phnom Penh investors and planted to Monthong and Musang King in rows.",
     tags: ["export", "market", "smallholder"],
     status: "in-progress",
   },

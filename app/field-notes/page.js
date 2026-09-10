@@ -13,6 +13,13 @@ export const metadata = {
 };
 
 export default function FieldNotesIndex() {
+  /* `EntrySearch` is a client component, so whatever is handed to it is
+     serialised into this page's payload and shipped. The photograph briefs
+     are working notes meant for `next dev` only, and nothing here reads
+     them, so they are dropped at the boundary rather than sent to every
+     reader of the live site. */
+  const notes = fieldNotes.map(({ imageWanted, ...note }) => note);
+
   return (
     <>
       <a className="skip" href="#notes">Skip to the entries</a>
@@ -34,7 +41,7 @@ export default function FieldNotesIndex() {
                 The data still comes from content/field-notes.js — the page
                 reads it and hands it down, so nothing about an entry is
                 hardcoded here. */}
-            <EntrySearch notes={fieldNotes} />
+            <EntrySearch notes={notes} />
             <Reveal>
               <p className="body-copy note-foot">
                 Each entry names the sitting it came from. The full record is
