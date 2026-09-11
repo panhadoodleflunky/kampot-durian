@@ -2,6 +2,7 @@ import Link from "next/link";
 import collection from "../collection.config.js";
 import DurianGlyph from "./DurianGlyph.js";
 import NavMenu from "./NavMenu.js";
+import ThemeToggle from "./ThemeToggle.js";
 
 /* The destinations of the guide. Home is the logo, so it is not repeated in
    the list. Search points at the Field Notes index, where the one search box
@@ -44,6 +45,7 @@ export default function SiteNav({ current }) {
             </Link>
           ))}
         </div>
+        <ThemeToggle />
         <NavMenu links={LINKS} current={current} />
       </div>
     </nav>

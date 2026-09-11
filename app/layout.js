@@ -52,13 +52,23 @@ export const metadata = {
   },
 };
 
+/* Runs before anything paints. A reader who chose light mode (stored by
+   ThemeToggle) would otherwise see a dark flash on every page load. Dark
+   needs no marker — it is the default palette in globals.css. */
+const themeInit = `try{if(localStorage.getItem("theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}`;
+
 export default function RootLayout({ children }) {
   return (
     <html
       lang="en"
       className={`${display.variable} ${body.variable} ${mono.variable} ${khmer.variable}`}
+      /* the inline script above sets data-theme before React hydrates */
+      suppressHydrationWarning
     >
-      <body>{children}</body>
+      <body>
+        <script dangerouslySetInnerHTML={{ __html: themeInit }} />
+        {children}
+      </body>
     </html>
   );
 }

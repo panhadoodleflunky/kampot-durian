@@ -3,6 +3,7 @@
    ============================================================ */
 
 :root {
+  color-scheme: dark;
   --husk: #0B0E0B;
   --husk-2: #10150F;
   --flesh: #E9BC63;
@@ -13,6 +14,25 @@
   --dim: #7E877C;
   --line: rgba(233, 188, 99, 0.14);
   --line-2: rgba(233, 188, 99, 0.32);
+  /* The rgb triplets exist so the handful of glows, scrims and glass fills
+     written as rgba() can follow the theme; --on-flesh is the text that sits
+     on gold surfaces (buttons, selection, the skip link). */
+  --husk-rgb: 11, 14, 11;
+  --flesh-rgb: 233, 188, 99;
+  --leaf-rgb: 76, 184, 120;
+  --glass-rgb: 255, 255, 255;
+  --on-flesh: #16200F;
+  --grain-opacity: 0.4;
+  /* Scrims and text that sit ON photographs. These do not flip in light
+     mode — a light wash over a dark photograph erases it, so the images
+     keep their dark fades and light captions in both themes, and read as
+     photographs printed on the page. */
+  --photo-rgb: 11, 14, 11;
+  --photo-ink: #F2ECE0;
+  --photo-muted: #A7B0A4;
+  --photo-dim: #7E877C;
+  --photo-gold: #E9BC63;
+  --photo-line: rgba(233, 188, 99, 0.32);
   /* Khmer sits in every stack: Latin faces have no Khmer glyphs, so the
      browser needs somewhere to fall to before it reaches the system. */
   --khmer: var(--font-khmer), "Noto Sans Khmer", "Khmer OS", sans-serif;
@@ -21,6 +41,32 @@
   --sans: var(--font-body), -apple-system, "Helvetica Neue", sans-serif, var(--khmer);
   --wrap: 1120px;
   --nav-h: 58px;
+}
+
+/* Light mode. Same roles, second palette: aged paper in the dry-husk
+   tones of the photographs — deliberately not bright white, so the dark
+   images fade into the page instead of floating on it — with the gold and
+   leaf deepened until they read as ink, and every glass fill flipped from
+   white-on-dark to dark-on-light. Dark stays the default; this
+   only applies when the reader has chosen light with the nav toggle. */
+html[data-theme="light"] {
+  color-scheme: light;
+  --husk: #E2D7B8;
+  --husk-2: #D8CBA4;
+  --flesh: #7A5A10;
+  --flesh-hot: #8F6300;
+  --leaf: #226B45;
+  --cream: #26200F;
+  --muted: #665D42;
+  --dim: #776D4F;
+  --line: rgba(90, 70, 20, 0.26);
+  --line-2: rgba(90, 70, 20, 0.48);
+  --husk-rgb: 226, 215, 184;
+  --flesh-rgb: 122, 90, 16;
+  --leaf-rgb: 34, 107, 69;
+  --glass-rgb: 42, 33, 10;
+  --on-flesh: #F5ECD2;
+  --grain-opacity: 0.3;
 }
 
 * { box-sizing: border-box; }
@@ -36,6 +82,7 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   overflow-x: hidden;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* Warm light bleeding from the top — stops the dark from reading as flat black. */
@@ -46,8 +93,8 @@ body::after {
   z-index: 0;
   pointer-events: none;
   background:
-    radial-gradient(900px 520px at 50% -8%, rgba(233, 188, 99, 0.10), transparent 70%),
-    radial-gradient(700px 500px at 88% 18%, rgba(76, 184, 120, 0.05), transparent 72%);
+    radial-gradient(900px 520px at 50% -8%, rgba(var(--flesh-rgb), 0.10), transparent 70%),
+    radial-gradient(700px 500px at 88% 18%, rgba(var(--leaf-rgb), 0.05), transparent 72%);
 }
 
 /* Film grain. An SVG turbulence filter, inlined so it costs no request. */
@@ -57,7 +104,7 @@ body::before {
   inset: -50%;
   z-index: 1;
   pointer-events: none;
-  opacity: 0.4;
+  opacity: var(--grain-opacity);
   mix-blend-mode: overlay;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.82' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.42'/%3E%3C/svg%3E");
 }
@@ -67,7 +114,7 @@ body::before {
 
 img { max-width: 100%; height: auto; display: block; }
 
-::selection { background: var(--flesh); color: #16200F; }
+::selection { background: var(--flesh); color: var(--on-flesh); }
 
 [id] { scroll-margin-top: calc(var(--nav-h) + 24px); }
 
@@ -82,7 +129,7 @@ img { max-width: 100%; height: auto; display: block; }
   left: -9999px;
   top: 8px;
   background: var(--flesh);
-  color: #16200F;
+  color: var(--on-flesh);
   font-family: var(--mono);
   font-size: 12px;
   letter-spacing: 1.4px;
@@ -101,7 +148,7 @@ img { max-width: 100%; height: auto; display: block; }
   top: 0;
   z-index: 100;
   height: var(--nav-h);
-  background: rgba(11, 14, 11, 0.72);
+  background: rgba(var(--husk-rgb), 0.72);
   backdrop-filter: saturate(180%) blur(22px);
   -webkit-backdrop-filter: saturate(180%) blur(22px);
   border-bottom: 1px solid var(--line);
@@ -201,7 +248,7 @@ img { max-width: 100%; height: auto; display: block; }
   right: 0;
   height: 100vh;
   z-index: 1;
-  background: rgba(11, 14, 11, 0.55);
+  background: rgba(var(--husk-rgb), 0.55);
 }
 
 .gnav-sheet {
@@ -212,7 +259,7 @@ img { max-width: 100%; height: auto; display: block; }
   z-index: 2;
   display: grid;
   padding: 6px 22px 16px;
-  background: rgba(11, 14, 11, 0.96);
+  background: rgba(var(--husk-rgb), 0.96);
   -webkit-backdrop-filter: saturate(180%) blur(22px);
   backdrop-filter: saturate(180%) blur(22px);
   border-bottom: 1px solid var(--line-2);
@@ -233,6 +280,34 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .gnav-sheet a:last-child { border-bottom: none; }
+
+/* ---------------- theme toggle ----------------
+
+   One button, two inline icons; CSS shows whichever names the mode a tap
+   would move to (sun while dark, moon while light), so the component needs
+   no state and hydrates the same on server and client. */
+
+.theme-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+  padding: 0;
+  background: none;
+  border: none;
+  border-radius: 50%;
+  color: var(--dim);
+  cursor: pointer;
+  transition: color 0.2s ease;
+}
+
+.theme-toggle:hover { color: var(--flesh); }
+.theme-toggle svg { width: 17px; height: 17px; }
+.theme-toggle .icon-moon { display: none; }
+html[data-theme="light"] .theme-toggle .icon-sun { display: none; }
+html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 
 /* ---------------- layout ---------------- */
 
@@ -278,20 +353,20 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 9px 17px;
   border: 1px solid var(--line-2);
   border-radius: 999px;
-  background: rgba(233, 188, 99, 0.05);
+  background: rgba(var(--flesh-rgb), 0.05);
   margin: 0 0 38px;
 }
 
 .pulse {
   width: 6px; height: 6px; border-radius: 50%;
   background: var(--leaf);
-  box-shadow: 0 0 0 0 rgba(76, 184, 120, 0.7);
+  box-shadow: 0 0 0 0 rgba(var(--leaf-rgb), 0.7);
   animation: pulse 2.4s ease-out infinite;
 }
 
 @keyframes pulse {
-  70%  { box-shadow: 0 0 0 10px rgba(76, 184, 120, 0); }
-  100% { box-shadow: 0 0 0 0 rgba(76, 184, 120, 0); }
+  70%  { box-shadow: 0 0 0 10px rgba(var(--leaf-rgb), 0); }
+  100% { box-shadow: 0 0 0 0 rgba(var(--leaf-rgb), 0); }
 }
 
 /* Instrument Serif is a single 400 weight drawn for large sizes —
@@ -373,7 +448,7 @@ img { max-width: 100%; height: auto; display: block; }
   border-radius: 24px;
   overflow: hidden;
   border: 1px solid var(--line);
-  box-shadow: 0 50px 110px -60px rgba(233, 188, 99, 0.6);
+  box-shadow: 0 50px 110px -60px rgba(var(--flesh-rgb), 0.6);
 }
 
 .hero-figure img {
@@ -390,7 +465,7 @@ img { max-width: 100%; height: auto; display: block; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(11,14,11,0.92) 4%, rgba(11,14,11,0.02) 52%);
+  background: linear-gradient(to top, rgba(var(--photo-rgb), 0.92) 4%, rgba(var(--photo-rgb), 0.02) 52%);
   pointer-events: none;
 }
 
@@ -408,10 +483,10 @@ img { max-width: 100%; height: auto; display: block; }
   font-weight: 500;
   letter-spacing: 1.9px;
   text-transform: uppercase;
-  color: var(--muted);
+  color: var(--photo-muted);
 }
 
-.hero-cap-no { color: var(--flesh); }
+.hero-cap-no { color: var(--photo-gold); }
 
 .masthead {
   display: grid;
@@ -456,7 +531,7 @@ img { max-width: 100%; height: auto; display: block; }
   letter-spacing: 1.8px;
   text-transform: uppercase;
   background: var(--flesh);
-  color: #16200F;
+  color: var(--on-flesh);
   padding: 16px 30px;
   border-radius: 980px;
   text-decoration: none;
@@ -489,7 +564,7 @@ img { max-width: 100%; height: auto; display: block; }
 .tile {
   position: relative;
   overflow: hidden;
-  background: linear-gradient(158deg, rgba(255,255,255,0.052), rgba(255,255,255,0.006));
+  background: linear-gradient(158deg, rgba(var(--glass-rgb), 0.052), rgba(var(--glass-rgb), 0.006));
   border: 1px solid var(--line);
   border-radius: 24px;
   padding: 46px 42px;
@@ -506,7 +581,7 @@ img { max-width: 100%; height: auto; display: block; }
   content: "";
   position: absolute;
   inset: 0;
-  background: radial-gradient(460px circle at 50% -25%, rgba(233,188,99,0.17), transparent 70%);
+  background: radial-gradient(460px circle at 50% -25%, rgba(var(--flesh-rgb), 0.17), transparent 70%);
   opacity: 0;
   transition: opacity 0.45s ease;
 }
@@ -514,7 +589,7 @@ img { max-width: 100%; height: auto; display: block; }
 .tile:hover {
   transform: translateY(-6px);
   border-color: var(--line-2);
-  box-shadow: 0 28px 60px -30px rgba(233, 188, 99, 0.45);
+  box-shadow: 0 28px 60px -30px rgba(var(--flesh-rgb), 0.45);
 }
 
 .tile:hover::before { opacity: 1; }
@@ -575,7 +650,7 @@ img { max-width: 100%; height: auto; display: block; }
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(to top, rgba(11,14,11,0.97) 6%, rgba(11,14,11,0.45) 55%, rgba(11,14,11,0.85));
+  background: linear-gradient(to top, rgba(var(--photo-rgb), 0.97) 6%, rgba(var(--photo-rgb), 0.45) 55%, rgba(var(--photo-rgb), 0.85));
 }
 
 .band-copy {
@@ -589,13 +664,23 @@ img { max-width: 100%; height: auto; display: block; }
 
 .band-copy .headline-sm { margin-bottom: 24px; }
 
+/* Everything in the band sits on the photograph, so its type uses the
+   photo tokens, not the page tokens — identical in dark mode, and still
+   light when the page around it is paper. */
+.band-copy .headline-sm { color: var(--photo-ink); }
+.band-copy .sub { color: var(--photo-muted); }
+.band-copy .sec-label { color: var(--photo-dim); }
+.band-copy .sec-no { color: var(--photo-gold); }
+.band-copy .sec-rule { background: var(--photo-line); }
+.band-copy .link { color: var(--photo-gold); }
+
 /* ---------------- pull quote ---------------- */
 
 .quote-section {
   padding: 130px 30px;
   border-top: 1px solid var(--line);
   border-bottom: 1px solid var(--line);
-  background: linear-gradient(180deg, rgba(233,188,99,0.035), transparent 60%);
+  background: linear-gradient(180deg, rgba(var(--flesh-rgb), 0.035), transparent 60%);
 }
 
 .pull { margin: 0; text-align: center; }
@@ -712,7 +797,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 .entry {
   position: relative;
-  background: linear-gradient(158deg, rgba(255,255,255,0.045), rgba(255,255,255,0.005));
+  background: linear-gradient(158deg, rgba(var(--glass-rgb), 0.045), rgba(var(--glass-rgb), 0.005));
   border: 1px solid var(--line);
   border-radius: 26px;
   padding: 54px 58px;
@@ -927,6 +1012,7 @@ img { max-width: 100%; height: auto; display: block; }
   .hero-figure img, .entry, .tile, .btn { transition: none; }
   .gnav-sheet { animation: none; }
   .gnav-burger-bar { transition: none; }
+  body { transition: none; }
 }
 
 @media (max-width: 900px) {
@@ -1114,7 +1200,7 @@ img { max-width: 100%; height: auto; display: block; }
   letter-spacing: 1.6px;
   text-transform: uppercase;
   color: var(--leaf);
-  border: 1px solid rgba(76, 184, 120, 0.34);
+  border: 1px solid rgba(var(--leaf-rgb), 0.34);
   border-radius: 999px;
   padding: 5px 12px;
   margin-left: auto;
@@ -1175,7 +1261,7 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 16px 24px;
   border: 1px solid var(--line);
   border-radius: 14px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(var(--glass-rgb), 0.02);
 }
 
 /* The label is part of the strip, not a section heading — the reading
@@ -1413,7 +1499,7 @@ a.section-count:hover { text-decoration: underline; }
 .search-input {
   flex: 1;
   min-width: 0;
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(var(--glass-rgb), 0.04);
   border: 1px solid var(--line);
   border-radius: 999px;
   padding: 16px 24px;
@@ -1429,7 +1515,7 @@ a.section-count:hover { text-decoration: underline; }
 .search-input:focus {
   outline: none;
   border-color: var(--line-2);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(var(--glass-rgb), 0.06);
 }
 .search-input:focus-visible { outline: 2px solid var(--flesh); outline-offset: 2px; }
 
@@ -1577,7 +1663,7 @@ a.section-count:hover { text-decoration: underline; }
   padding: 24px 26px;
   border: 1px dashed var(--leaf);
   border-radius: 18px;
-  background: rgba(76, 184, 120, 0.05);
+  background: rgba(var(--leaf-rgb), 0.05);
 }
 
 .image-slot-head {
