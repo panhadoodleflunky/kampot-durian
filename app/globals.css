@@ -537,6 +537,11 @@ img { max-width: 100%; height: auto; display: block; }
   color: var(--flesh);
   opacity: 0.34;
   margin-bottom: 0.16em;
+  /* Centring puts the glyph's advance width on the axis, not its ink. The
+     italic's side bearings are lopsided, so both marks landed right of
+     centre by different amounts — 10px and 13px at full size. Each is
+     nudged back by its own error, in em so it holds as the clamp resizes. */
+  transform: translateX(-0.064em);
 }
 
 /* The closing mark, the mirror of the opening: same oversized cut, same
@@ -554,6 +559,7 @@ img { max-width: 100%; height: auto; display: block; }
      bias pulls the mark against the last line. 0.75em lands the visible
      gap at the same ~110px the opening shows. Measured, not guessed. */
   margin-top: 0.75em;
+  transform: translateX(-0.083em);
 }
 
 .pull figcaption {
