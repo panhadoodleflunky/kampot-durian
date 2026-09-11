@@ -1147,7 +1147,9 @@ img { max-width: 100%; height: auto; display: block; }
   top: calc(var(--nav-h) + 44px);
 }
 
-.entry-layout > .entry-next { grid-column: 1 / -1; }
+/* Footer stays in the text column. Spanning 1 / -1 ran its rule under the
+   rail too, so the line crossed the gutter and ended past the sources. */
+.entry-layout > .entry-next { grid-column: 1; max-width: 720px; }
 
 /* In the rail the citations stack, one per line, rather than running along
    a strip — the strip shape belonged to the old full-width box. */
