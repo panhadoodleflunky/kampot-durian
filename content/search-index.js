@@ -18,8 +18,8 @@ export const norm = (s) =>
 /* What this archive treats as searchable: the title and Khmer name (what a
    reader knows the fruit by), the body (where the method lives), the tags and
    fig number (how the guide files things), and the source lines — in a guide
-   whose whole claim is traceability, "which entries rest on the second
-   sitting" is a real question.
+   whose whole claim is traceability, searching a source by name is a real
+   question.
 
    Fields join on a newline, which a single-line input cannot produce, so no
    query can match the separator and return everything. */

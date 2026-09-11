@@ -16,8 +16,8 @@ Fall 2026. Compiled by Sovanpanha Nonn.
 
 **Primary sources only. Real people, asked directly. Nothing off the internet.**
 
-> Every claim on this site comes from one of two recorded sittings with durian
-> growers at Teuk Chhou, Kampot, or from the Khmer vocabulary their family uses
+> Every claim on this site comes from Rasmey and Vanny, who own and work a
+> durian orchard at Teuk Chhou, Kampot, or from the Khmer vocabulary they use
 > in the field. No publication, news report, trade standard, research paper, or
 > website is cited anywhere, and no borrowed photograph appears.
 
@@ -108,8 +108,8 @@ about the entry shape rather than about the box that displays it. It also means
 the search can be reasoned about, and tested, on its own.
 
 It matches against title, Khmer name, body, fig number, tags, **and source
-lines** — in a guide whose whole claim is traceability, "which entries rest on
-the second sitting" is a real question a reader might have.
+lines** — in a guide whose whole claim is traceability, searching a source by
+name is a real question a reader might have.
 Every word of the query must appear somewhere in the entry, so `kampot drought`
 finds the entry about both rather than everything about either.
 

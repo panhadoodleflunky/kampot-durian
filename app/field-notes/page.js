@@ -44,8 +44,7 @@ export default function FieldNotesIndex() {
             <EntrySearch notes={notes} />
             <Reveal>
               <p className="body-copy note-foot">
-                Each entry names the sitting it came from. The full record is
-                on{" "}
+                Each entry names its source. The full record is on{" "}
                 <Link href="/sources">Sources &amp; Credits</Link>.
               </p>
             </Reveal>

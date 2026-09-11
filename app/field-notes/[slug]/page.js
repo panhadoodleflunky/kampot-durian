@@ -108,7 +108,7 @@ export default async function FieldNote({ params }) {
                 </ul>
               </section>
               <p className="entry-sources-note">
-                What each sitting covered is set out on{" "}
+                What the interview covered is set out on{" "}
                 <Link href="/sources">Sources &amp; Credits</Link>.
               </p>
               {(note.tags || []).length > 0 ? (

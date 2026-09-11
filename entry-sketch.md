@@ -3,9 +3,9 @@
 What one entry in this archive looks like, as data.
 
 This archive is a record of testimony from real people, asked directly. Every
-entry traces to a named, dated interview, so `sources` is required. There is no
-`contributor` field: the growers asked not to be named, and are credited by
-relationship, place and date instead.
+entry traces to the interview behind it, so `sources` is required. There is no
+`contributor` field: Rasmey and Vanny are the source of the whole guide, and
+are named on every entry instead.
 
 | Field | Required? | Notes |
 |---|---|---|
@@ -20,5 +20,5 @@ relationship, place and date instead.
 | status | optional | `published` or `in-progress` — some entries are honestly unfinished |
 
 Cut: no GPS coordinates, and nothing that would locate the farm. Kept: the
-dated interview behind every claim, because "field guide" is only credible if
+named interview behind every claim, because "field guide" is only credible if
 the reader can see where each line came from.

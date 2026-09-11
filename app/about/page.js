@@ -29,7 +29,7 @@ const SPECS = [
   },
   {
     h: "Method",
-    v: "Two sittings",
+    v: "Interview",
     p: method,
   },
   {
@@ -68,8 +68,8 @@ export default function About() {
           <SectionLabel no="01">About the Project</SectionLabel>
           <h1 className="headline-sm">How this was made.</h1>
           <p className="sub">
-            Two growers, two sittings, one orchard. Everything here came out
-            of that, and nothing came off the internet.
+            Two growers, one orchard. Everything here came out of what they
+            know, and nothing came off the internet.
           </p>
         </div>
       </header>
@@ -93,14 +93,13 @@ export default function About() {
             <Reveal className="prose-row">
               <h2 className="tile-label">Method</h2>
               <p className="reading-body">
-                {method} The growers are my own parents. They own and work the
-                orchard, and they answered questions directly for this
-                project — four on 1 September 2026, then 220 more on
-                4 September, covering every entry here. That second sitting is
-                most of this site. It includes the days from petal drop to
-                harvest for each of their four varieties, which I have not
-                found written down anywhere else. They asked not to be named,
-                so they are credited by relationship, place and date.
+                {method} Rasmey and Vanny own and work the two hectares at
+                Teuk Chhou, and they answered directly for this project,
+                covering every entry here. What came out of it includes the
+                days from petal drop to harvest for each of their four
+                varieties, which I have not found written down anywhere else.
+                They are named as the source on every entry, because the guide
+                rests on them and on nothing else.
               </p>
               <p className="reading-body">
                 This is a narrow basis on purpose. An earlier version of the
@@ -122,8 +121,7 @@ export default function About() {
                 ))}
               </ul>
               <p className="reading-body">
-                Each entry names the sitting it came from. The full record is
-                on{" "}
+                Each entry names its source. The full record is on{" "}
                 <Link href="/sources">Sources &amp; Credits</Link>.
               </p>
             </Reveal>
@@ -157,20 +155,19 @@ export default function About() {
             <Reveal className="prose-row">
               <h2 className="tile-label">Why this exists</h2>
               <p className="reading-body">
-                I grew up with this fruit. Kampot is home, my family grows
-                and sells durian there, and I spent my childhood watching my
-                parents do the work — the waiting, the reading of a season,
-                the selling. A crop that matters this much to one province
+                I grew up with this fruit. Kampot is home, and I spent my
+                childhood around this work — the waiting, the reading of a
+                season, the selling. A crop that matters this much to one province
                 deserves to be written down properly, and most of it has not
                 been.
               </p>
               <p className="reading-body">
                 Worth saying plainly. This started as published sources with
-                some family knowledge in it. It is now family knowledge and
-                nothing else. That is the part nobody else could have written,
-                and the part no reader can check. So every claim is dated,
-                tied to the sitting it came from, and left as testimony rather
-                than dressed up as a citation.              </p>
+                first-hand knowledge threaded through. It is now first-hand
+                knowledge and nothing else. That is the part nobody else could
+                have written, and the part no reader can check. So every claim
+                is tied to the people it came from, and left as testimony
+                rather than dressed up as a citation.              </p>
             </Reveal>
           </div>
         </section>

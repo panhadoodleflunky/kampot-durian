@@ -185,8 +185,9 @@ export default function Home() {
             <Reveal className="prose-row">
               <SectionLabel no="04">How this was made</SectionLabel>
               <p className="reading-body">
-                Everything here comes from interviews with the growers at Teuk
-                Chhou. Nothing else, and the guide says so where it matters.
+                Everything here comes from Rasmey and Vanny, who own and work
+                the orchard at Teuk Chhou. Nothing else, and the guide says so
+                where it matters.
                 The method is on <Link href="/about">About the Project</Link>.
                 The interviews are on{" "}
                 <Link href="/sources">Sources &amp; Credits</Link>.

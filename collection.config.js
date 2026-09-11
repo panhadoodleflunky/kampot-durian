@@ -19,7 +19,7 @@ const collection = {
 
   // Where does your knowledge come from? A person, a place, a community.
   source:
-    "Two recorded interviews with the growers, September 2026",
+    "Rasmey and Vanny, who own and work the orchard at Teuk Chhou",
 
   // Which province is this archive rooted in?
   province: "Kampot",

@@ -18,7 +18,7 @@ const FIGURES = [
   {
     h: "The orchard",
     v: "~2 ha",
-    p: "Two hectares at Teuk Chhou, worked by the two growers interviewed for this guide. Everything here comes off it.",
+    p: "Two hectares at Teuk Chhou, worked by Rasmey and Vanny, who own it. Everything here comes off it.",
   },
   {
     h: "Trees, in four varieties",

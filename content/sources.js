@@ -1,7 +1,7 @@
 import collection from "../collection.config.js";
 
 /* Where this guide's material comes from. There is one group, because there
-   is one kind of source: people who grow durian at Teuk Chhou, asked
+   is one kind of source: the two people who grow durian at Teuk Chhou, asked
    directly. No publication, news report, trade standard, or website is cited
    anywhere on this site, and none should be added — see AGENTS.md.
 
@@ -12,16 +12,12 @@ export const sourceGroups = [
     heading: "The interviews",
     items: [
       {
-        name: "Interview, 1 September 2026",
-        note: "The first sitting with the two growers who own and work the orchard at Teuk Chhou. They are the compiler's parents and asked not to be named, so the relationship, the place and the date are recorded here instead. Four questions, covering how a fruit is read for ripeness — the stem-joint swelling, the thorn-tip colour, the knock-test sound; the rule against spraying into the canopy while the trees are in flower; why Sadong Kit has become rare to grow and sell, and what it tastes like; the orchard's size and variety split; and how they adapted to the 2024 drought.",
-      },
-      {
-        name: "Interview, 4 September 2026",
-        note: "The second sitting, and much the longer of the two: 220 questions across every entry in the guide, and the source of most of what is on this site. It covers the tapping stick and the full sound scale; the days from petal drop to harvest for all four varieties, a figure this project has not found written down anywhere; the flavour, sub-types and grafting requirement of Ov Khak; the harvest window and spoilage rate of Sadong Kit; Monthong's arrival in Kampot and why it was planted; the 2021 Musang King top-working and its failure rate; the mechanics of counterfeit relabelling and the farm-gate-to-retail price spread; the 2024 drought in detail and the 2014 flood; the orchard year month by month; and the export programme as it looks from a two-hectare farm with no part in it.",
+        name: "Interview with Rasmey and Vanny",
+        note: "Rasmey and Vanny own and work the two hectares at Teuk Chhou, and everything in this guide was given by them directly. It covers how a fruit is read for ripeness — the stem-joint swelling, the thorn-tip colour, the knock-test sound and the tapping stick behind it; the rule against spraying into the canopy while the trees are in flower; the days from petal drop to harvest for all four varieties, a figure this project has not found written down anywhere; the flavour, sub-types and grafting requirement of Ov Khak; the harvest window and spoilage rate of Sadong Kit, and why it has become rare to grow and sell; Monthong's arrival in Kampot and why it was planted; the 2021 Musang King top-working and its failure rate; the mechanics of counterfeit relabelling and the farm-gate-to-retail price spread; the 2024 drought in detail and the 2014 flood; the orchard year month by month; and the export programme as it looks from a two-hectare farm with no part in it.",
       },
       {
         name: "Khmer field vocabulary",
-        note: "The words used in the field, given directly across both sittings: the knock test, ripe and unripe and overripe, the dry season, dropped and cut fruit, grafting, orchard, grower, middleman, farming community, and the spoken forms of the variety names. This edition is in English and does not print the Khmer itself. The terms are recorded in full and will carry the Khmer edition, where they belong in the growers' own script rather than in translation.",
+        note: "The words Rasmey and Vanny use in the field, given directly: the knock test, ripe and unripe and overripe, the dry season, dropped and cut fruit, grafting, orchard, grower, middleman, farming community, and the spoken forms of the variety names. This edition is in English and does not print the Khmer itself. The terms are recorded in full and will carry the Khmer edition, where they belong in the growers' own script rather than in translation.",
       },
     ],
   },
@@ -78,4 +74,4 @@ export const photoCredits = [
 ];
 
 export const method =
-  "Two recorded interviews with the growers at Teuk Chhou, on 1 and 4 September 2026, and the Khmer they use in the field.";
+  "Rasmey and Vanny, who own and work the orchard at Teuk Chhou, asked directly, and the Khmer they use in the field.";
