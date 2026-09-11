@@ -25,7 +25,7 @@ const SPECS = [
   {
     h: "Season",
     v: "May to July",
-    p: "Opens mid-May, peaks mid-June, done by late July. The start has wandered between 28 April and 12 June.",
+    p: "Opens mid-May, peaks mid-June, done by late July. The start moves by weeks from year to year.",
   },
   {
     h: "Method",
