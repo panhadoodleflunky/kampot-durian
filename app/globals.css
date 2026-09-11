@@ -1249,6 +1249,20 @@ img { max-width: 100%; height: auto; display: block; }
 
 .biblio-note a { color: var(--cream); }
 
+/* The fact itself, in the display face — the same move the home masthead
+   and the region figures make. Smaller than `.stat-sm` because these are
+   words, not numerals, and four of them share the row. */
+.spec-value {
+  font-family: var(--serif);
+  font-size: clamp(26px, 2.6vw, 32px);
+  line-height: 1.15;
+  font-weight: 400;
+  letter-spacing: -0.02em;
+  color: var(--cream);
+  margin: 0 0 12px;
+  text-wrap: balance;
+}
+
 /* ---------------- region figures ---------------- */
 
 .stat-sm { font-size: clamp(30px, 3.4vw, 44px); margin: 10px 0 12px; }

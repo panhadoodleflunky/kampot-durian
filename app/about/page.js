@@ -12,11 +12,31 @@ export const metadata = {
   description: method,
 };
 
+/* Same shape as the home masthead and the region figures: the mono label,
+   one line of serif that carries the fact, and a note underneath for the
+   qualification. The old version put a whole paragraph in each cell and the
+   section read as four blocks of small grey text. */
 const SPECS = [
-  { h: "Province", p: `${collection.province}, Cambodia` },
-  { h: "Season", p: "Harvest opens mid-May, peaks mid-June, ends late July. The start has moved between 28 April and 12 June." },
-  { h: "Method", p: method },
-  { h: "Status", p: "Ongoing. Entries get added as the growers are asked more." },
+  {
+    h: "Province",
+    v: collection.province,
+    p: "Teuk Chhou district, on the slopes west of the town.",
+  },
+  {
+    h: "Season",
+    v: "May to July",
+    p: "Opens mid-May, peaks mid-June, done by late July. The start has wandered between 28 April and 12 June.",
+  },
+  {
+    h: "Method",
+    v: "Two sittings",
+    p: method,
+  },
+  {
+    h: "Status",
+    v: "Ongoing",
+    p: "Entries are added as the growers are asked more.",
+  },
 ];
 
 /* The entries spell their numbers out — "two hundred and fifteen trees",
@@ -164,6 +184,7 @@ export default function About() {
               {SPECS.map((s) => (
                 <div className="spec" key={s.h}>
                   <h3>{s.h}</h3>
+                  <p className="spec-value">{s.v}</p>
                   <p className="body-copy">{s.p}</p>
                 </div>
               ))}
