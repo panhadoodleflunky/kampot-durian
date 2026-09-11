@@ -39,14 +39,14 @@ against rendered screenshots of every page at desktop and mobile widths:
 
 The guide dropped every outside source: seventeen citations, every
 statistic, every reported event, one licensed photograph. What remains
-is the two grower interviews (1 and 4 September) and the Khmer field
-vocabulary, and the site says so where it matters. Copy tightened across
+is what Rasmey and Vanny gave directly and the Khmer field vocabulary
+they use, and the site says so where it matters. Copy tightened across
 the home page and field notes; sources box and tag band reworked.
 
-## 3–4 September 2026 — sprint 1 and the second sitting
+## 3–4 September 2026 — sprint 1 and the grower interview
 
 Grower interview material into the entries; three entries rewritten,
-then all eleven covered by the second sitting (220 questions). Browse
+then all eleven covered by the interview. Browse
 search, pagination, editorial pass, provenance fixes. Working notes
 moved out of the repository; README rewritten to describe this guide.
 
