@@ -149,6 +149,91 @@ img { max-width: 100%; height: auto; display: block; }
 
 .gnav-spacer { flex: 1; }
 
+/* The desktop link row. On a phone the whole row hides and the burger menu
+   takes over — see the phone-menu block further down. */
+.gnav-links { display: flex; align-items: center; gap: 30px; }
+
+/* ---------------- phone menu ----------------
+
+   Hidden on desktop; below 735px it replaces the link row. Everything is
+   positioned off `.gnav` itself (sticky, so always a positioned ancestor at
+   the top of the viewport) rather than `position: fixed`, because the nav's
+   backdrop-filter makes it the containing block for fixed descendants and
+   fixed coordinates would silently mean the same thing anyway. */
+
+.gnav-menu { display: none; }
+
+.gnav-burger {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  /* 44px square — the whole pad is the tap target, not just the bars. */
+  width: 44px;
+  height: 44px;
+  margin-right: -11px; /* optical: bars end at the page padding, pad hangs out */
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.gnav-burger-bar {
+  width: 22px;
+  height: 1.5px;
+  border-radius: 2px;
+  background: var(--cream);
+  transition: transform 0.3s cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+
+/* Two bars fold into a close mark. 4.25px is half the bar spacing, so the
+   cross sits exactly where the pair's centre was. */
+.gnav-burger.is-open .gnav-burger-bar:first-child { transform: translateY(4.25px) rotate(45deg); }
+.gnav-burger.is-open .gnav-burger-bar:last-child { transform: translateY(-4.25px) rotate(-45deg); }
+
+/* Dims the page under the open sheet; tapping it closes the menu. Tall
+   enough to cover any viewport — the body cannot scroll while it is up. */
+.gnav-scrim {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  z-index: 1;
+  background: rgba(11, 14, 11, 0.55);
+}
+
+.gnav-sheet {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  display: grid;
+  padding: 6px 22px 16px;
+  background: rgba(11, 14, 11, 0.96);
+  -webkit-backdrop-filter: saturate(180%) blur(22px);
+  backdrop-filter: saturate(180%) blur(22px);
+  border-bottom: 1px solid var(--line-2);
+  animation: sheet-in 0.28s cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+
+@keyframes sheet-in {
+  from { opacity: 0; transform: translateY(-8px); }
+}
+
+/* The links inherit the nav's mono/uppercase voice from `.gnav a`; here they
+   just get finger-sized rows with a hairline between each. */
+.gnav-sheet a {
+  font-size: 13px;
+  letter-spacing: 2px;
+  padding: 17px 2px;
+  border-bottom: 1px solid var(--line);
+}
+
+.gnav-sheet a:last-child { border-bottom: none; }
+
 /* ---------------- layout ---------------- */
 
 .section { padding: 150px 30px; }
@@ -470,6 +555,9 @@ img { max-width: 100%; height: auto; display: block; }
 .band {
   position: relative;
   min-height: 82vh;
+  /* Phone URL bars shrink as the page scrolls and drag vh with them; svh
+     is the small, stable viewport where the browser knows it. */
+  min-height: 82svh;
   display: flex;
   align-items: flex-end;
   overflow: hidden;
@@ -837,6 +925,8 @@ img { max-width: 100%; height: auto; display: block; }
   .pulse { animation: none; }
   html { scroll-behavior: auto; }
   .hero-figure img, .entry, .tile, .btn { transition: none; }
+  .gnav-sheet { animation: none; }
+  .gnav-burger-bar { transition: none; }
 }
 
 @media (max-width: 900px) {
@@ -853,9 +943,10 @@ img { max-width: 100%; height: auto; display: block; }
   .hero-figure figcaption { left: 20px; right: 20px; bottom: 20px; }
   .quote-section { padding: 84px 22px; }
   .tile { padding: 34px 28px; min-height: 200px; }
-  .gnav a.hide-sm { display: none; }
+  .gnav-links { display: none; }
+  .gnav-menu { display: block; }
   .gnav-inner { padding: 0 22px; gap: 18px; }
-  .band { min-height: 68vh; }
+  .band { min-height: 68vh; min-height: 68svh; }
   .band-copy { padding-bottom: 70px; }
   .entry { padding: 36px 28px; border-radius: 20px; }
   .entry-body { font-size: 17px; }
@@ -1537,6 +1628,9 @@ a.section-count:hover { text-decoration: underline; }
 
 @media (max-width: 734px) {
   .image-slot { padding: 20px 20px; }
+  .foot { padding: 44px 22px 58px; }
+  .nf { padding: 110px 22px; }
+  .specs { gap: 36px 24px; padding-top: 40px; }
 }
 
 /* ---------------- prose pages: label rail ----------------
