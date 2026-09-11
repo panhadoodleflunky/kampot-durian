@@ -625,6 +625,18 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
   color: var(--flesh);
 }
 
+/* Side by side, the two bento tiles carry different amounts of content — one
+   large number against four variety names — and the grid stretches them to a
+   shared height. Bottom-aligning both then left the varieties tile hanging:
+   its label sat well below "Entries compiled" and its text well below the
+   number. Reading from the top fixes both at once — the labels line up, and
+   the two values start on the same line. Below 901px the tiles are stacked,
+   with nothing to line up against, so they keep the bottom-clustered look
+   that suits a short tile on a phone. */
+@media (min-width: 901px) {
+  .tile { justify-content: flex-start; }
+}
+
 /* ---------------- feature band ---------------- */
 
 .band {
