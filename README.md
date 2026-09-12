@@ -3,7 +3,7 @@
 A field guide to one durian orchard at Teuk Chhou, Kampot — its varieties, its
 season, how its growers read a fruit for ripeness, what a counterfeit looks
 like on a highway stall, and what the 2024 drought cost them. Every word of it
-came out of two recorded interviews with the two people who work the land.
+came out of interviews with the two people who work the land.
 
 Live: **https://ict-340-vibe-coding.vercel.app**
 
@@ -34,8 +34,8 @@ it — the days from petal drop to harvest for four Cambodian varieties, and a
 description of Sadong Kit — do not appear to exist anywhere else.
 
 That is why entries carry a `status` of `published` or `in-progress`, why
-`/about` has a section called "What is missing", and why a Khmer name appears
-on an entry only where the growers actually use one.
+`/about` has a section called "What is missing", and why the Khmer glossary
+is kept aside for a future edition instead of guessed at here.
 
 ## Running it
 
