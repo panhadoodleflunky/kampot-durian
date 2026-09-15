@@ -1767,3 +1767,52 @@ a.section-count:hover { text-decoration: underline; }
 
   .prose-row > .headline-sm { margin-bottom: 24px; }
 }
+
+/* ---------------- the doors: /login and /signup ---------------- */
+
+/* The two forms reuse .search-input, the one input this site already had, so
+   the login box does not arrive as a second visual language. Only what the
+   round search field cannot carry is set here: a stacked block instead of a
+   row, and a fixed slot for the error line. */
+
+.auth-form {
+  max-width: 440px;
+}
+
+.auth-input {
+  display: block;
+  width: 100%;
+  /* The search field is a flex child at flex:1; standing alone it needs the
+     width stated, and the box-sizing so 24px of padding stays inside it. */
+  box-sizing: border-box;
+}
+
+.auth-label-2 { margin-top: 26px; }
+
+/* Always in the layout, empty or not. Appearing on the first failed attempt
+   would push the button down under the reader's thumb, mid-tap. */
+.auth-error {
+  min-height: 1.5em;
+  margin: 18px 0 0;
+  font-family: var(--mono);
+  font-size: 11.5px;
+  font-weight: 500;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--flesh-hot);
+}
+
+.auth-actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 18px 26px;
+  margin-top: 14px;
+}
+
+.auth-submit {
+  border: 0;
+  cursor: pointer;
+}
+
+.auth-submit:disabled { opacity: 0.45; cursor: default; }
