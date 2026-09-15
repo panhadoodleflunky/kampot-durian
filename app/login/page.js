@@ -12,7 +12,6 @@ export const metadata = {
 export default function Login() {
   return (
     <>
-      <a className="skip" href="#login">Skip to the form</a>
       <SiteNav current="/login" />
 
       <header className="page-head">

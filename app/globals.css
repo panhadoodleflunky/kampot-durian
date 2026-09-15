@@ -16,7 +16,7 @@
   --line-2: rgba(233, 188, 99, 0.32);
   /* The rgb triplets exist so the handful of glows, scrims and glass fills
      written as rgba() can follow the theme; --on-flesh is the text that sits
-     on gold surfaces (buttons, selection, the skip link). */
+     on gold surfaces (buttons and selection). */
   --husk-rgb: 11, 14, 11;
   --flesh-rgb: 233, 188, 99;
   --leaf-rgb: 76, 184, 120;
@@ -110,7 +110,7 @@ body::before {
 }
 
 /* Everything real sits above the two atmosphere layers. */
-.gnav, .hero, main, .foot, .skip { position: relative; z-index: 2; }
+.gnav, .hero, main, .foot { position: relative; z-index: 2; }
 
 img { max-width: 100%; height: auto; display: block; }
 
@@ -124,22 +124,7 @@ img { max-width: 100%; height: auto; display: block; }
   border-radius: 4px;
 }
 
-.skip {
-  position: absolute;
-  left: -9999px;
-  top: 8px;
-  background: var(--flesh);
-  color: var(--on-flesh);
-  font-family: var(--mono);
-  font-size: 12px;
-  letter-spacing: 1.4px;
-  text-transform: uppercase;
-  padding: 12px 20px;
-  border-radius: 8px;
-  text-decoration: none;
-}
 
-.skip:focus-visible { left: 16px; z-index: 200; }
 
 /* ---------------- nav ---------------- */
 

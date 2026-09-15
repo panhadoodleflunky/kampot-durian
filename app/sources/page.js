@@ -13,7 +13,6 @@ export const metadata = {
 export default function Sources() {
   return (
     <>
-      <a className="skip" href="#sources">Skip to the sources</a>
       <SiteNav current="/sources" />
 
       <header className="page-head">

@@ -60,7 +60,6 @@ export default function About() {
 
   return (
     <>
-      <a className="skip" href="#about">Skip to the text</a>
       <SiteNav current="/about" />
 
       <header className="page-head">

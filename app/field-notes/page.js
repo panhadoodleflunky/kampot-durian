@@ -22,7 +22,6 @@ export default function FieldNotesIndex() {
 
   return (
     <>
-      <a className="skip" href="#notes">Skip to the entries</a>
       <SiteNav current="/field-notes" />
 
       <header className="page-head">

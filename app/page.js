@@ -36,7 +36,6 @@ const PULL_QUOTE = {
 export default function Home() {
   return (
     <>
-      <a className="skip" href="#entries">Skip to the entries</a>
       <SiteNav current="/" />
 
       <header className="hero">

@@ -35,7 +35,6 @@ const FIGURES = [
 export default function Region() {
   return (
     <>
-      <a className="skip" href="#region">Skip to the region</a>
       <SiteNav current="/region" />
 
       <header className="page-head">
