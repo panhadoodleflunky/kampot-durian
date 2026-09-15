@@ -5,7 +5,7 @@ season, how its growers read a fruit for ripeness, what a counterfeit looks
 like on a highway stall, and what the 2024 drought cost them. Every word of it
 came out of interviews with the two people who work the land.
 
-Live: **https://ict-340-vibe-coding.vercel.app**
+Live: **https://kampot-durian.vercel.app**
 
 Built for ICT 340 — Vibe Coding at the American University of Phnom Penh,
 Fall 2026. Compiled by Sovanpanha Nonn.
@@ -145,6 +145,6 @@ Every photograph on this site is the curator's own work, taken in Kampot. There
 is no stock, licensed, or borrowed image anywhere in it — the one Wikimedia
 photograph the site used to carry was removed with the published sources. All
 of it is listed on
-[`/sources`](https://ict-340-vibe-coding.vercel.app/sources).
+[`/sources`](https://kampot-durian.vercel.app/sources).
 
 Corrections are welcome.
