@@ -9,5 +9,6 @@ out
 workspace/
 # PROJECT.md lives one level up, outside this repo, and holds private material.
 
-# Agent rules. Lives at the repo root so tools auto-load it, but is not pushed.
-/AGENTS.md
+# AGENTS.md was ignored until 15 September 2026. It is now tracked on purpose:
+# it holds rules only, no private material, and the contract change that opened
+# Sprint 2 has to be visible in the history. See its Sprint 2 amendment.
