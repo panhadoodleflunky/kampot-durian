@@ -1,5 +1,6 @@
 import Link from "next/link";
 import collection from "../collection.config.js";
+import AuthStatus from "./AuthStatus.js";
 import DurianGlyph from "./DurianGlyph.js";
 import NavMenu from "./NavMenu.js";
 import ThemeToggle from "./ThemeToggle.js";
@@ -45,6 +46,7 @@ export default function SiteNav({ current }) {
             </Link>
           ))}
         </div>
+        <AuthStatus />
         <ThemeToggle />
         <NavMenu links={LINKS} current={current} />
       </div>
