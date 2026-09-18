@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import SiteNav from "../../../components/SiteNav.js";
@@ -69,13 +70,14 @@ export default async function FieldNote({ params }) {
 
               {note.image ? (
                 <Reveal as="figure" className="entry-figure">
-                  <img
+                  {/* The entry photograph sits in the 720px reading column,
+                      so that is the widest file it ever needs. */}
+                  <Image
                     src={note.image.src}
                     alt={note.image.alt}
                     width={note.image.width}
                     height={note.image.height}
-                    loading="lazy"
-                    decoding="async"
+                    sizes="(max-width: 780px) 100vw, 720px"
                   />
                   <figcaption>{note.image.caption}</figcaption>
                 </Reveal>

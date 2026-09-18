@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import collection from "../collection.config.js";
 import fieldNotes, { getNote } from "../content/field-notes.js";
@@ -59,12 +60,18 @@ export default function Home() {
           </div>
 
           <figure className="hero-figure">
-            <img
+            {/* The one photograph a reader sees before they scroll, so it is
+                the one that gets `priority`. `sizes` is what stops the phone
+                downloading the 1536px file: the figure fills the width below
+                the 900px breakpoint and sits in roughly half the grid above
+                it. */}
+            <Image
               src="/tree-in-fruit.jpg"
               alt="Durian fruit hanging on the tree, Kampot"
               width={1536}
               height={2048}
-              fetchPriority="high"
+              sizes="(max-width: 900px) 100vw, 46vw"
+              priority
             />
             <figcaption>
               <span className="hero-cap-no">Kampot</span>
@@ -139,13 +146,15 @@ export default function Home() {
         </section>
 
         <section className="band" id="region">
-          <img
+          {/* Full-bleed behind the band's type, so it is asked for at the
+              viewport's own width and left to load lazily — it is three
+              sections down the page. */}
+          <Image
             src="/teuk-chou-scenic.jpg"
             alt="The Teuk Chhou river at dusk, mountains rising behind the treeline on the far bank"
             width={1946}
             height={1186}
-            loading="lazy"
-            decoding="async"
+            sizes="100vw"
           />
           <div className="band-copy">
             <Reveal>

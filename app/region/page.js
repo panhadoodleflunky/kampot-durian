@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import SiteNav from "../../components/SiteNav.js";
 import SiteFooter from "../../components/SiteFooter.js";
@@ -51,12 +52,15 @@ export default function Region() {
 
       <main id="region">
         <section className="band">
-          <img
+          {/* This page opens on the band, so here the same photograph is the
+              priority one. */}
+          <Image
             src="/teuk-chou-scenic.jpg"
             alt="A wide view of the Teuk Chhou river at dusk, mountains rising behind a treeline on the far bank"
             width={1946}
             height={1186}
-            fetchPriority="high"
+            sizes="100vw"
+            priority
           />
           <div className="band-copy">
             <Reveal>
