@@ -88,6 +88,16 @@ reporting. Both are gone. The rule now:
 **If a task seems to need a fact nobody at the orchard has given, stop and say
 so.** Do not fill it. The gap is the finding.
 
+**Since 18 September 2026 this rule is the project's own, not the course's.**
+The professor, asked directly, permits external sources where they are needed;
+he prefers the work stay original, on the grounds that anything taken off the
+internet he can find there himself. **Nothing above is relaxed by that** — the
+rule stands exactly as written, and an agent may not cite, search or borrow.
+What changes is only how it is described: do not tell the owner, or write on the
+site, that external sources are forbidden *by the professor*. They are forbidden
+here by choice. Any proposal to relax it goes to the owner, never decided in a
+task, and must clear the bar in `PROJECT.md` §2.
+
 ## Repository hygiene — what may be pushed
 
 **This repository is public, and the course instructor is a collaborator.** On
