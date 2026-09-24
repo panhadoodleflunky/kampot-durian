@@ -9,12 +9,20 @@ import ArchiveDown from "../../../components/ArchiveDown.js";
 import { getEntries } from "../../../lib/entries.js";
 import { getNote as getDraftNote } from "../../../content/field-notes.js";
 
-/* Entries live in Supabase now, so an entry page renders per request rather
-   than from a list fixed at build time: a row added in the SQL Editor has a
-   page the moment it is in the index, and an edited row shows its new text.
+/* Entries live in Supabase. Every entry that exists at build time is built
+   as a static page, and rebuilt in the background at most once a minute, so
+   an edited row shows its new text. A row added later is built the first
+   time someone asks for it (dynamicParams stays on), so it never 404s.
 
    The next entry is the following one in catalogue order, wrapping at the
    end so the last entry still offers somewhere to go. */
+export const revalidate = 60;
+
+export async function generateStaticParams() {
+  const entries = (await getEntries()) ?? [];
+  return entries.map((note) => ({ slug: note.slug }));
+}
+
 async function lookUp(slug) {
   const entries = await getEntries();
   if (!entries) return { down: true };

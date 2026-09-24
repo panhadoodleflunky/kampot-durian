@@ -7,6 +7,9 @@ import Reveal from "../../../components/Reveal.js";
 import ArchiveDown from "../../../components/ArchiveDown.js";
 import { getEntries } from "../../../lib/entries.js";
 
+/* Static, rebuilt in the background at most once a minute — see lib/entries.js. */
+export const revalidate = 60;
+
 export const metadata = {
   title: "Field Notes — Kampot Durian",
   description:

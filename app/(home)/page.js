@@ -9,6 +9,9 @@ import SiteFooter from "../../components/SiteFooter.js";
 import SectionLabel from "../../components/SectionLabel.js";
 import ArchiveDown from "../../components/ArchiveDown.js";
 
+/* Static, rebuilt in the background at most once a minute — see lib/entries.js. */
+export const revalidate = 60;
+
 /* Frontispiece facts — the guide's own catalogue header. */
 const MASTHEAD = [
   { k: "Compiled by", v: collection.curator },
