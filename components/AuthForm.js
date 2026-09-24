@@ -44,16 +44,18 @@ export default function AuthForm({ mode }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [notice, setNotice] = useState("");
   const [busy, setBusy] = useState(false);
 
   async function onSubmit(event) {
     event.preventDefault();
     setBusy(true);
     setError("");
+    setNotice("");
 
     const supabase = createClient();
     const credentials = { email, password };
-    const { error: failed } =
+    const { data, error: failed } =
       mode === "login"
         ? await supabase.auth.signInWithPassword(credentials)
         : await supabase.auth.signUp(credentials);
@@ -61,6 +63,15 @@ export default function AuthForm({ mode }) {
     if (failed) {
       setBusy(false);
       setError(readableError(mode, failed));
+      return;
+    }
+
+    /* With email confirmation on in Supabase, a signup succeeds without a
+       session: the account exists but nobody is logged in yet. Sending the
+       reader home would look like success while leaving them logged out. */
+    if (!data.session) {
+      setBusy(false);
+      setNotice("Check your email for a link to confirm the account, then log in.");
       return;
     }
 
@@ -105,6 +116,11 @@ export default function AuthForm({ mode }) {
       <p className="auth-error" role="alert">
         {error}
       </p>
+      {notice ? (
+        <p className="body-copy" role="status">
+          {notice}
+        </p>
+      ) : null}
 
       <div className="auth-actions">
         <button className="btn auth-submit" type="submit" disabled={busy}>

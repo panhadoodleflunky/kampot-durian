@@ -20,7 +20,10 @@ function excerpt(text, limit) {
   const body = typeof first === "string" ? first.trim() : "";
   if (body.length <= limit) return body;
   const cut = body.slice(0, limit);
-  return `${cut.slice(0, cut.lastIndexOf(" "))}…`;
+  /* No space in the cut (Khmer is written without them) — keep the cut
+     whole rather than drop its last letter. */
+  const space = cut.lastIndexOf(" ");
+  return `${space > 0 ? cut.slice(0, space) : cut}…`;
 }
 
 /* One Field Note, in the shape entry-sketch.md defines. `variant` only

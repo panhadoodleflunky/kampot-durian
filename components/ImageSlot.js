@@ -17,9 +17,10 @@ export default function ImageSlot({ figNumber, title, brief }) {
       </p>
       <p className="image-slot-brief">{brief}</p>
       <p className="image-slot-how">
-        Put the file in <code>public/</code>, then fill in <code>image</code>{" "}
-        for this entry in <code>content/field-notes.js</code> and delete its{" "}
-        <code>imageWanted</code> line.
+        Put the file in <code>public/</code>, add it to{" "}
+        <code>content/photos.js</code>, then set this entry&rsquo;s{" "}
+        <code>photo_url</code> in Supabase and delete its{" "}
+        <code>imageWanted</code> line in <code>content/field-notes.js</code>.
       </p>
     </aside>
   );

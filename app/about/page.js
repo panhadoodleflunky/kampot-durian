@@ -4,7 +4,7 @@ import SiteFooter from "../../components/SiteFooter.js";
 import SectionLabel from "../../components/SectionLabel.js";
 import Reveal from "../../components/Reveal.js";
 import collection from "../../collection.config.js";
-import fieldNotes from "../../content/field-notes.js";
+import { getEntries } from "../../lib/entries.js";
 import { method, cautions } from "../../content/sources.js";
 
 export const metadata = {
@@ -48,15 +48,18 @@ function spell(n) {
   return WORDS[n] ?? String(n);
 }
 
-export default function About() {
-  const open = fieldNotes.filter((n) => n.status === "in-progress").length;
+export default async function About() {
+  /* Counted from the same table the index reads. If Supabase doesn't answer,
+     the counting sentences are left out rather than printed as zeroes. */
+  const entries = await getEntries();
+  const open = (entries ?? []).filter((n) => n.status === "in-progress").length;
 
   /* Counted, not typed. This sentence used to name Monthong and Musang King,
      and by the time three more entries were written it was naming two of the
      five that actually have no photograph. On a page whose whole argument is
      that the gaps are stated out loud, an undercount of the gaps is the worst
      sentence on the site to leave stale. */
-  const unillustrated = fieldNotes.filter((n) => !n.image).length;
+  const unillustrated = (entries ?? []).filter((n) => !n.image).length;
 
   return (
     <>
@@ -128,13 +131,24 @@ export default function About() {
             <Reveal className="prose-row">
               <h2 className="tile-label">What is missing</h2>
               <p className="reading-body">
-                {open} of the {fieldNotes.length} entries {open === 1 ? "is" : "are"}{" "}
-                marked in progress. The drought entry follows three seasons
+                {entries ? (
+                  <>
+                    {open} of the {entries.length} entries{" "}
+                    {open === 1 ? "is" : "are"} marked in progress.{" "}
+                  </>
+                ) : null}
+                The drought entry follows three seasons
                 on one farm and cannot say how far that ran across the
                 district. The export entry can describe standing outside a
-                programme, not the programme. {spell(unillustrated)} of the{" "}
-                {spell(fieldNotes.length).toLowerCase()} entries{" "}
-                {unillustrated === 1 ? "has" : "have"} no photograph. And this
+                programme, not the programme.{" "}
+                {entries ? (
+                  <>
+                    {spell(unillustrated)} of the{" "}
+                    {spell(entries.length).toLowerCase()} entries{" "}
+                    {unillustrated === 1 ? "has" : "have"} no photograph.{" "}
+                  </>
+                ) : null}
+                And this
                 is the English edition — the growers&apos;
                 Khmer for the tap, the stem joint, the flowering season and
                 much else is held for a Khmer one not built yet, so the words

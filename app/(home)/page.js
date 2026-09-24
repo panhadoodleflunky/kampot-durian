@@ -1,12 +1,13 @@
 import Image from "next/image";
 import Link from "next/link";
-import collection from "../collection.config.js";
-import { getEntries } from "../lib/entries.js";
-import EntryCard from "../components/EntryCard.js";
-import Reveal from "../components/Reveal.js";
-import SiteNav from "../components/SiteNav.js";
-import SiteFooter from "../components/SiteFooter.js";
-import SectionLabel from "../components/SectionLabel.js";
+import collection from "../../collection.config.js";
+import { getEntries } from "../../lib/entries.js";
+import EntryCard from "../../components/EntryCard.js";
+import Reveal from "../../components/Reveal.js";
+import SiteNav from "../../components/SiteNav.js";
+import SiteFooter from "../../components/SiteFooter.js";
+import SectionLabel from "../../components/SectionLabel.js";
+import ArchiveDown from "../../components/ArchiveDown.js";
 
 /* Frontispiece facts — the guide's own catalogue header. */
 const MASTHEAD = [
@@ -17,8 +18,20 @@ const MASTHEAD = [
 
 /* Three entries that between them cover the whole guide: a native variety,
    the market problem, and the climate thread. Looked up against whatever
-   Supabase returns, once entries are in hand below. */
+   Supabase returns; a slug that is no longer there (renamed, say) gives its
+   place to the next entry in the catalogue, so the section never shrinks
+   while the archive itself is fine. */
 const FEATURED_SLUGS = ["ov-khak", "a-name-worth-protecting", "when-the-rain-doesnt-come"];
+
+const COUNT_WORDS = ["None", "One", "Two", "Three"];
+
+function pickFeatured(entries) {
+  const picked = FEATURED_SLUGS.map((slug) =>
+    entries.find((note) => note.slug === slug),
+  ).filter(Boolean);
+  const rest = entries.filter((note) => !picked.includes(note));
+  return [...picked, ...rest].slice(0, FEATURED_SLUGS.length);
+}
 
 /* Drawn from the Sadong Kit entry — the line the guide's honesty rests on.
    It is the guide's own sentence, not anyone's quoted words.
@@ -34,10 +47,10 @@ const PULL_QUOTE = {
 };
 
 export default async function Home() {
+  /* `null` means Supabase didn't answer. Then no count is printed at all —
+     "0 entries" would be a false statement about the archive. */
   const entries = await getEntries();
-  const featured = FEATURED_SLUGS.map((slug) =>
-    entries.find((note) => note.slug === slug),
-  ).filter(Boolean);
+  const featured = entries ? pickFeatured(entries) : [];
 
   return (
     <>
@@ -105,7 +118,7 @@ export default async function Home() {
             <div className="bento">
               <Reveal as="article" className="tile">
                 <p className="tile-label">Entries compiled</p>
-                <p className="stat-num">{entries.length}</p>
+                <p className="stat-num">{entries ? entries.length : "—"}</p>
               </Reveal>
               <Reveal as="article" className="tile" delay={90}>
                 <p className="tile-label">Varieties recorded</p>
@@ -124,18 +137,20 @@ export default async function Home() {
                 <div>
                   <SectionLabel no="02">Selected entries</SectionLabel>
                   <h2 className="headline-sm">
-                    Three of {entries.length}, to start.
+                    {entries
+                      ? `${COUNT_WORDS[featured.length]} of ${entries.length}, to start.`
+                      : "A few, to start."}
                   </h2>
                 </div>
                 <Link className="link section-count" href="/field-notes">
-                  Read all {entries.length}
+                  {entries ? `Read all ${entries.length}` : "Read them all"}
                 </Link>
               </div>
             </Reveal>
             {/* The section head already carries the "Read all" link — a
                 second one under the cards said the same thing twice on one
                 screen. */}
-            {featured.length > 0 ? (
+            {entries ? (
               <div className="entry-list">
                 {featured.map((note, i) => (
                   <EntryCard
@@ -148,10 +163,7 @@ export default async function Home() {
                 ))}
               </div>
             ) : (
-              <p className="body-copy">
-                The archive didn&rsquo;t answer just now. Reload in a moment —
-                the entries themselves are fine, this page just missed them.
-              </p>
+              <ArchiveDown />
             )}
           </div>
         </section>

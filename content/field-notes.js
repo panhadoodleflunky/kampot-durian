@@ -12,7 +12,8 @@
    `image` is null on the entries with no photograph yet. Those carry
    `imageWanted` instead — a note on what to shoot, rendered in place on the
    entry page while running `next dev` and never in a production build. When
-   the photograph exists, fill in `image` and delete the `imageWanted` line.
+   the photograph exists, add it to content/photos.js, point `image` at it,
+   and delete the `imageWanted` line.
 
    khmerName is empty throughout this edition. The site is English-only for
    now; the growers' Khmer terms are held for the Khmer edition and recorded in
@@ -23,6 +24,8 @@
    about how the asking was organised — the interview is one body of testimony
    from the two people who own the orchard, and the guide credits it that way
    on every entry. What it covered is set out on the Sources page. */
+import photos from "./photos.js";
+
 const INTERVIEW = { text: "Interview with Rasmey and Vanny, the orchard's owners" };
 const VOCAB = { text: "Khmer field vocabulary" };
 
@@ -55,14 +58,7 @@ const fieldNotes = [
       "On what does the pollinating, the growers speak for themselves. Bats do most of it; you hear the wings in the dark. Hawk moths work the flowers too, taking nectar and carrying pollen on their bellies, and both count. The bats are down by half since his childhood, the roosts in the limestone hills broken up by quarrying, which is why the fifteen Musang King are pollinated by hand — a brush on a bamboo pole, between seven and nine at night. Even so the arithmetic is brutal. Ten thousand flowers on a mature tree, and fifty to eighty of them become fruit worth selling; then the growers cut that number down again themselves, thinning twice, at ping-pong size and at goose-egg size.",
     ],
     sources: [VOCAB, INTERVIEW],
-    image: {
-      src: "/durian-flower.jpg",
-      width: 728,
-      height: 724,
-      alt: "A cluster of pale green-white durian flowers in close-up, their long stamens hanging down",
-      caption:
-        "Durian flowers. The growers observe bats working them at night, and hawk moths alongside.",
-    },
+    image: photos["/durian-flower.jpg"],
     tags: ["flowering", "pollination", "season"],
     status: "published",
   },
@@ -76,14 +72,7 @@ const fieldNotes = [
       "The numbers move with the weather. Heat pulls maturity forward five to seven days; cloud and rain through the third month push it back ten. Past day sixty the fruit is safe, and the last twenty days put on a third of its weight as starch turns to sugar and fat. All of which comes from one orchard and one family, with no controls and no second site. It is written down because the alternative was leaving it unwritten.",
     ],
     sources: [INTERVIEW],
-    image: {
-      src: "/tree-in-fruit.jpg",
-      width: 1536,
-      height: 2048,
-      alt: "A durian tree hung with dozens of mature spiked fruit, its branches braced with support lines",
-      caption:
-        "Fruit carried on the branch, the limbs braced with lines against the weight.",
-    },
+    image: photos["/tree-in-fruit.jpg"],
     tags: ["flowering", "harvest", "research gap"],
     status: "published",
   },
@@ -98,14 +87,7 @@ const fieldNotes = [
       "Who buys it explains where it is going. Kampot people, Phnom Penh elders who grew up on it, and buyers who drive out to the farm — while the commercial trade wants uniform Monthong, which is why the variety loses ground each year and survives on smallholdings. In 2025 an ambassador visited a Kampot farm and praised Ov Khak; they saw it on television. It brought the village some pride. It did not move the price at the gate.",
     ],
     sources: [VOCAB, INTERVIEW],
-    image: {
-      src: "/ov-khak-opened.jpg",
-      width: 960,
-      height: 1280,
-      alt: "A hand holding an opened durian half, thick pale-yellow flesh in the shell, a whole fruit hanging on the tree behind",
-      caption:
-        "An opened fruit, held beneath a tree still carrying its own.",
-    },
+    image: photos["/ov-khak-opened.jpg"],
     tags: ["ov khak", "native variety", "export"],
     status: "published",
   },
@@ -120,13 +102,7 @@ const fieldNotes = [
       "It is also a poor commercial fruit, and everyone knows exactly why. The whole block ripens inside seven to ten days, and once off the tree it turns watery and ferments toward sour alcohol in thirty-six to forty-eight hours. It yields thirty to forty percent less per tree than Monthong, and traders will not touch it, so it sells at the gate. When the orchards were replanted after the war the market wanted Monthong, and later Musang King at export prices; Sadong Kit survived here only because the same customers book the whole crop every April, before a fruit is cut. Older people use the full name and younger traders shorten it, and it refers to the short tight cluster of thorns near the stem. The growers give it twenty years in commercial farming and then home gardens — which says more about what was thought worth writing down than about the fruit.",
     ],
     sources: [VOCAB, INTERVIEW],
-    image: {
-      src: "/sadong-kit.jpg",
-      width: 1280,
-      height: 960,
-      alt: "A single Sadong Kit fruit hanging from a branch against a blue sky, another fruit visible behind it",
-      caption: "A Sadong Kit fruit on the tree, in the growers' own orchard.",
-    },
+    image: photos["/sadong-kit.jpg"],
     tags: ["sadong kit", "native variety", "research gap"],
     status: "published",
   },
@@ -190,13 +166,7 @@ const fieldNotes = [
       "None of it is shared. Every farm here digs its own pond and drills its own well, and no government or NGO help reached this orchard after 2024. Nor was it the first loss — in 2014 floodwater from the river stood on the low lot for four days, and twelve mature Ov Khak died of root rot inside a month. Twenty years is viable, they say, but only with real water storage behind it. How far any of this runs past their fence they do not claim to know, and neither does this guide. It asked one orchard.",
     ],
     sources: [VOCAB, INTERVIEW],
-    image: {
-      src: "/drought-damage-tree.jpg",
-      width: 1280,
-      height: 960,
-      alt: "A durian tree with browned, wilting leaves dropping from its branches after drought stress",
-      caption: "A drought-stressed tree, its leaves browned and dropping.",
-    },
+    image: photos["/drought-damage-tree.jpg"],
     tags: ["climate", "drought", "irrigation"],
     status: "in-progress",
   },
@@ -211,14 +181,7 @@ const fieldNotes = [
       "The year has its own observances too. Before the first cut in May an altar goes up at the foot of the oldest tree, with incense and food for the Neak Ta, and for a harvest with nobody falling out of a branch; at the end of July the growers eat together, drink rice wine and compare what they took. And it is not only durian. Two hundred poles of Kampot pepper and a dozen mangosteen carry the house through the other half of the year.",
     ],
     sources: [VOCAB, INTERVIEW],
-    image: {
-      src: "/harvest-ready-to-sell.jpg",
-      width: 2048,
-      height: 1536,
-      alt: "Several hundred harvested durians laid out on tarpaulins between the trees, a pickup truck waiting behind them",
-      caption:
-        "A season's harvest laid out between the trees, stems trimmed, the truck waiting.",
-    },
+    image: photos["/harvest-ready-to-sell.jpg"],
     tags: ["season", "harvest", "kampot"],
     status: "published",
   },
