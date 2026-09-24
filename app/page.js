@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import collection from "../collection.config.js";
-import fieldNotes, { getNote } from "../content/field-notes.js";
+import { getEntries } from "../lib/entries.js";
 import EntryCard from "../components/EntryCard.js";
 import Reveal from "../components/Reveal.js";
 import SiteNav from "../components/SiteNav.js";
@@ -16,10 +16,9 @@ const MASTHEAD = [
 ];
 
 /* Three entries that between them cover the whole guide: a native variety,
-   the market problem, and the climate thread. */
-const FEATURED = ["ov-khak", "a-name-worth-protecting", "when-the-rain-doesnt-come"]
-  .map(getNote)
-  .filter(Boolean);
+   the market problem, and the climate thread. Looked up against whatever
+   Supabase returns, once entries are in hand below. */
+const FEATURED_SLUGS = ["ov-khak", "a-name-worth-protecting", "when-the-rain-doesnt-come"];
 
 /* Drawn from the Sadong Kit entry — the line the guide's honesty rests on.
    It is the guide's own sentence, not anyone's quoted words.
@@ -34,7 +33,12 @@ const PULL_QUOTE = {
   href: "/field-notes/sadong-kit",
 };
 
-export default function Home() {
+export default async function Home() {
+  const entries = await getEntries();
+  const featured = FEATURED_SLUGS.map((slug) =>
+    entries.find((note) => note.slug === slug),
+  ).filter(Boolean);
+
   return (
     <>
       <SiteNav current="/" />
@@ -101,7 +105,7 @@ export default function Home() {
             <div className="bento">
               <Reveal as="article" className="tile">
                 <p className="tile-label">Entries compiled</p>
-                <p className="stat-num">{fieldNotes.length}</p>
+                <p className="stat-num">{entries.length}</p>
               </Reveal>
               <Reveal as="article" className="tile" delay={90}>
                 <p className="tile-label">Varieties recorded</p>
@@ -120,28 +124,35 @@ export default function Home() {
                 <div>
                   <SectionLabel no="02">Selected entries</SectionLabel>
                   <h2 className="headline-sm">
-                    Three of {fieldNotes.length}, to start.
+                    Three of {entries.length}, to start.
                   </h2>
                 </div>
                 <Link className="link section-count" href="/field-notes">
-                  Read all {fieldNotes.length}
+                  Read all {entries.length}
                 </Link>
               </div>
             </Reveal>
             {/* The section head already carries the "Read all" link — a
                 second one under the cards said the same thing twice on one
                 screen. */}
-            <div className="entry-list">
-              {FEATURED.map((note, i) => (
-                <EntryCard
-                  key={note.slug}
-                  note={note}
-                  variant={i === 0 ? "lead" : "plain"}
-                  showNumber={false}
-                  delay={i * 80}
-                />
-              ))}
-            </div>
+            {featured.length > 0 ? (
+              <div className="entry-list">
+                {featured.map((note, i) => (
+                  <EntryCard
+                    key={note.slug}
+                    note={note}
+                    variant={i === 0 ? "lead" : "plain"}
+                    showNumber={false}
+                    delay={i * 80}
+                  />
+                ))}
+              </div>
+            ) : (
+              <p className="body-copy">
+                The archive didn&rsquo;t answer just now. Reload in a moment —
+                the entries themselves are fine, this page just missed them.
+              </p>
+            )}
           </div>
         </section>
 

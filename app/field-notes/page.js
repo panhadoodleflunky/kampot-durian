@@ -4,7 +4,7 @@ import SiteFooter from "../../components/SiteFooter.js";
 import SectionLabel from "../../components/SectionLabel.js";
 import EntrySearch from "../../components/EntrySearch.js";
 import Reveal from "../../components/Reveal.js";
-import fieldNotes from "../../content/field-notes.js";
+import { getEntries } from "../../lib/entries.js";
 
 export const metadata = {
   title: "Field Notes — Kampot Durian",
@@ -12,13 +12,12 @@ export const metadata = {
     "Entries on one Teuk Chhou orchard's varieties, season, trade and troubles, as its growers tell it.",
 };
 
-export default function FieldNotesIndex() {
+export default async function FieldNotesIndex() {
   /* `EntrySearch` is a client component, so whatever is handed to it is
-     serialised into this page's payload and shipped. The photograph briefs
-     are working notes meant for `next dev` only, and nothing here reads
-     them, so they are dropped at the boundary rather than sent to every
-     reader of the live site. */
-  const notes = fieldNotes.map(({ imageWanted, ...note }) => note);
+     serialised into this page's payload and shipped. Rows out of Supabase
+     never carry `imageWanted` — that was a `content/field-notes.js`-only,
+     dev-only field — so there is nothing left to strip at this boundary. */
+  const notes = await getEntries();
 
   return (
     <>
@@ -28,7 +27,7 @@ export default function FieldNotesIndex() {
         <div className="inner">
           <SectionLabel no="01">Field Notes</SectionLabel>
           <h1 className="headline-sm">
-            {fieldNotes.length} entries, one orchard.
+            {notes.length} entries, one orchard.
           </h1>
         </div>
       </header>
@@ -36,17 +35,26 @@ export default function FieldNotesIndex() {
       <main id="notes">
         <section className="section">
           <div className="inner">
-            {/* Client component: it owns the query state and the filtering.
-                The data still comes from content/field-notes.js — the page
-                reads it and hands it down, so nothing about an entry is
-                hardcoded here. */}
-            <EntrySearch notes={notes} />
-            <Reveal>
-              <p className="body-copy note-foot">
-                Each entry names its source. The full record is on{" "}
-                <Link href="/sources">Sources &amp; Credits</Link>.
+            {notes.length > 0 ? (
+              <>
+                {/* Client component: it owns the query state and the
+                    filtering. The data comes from Supabase now, not
+                    content/field-notes.js — the page reads it and hands it
+                    down, so nothing about an entry is hardcoded here. */}
+                <EntrySearch notes={notes} />
+                <Reveal>
+                  <p className="body-copy note-foot">
+                    Each entry names its source. The full record is on{" "}
+                    <Link href="/sources">Sources &amp; Credits</Link>.
+                  </p>
+                </Reveal>
+              </>
+            ) : (
+              <p className="body-copy">
+                The archive didn&rsquo;t answer just now. Reload in a moment —
+                the entries themselves are fine, this page just missed them.
               </p>
-            </Reveal>
+            )}
           </div>
         </section>
       </main>
