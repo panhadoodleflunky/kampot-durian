@@ -5,7 +5,6 @@ import SiteNav from "../../../components/SiteNav.js";
 import SiteFooter from "../../../components/SiteFooter.js";
 import Reveal from "../../../components/Reveal.js";
 import ImageSlot from "../../../components/ImageSlot.js";
-import ArchiveDown from "../../../components/ArchiveDown.js";
 import { getEntries } from "../../../lib/entries.js";
 import { getNote as getDraftNote } from "../../../content/field-notes.js";
 
@@ -19,13 +18,12 @@ import { getNote as getDraftNote } from "../../../content/field-notes.js";
 export const revalidate = 60;
 
 export async function generateStaticParams() {
-  const entries = (await getEntries()) ?? [];
+  const entries = await getEntries();
   return entries.map((note) => ({ slug: note.slug }));
 }
 
 async function lookUp(slug) {
   const entries = await getEntries();
-  if (!entries) return { down: true };
   const i = entries.findIndex((n) => n.slug === slug);
   if (i === -1) return {};
   return { note: entries[i], next: entries[(i + 1) % entries.length] };
@@ -46,8 +44,7 @@ function summarise(body, limit = 155) {
 
 export async function generateMetadata({ params }) {
   const { slug } = await params;
-  const { note, down } = await lookUp(slug);
-  if (down) return { title: "Field Notes — Kampot Durian" };
+  const { note } = await lookUp(slug);
   if (!note) return { title: "Entry not found — Kampot Durian" };
   return {
     title: `${note.title} — Kampot Durian`,
@@ -57,23 +54,9 @@ export async function generateMetadata({ params }) {
 
 export default async function FieldNote({ params }) {
   const { slug } = await params;
-  const { note, next, down } = await lookUp(slug);
-
-  /* Supabase didn't answer: say so, rather than a 404 for an entry that
-     exists. */
-  if (down) {
-    return (
-      <>
-        <SiteNav current="/field-notes" />
-        <main id="entry" className="section">
-          <div className="inner reading">
-            <ArchiveDown />
-          </div>
-        </main>
-        <SiteFooter />
-      </>
-    );
-  }
+  /* If Supabase doesn't answer, lookUp throws: the last good copy of this
+     entry is served, never a 404 for an entry that exists. */
+  const { note, next } = await lookUp(slug);
   if (!note) notFound();
 
   /* The photograph brief is a development aid that never went into the

@@ -6,11 +6,12 @@ export const revalidate = 60;
 
 /* Every route the guide has. The entry pages come from the same Supabase
    table the pages read, so a new entry appears here without an edit. If
-   Supabase doesn't answer, the fixed pages are still listed. */
+   Supabase doesn't answer this throws, and the last good sitemap is served
+   rather than one with every entry missing. */
 export default async function sitemap() {
   const base = siteUrl();
   const pages = ["", "/region", "/field-notes", "/about", "/sources"];
-  const entries = (await getEntries()) ?? [];
+  const entries = await getEntries();
   return [
     ...pages.map((path) => ({ url: `${base}${path}`, changeFrequency: "monthly" })),
     ...entries.map((note) => ({

@@ -17,6 +17,7 @@ export default function EntrySearch({ notes }) {
   const index = useMemo(() => buildIndex(notes), [notes]);
   const shown = useMemo(() => search(index, query), [index, query]);
   const searching = isQuery(query);
+  const noun = notes.length === 1 ? "entry" : "entries";
 
   const pages = searching ? 1 : pageCount(shown.length);
   const safePage = Math.min(page, Math.max(pages, 1));
@@ -59,8 +60,8 @@ export default function EntrySearch({ notes }) {
         inputRef={inputRef}
         count={
           searching
-            ? `${shown.length} of ${notes.length} entries`
-            : `${notes.length} entries · page ${safePage} of ${pages}`
+            ? `${shown.length} of ${notes.length} ${noun}`
+            : `${notes.length} ${noun} · page ${safePage} of ${pages}`
         }
       />
 
@@ -83,6 +84,10 @@ export default function EntrySearch({ notes }) {
             label="Field note pages"
           />
         </>
+      ) : notes.length === 0 ? (
+        /* An empty table is not a failed search: there was no query to
+           quote back, and nothing to "show all" of. */
+        <p className="body-copy">No entries have been written yet.</p>
       ) : (
         <SearchEmpty query={query} total={notes.length} onClear={() => onQuery("")} />
       )}

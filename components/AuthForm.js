@@ -28,8 +28,13 @@ const COPY = {
    Signup gets the same treatment, which the lab did not ask for: Supabase's
    own "User already registered" enumerates just as plainly as the login case.
    A password Supabase rejects for length is the one message worth passing
-   through, because it says nothing about whether the email exists. */
+   through, because it says nothing about whether the email exists. So is a
+   request that never reached Supabase: "invalid password" there would send
+   the reader to retype a password that was right all along. */
 function readableError(mode, failed) {
+  if (failed.name === "AuthRetryableFetchError") {
+    return "The server didn't answer. Check your connection and try again.";
+  }
   if (/password/i.test(failed.message) && /6|short|weak|character/i.test(failed.message)) {
     return "Passwords need at least six characters.";
   }

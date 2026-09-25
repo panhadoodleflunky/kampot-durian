@@ -2,7 +2,11 @@
 
 /* Page controls for the Field Notes index. Presentational: it owns no state,
    it reports the page it was asked for. Rendered only when there is more than
-   one page, so a short list never grows a control it doesn't need. */
+   one page, so a short list never grows a control it doesn't need.
+
+   Previous and Next are aria-disabled rather than disabled at the ends. A
+   disabled button drops keyboard focus: press Next onto the last page and
+   focus fell to the top of the document, losing the reader's place. */
 export default function Pagination({ page, pages, onChange, label }) {
   if (pages <= 1) return null;
 
@@ -13,8 +17,8 @@ export default function Pagination({ page, pages, onChange, label }) {
       <button
         type="button"
         className="pager-step"
-        onClick={() => onChange(page - 1)}
-        disabled={page === 1}
+        onClick={() => page > 1 && onChange(page - 1)}
+        aria-disabled={page === 1}
       >
         Previous
       </button>
@@ -38,8 +42,8 @@ export default function Pagination({ page, pages, onChange, label }) {
       <button
         type="button"
         className="pager-step"
-        onClick={() => onChange(page + 1)}
-        disabled={page === pages}
+        onClick={() => page < pages && onChange(page + 1)}
+        aria-disabled={page === pages}
       >
         Next
       </button>

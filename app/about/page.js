@@ -52,17 +52,18 @@ function spell(n) {
 }
 
 export default async function About() {
-  /* Counted from the same table the index reads. If Supabase doesn't answer,
-     the counting sentences are left out rather than printed as zeroes. */
+  /* Counted from the same table the index reads. If Supabase doesn't answer
+     this throws, and the last good copy is served — see lib/entries.js. The
+     counting sentences are left out only when there is nothing to count. */
   const entries = await getEntries();
-  const open = (entries ?? []).filter((n) => n.status === "in-progress").length;
+  const open = entries.filter((n) => n.status === "in-progress").length;
 
   /* Counted, not typed. This sentence used to name Monthong and Musang King,
      and by the time three more entries were written it was naming two of the
      five that actually have no photograph. On a page whose whole argument is
      that the gaps are stated out loud, an undercount of the gaps is the worst
      sentence on the site to leave stale. */
-  const unillustrated = (entries ?? []).filter((n) => !n.image).length;
+  const unillustrated = entries.filter((n) => !n.image).length;
 
   return (
     <>
@@ -134,7 +135,7 @@ export default async function About() {
             <Reveal className="prose-row">
               <h2 className="tile-label">What is missing</h2>
               <p className="reading-body">
-                {entries ? (
+                {entries.length ? (
                   <>
                     {open} of the {entries.length} entries{" "}
                     {open === 1 ? "is" : "are"} marked in progress.{" "}
@@ -144,7 +145,7 @@ export default async function About() {
                 on one farm and cannot say how far that ran across the
                 district. The export entry can describe standing outside a
                 programme, not the programme.{" "}
-                {entries ? (
+                {entries.length ? (
                   <>
                     {spell(unillustrated)} of the{" "}
                     {spell(entries.length).toLowerCase()} entries{" "}

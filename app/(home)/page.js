@@ -7,7 +7,6 @@ import Reveal from "../../components/Reveal.js";
 import SiteNav from "../../components/SiteNav.js";
 import SiteFooter from "../../components/SiteFooter.js";
 import SectionLabel from "../../components/SectionLabel.js";
-import ArchiveDown from "../../components/ArchiveDown.js";
 
 /* Static, rebuilt in the background at most once a minute — see lib/entries.js. */
 export const revalidate = 60;
@@ -50,10 +49,10 @@ const PULL_QUOTE = {
 };
 
 export default async function Home() {
-  /* `null` means Supabase didn't answer. Then no count is printed at all —
-     "0 entries" would be a false statement about the archive. */
+  /* If Supabase doesn't answer this throws, and the last good copy of the
+     page is served instead — see lib/entries.js. */
   const entries = await getEntries();
-  const featured = entries ? pickFeatured(entries) : [];
+  const featured = pickFeatured(entries);
 
   return (
     <>
@@ -84,13 +83,17 @@ export default async function Home() {
                 the one that gets `priority`. `sizes` is what stops the phone
                 downloading the 1536px file: the figure fills the width below
                 the 900px breakpoint and sits in roughly half the grid above
-                it. */}
+                it. `quality={50}` because a phone with a sharp screen still
+                asks for the 1200px file, and that is 478 kB at the default
+                75 and 194 kB at 50 — compared side by side at full size, the
+                leaves and thorns look the same. */}
             <Image
               src="/tree-in-fruit.jpg"
               alt="Durian fruit hanging on the tree, Kampot"
               width={1536}
               height={2048}
               sizes="(max-width: 900px) 100vw, 46vw"
+              quality={50}
               priority
             />
             <figcaption>
@@ -121,7 +124,7 @@ export default async function Home() {
             <div className="bento">
               <Reveal as="article" className="tile">
                 <p className="tile-label">Entries compiled</p>
-                <p className="stat-num">{entries ? entries.length : "—"}</p>
+                <p className="stat-num">{entries.length}</p>
               </Reveal>
               <Reveal as="article" className="tile" delay={90}>
                 <p className="tile-label">Varieties recorded</p>
@@ -140,34 +143,30 @@ export default async function Home() {
                 <div>
                   <SectionLabel no="02">Selected entries</SectionLabel>
                   <h2 className="headline-sm">
-                    {entries
+                    {entries.length
                       ? `${COUNT_WORDS[featured.length]} of ${entries.length}, to start.`
-                      : "A few, to start."}
+                      : "None written yet."}
                   </h2>
                 </div>
                 <Link className="link section-count" href="/field-notes">
-                  {entries ? `Read all ${entries.length}` : "Read them all"}
+                  {`Read all ${entries.length}`}
                 </Link>
               </div>
             </Reveal>
             {/* The section head already carries the "Read all" link — a
                 second one under the cards said the same thing twice on one
                 screen. */}
-            {entries ? (
-              <div className="entry-list">
-                {featured.map((note, i) => (
-                  <EntryCard
-                    key={note.slug}
-                    note={note}
-                    variant={i === 0 ? "lead" : "plain"}
-                    showNumber={false}
-                    delay={i * 80}
-                  />
-                ))}
-              </div>
-            ) : (
-              <ArchiveDown />
-            )}
+            <div className="entry-list">
+              {featured.map((note, i) => (
+                <EntryCard
+                  key={note.slug}
+                  note={note}
+                  variant={i === 0 ? "lead" : "plain"}
+                  showNumber={false}
+                  delay={i * 80}
+                />
+              ))}
+            </div>
           </div>
         </section>
 

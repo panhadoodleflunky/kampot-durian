@@ -8,6 +8,15 @@
   --husk-2: #10150F;
   --flesh: #E9BC63;
   --flesh-hot: #F5A623;
+  /* Gold for large type only — the headline italic, stat numbers, the
+     quote marks, the logo. In dark mode it is the same gold. In light mode
+     it can be brighter than --flesh, because text 24px and up needs 3:1,
+     not 4.5:1. */
+  --flesh-display: #E9BC63;
+  /* Form errors. The hot gold in dark mode; in light mode the text ink,
+     because there the accent is red and an error in link-red would read as
+     something to click. */
+  --error: #F5A623;
   --leaf: #4CB878;
   --cream: #F2ECE0;
   --muted: #A7B0A4;
@@ -43,28 +52,42 @@
   --nav-h: 58px;
 }
 
-/* Light mode. Same roles, second palette: aged paper in the dry-husk
-   tones of the photographs — deliberately not bright white, so the dark
-   images fade into the page instead of floating on it — with the gold and
-   leaf deepened until they read as ink, and every glass fill flipped from
-   white-on-dark to dark-on-light. Dark stays the default; this
-   only applies when the reader has chosen light with the nav toggle. */
+/* Light mode: Satra. Khmer palm-leaf manuscripts — straw-coloured leaf,
+   soot-black script, red lacquer covers, gilt edges. Chosen 25 September
+   2026 from four options shown on the running site, over tea-stained paper
+   (#C8B994), laterite and river-dusk.
+
+   Why red for the accent: on any paper dim enough to sit with the
+   photographs, a gold small enough to be a link has to be darkened until it
+   is just another brown beside the brown text. Red stays apart from the text
+   by hue, however dark it gets. Gold is kept where the type is large enough
+   (24px and up needs 3:1, not 4.5:1): --flesh-display, the gilt.
+
+   Every ink reads at 4.5:1 or better on both paper tones (--husk and
+   --husk-2); --flesh-display reads at 3:1 or better, for large type only.
+   Dark stays the default; this applies only when the reader has chosen
+   light with the nav toggle. */
 html[data-theme="light"] {
   color-scheme: light;
-  --husk: #E2D7B8;
-  --husk-2: #D8CBA4;
-  --flesh: #7A5A10;
-  --flesh-hot: #8F6300;
-  --leaf: #226B45;
-  --cream: #26200F;
-  --muted: #665D42;
-  --dim: #776D4F;
-  --line: rgba(90, 70, 20, 0.26);
-  --line-2: rgba(90, 70, 20, 0.48);
-  --husk-rgb: 226, 215, 184;
-  --flesh-rgb: 122, 90, 16;
-  --leaf-rgb: 34, 107, 69;
-  --glass-rgb: 42, 33, 10;
+  --husk: #CDBC8C;
+  --husk-2: #C3B07E;
+  --flesh: #7C2517;
+  --flesh-hot: #5E1A10;
+  --flesh-display: #785707;
+  --error: #1A160E;
+  --leaf: #214C29;
+  --cream: #1A160E;
+  --muted: #463D29;
+  --dim: #4B422D;
+  --line: rgba(26, 22, 14, 0.24);
+  --line-2: rgba(26, 22, 14, 0.45);
+  --husk-rgb: 205, 188, 140;
+  /* Feeds only the glows and washes (the top light, the photo shadow, tile
+     hovers), never text. It follows the gilt, not the red: a red glow on
+     straw paper read as a pink halo under the hero photograph. */
+  --flesh-rgb: 120, 87, 7;
+  --leaf-rgb: 33, 76, 41;
+  --glass-rgb: 26, 22, 14;
   --on-flesh: #F5ECD2;
   --grain-opacity: 0.3;
 }
@@ -149,7 +172,7 @@ img { max-width: 100%; height: auto; display: block; }
   gap: 30px;
 }
 
-.gnav-logo { display: flex; align-items: center; color: var(--flesh); flex-shrink: 0; }
+.gnav-logo { display: flex; align-items: center; color: var(--flesh-display); flex-shrink: 0; }
 
 .gnav-name {
   font-family: var(--mono);
@@ -187,7 +210,10 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* ---------------- phone menu ----------------
 
-   Hidden on desktop; below 735px it replaces the link row. Everything is
+   Hidden on desktop; below 1041px it replaces the link row. That line is
+   where the five links, the log-in buttons and the theme toggle stop fitting
+   on one row: at 800px they measured 1027px wide and pushed the toggle off
+   the screen. Everything is
    positioned off `.gnav` itself (sticky, so always a positioned ancestor at
    the top of the viewport) rather than `position: fixed`, because the nav's
    backdrop-filter makes it the containing block for fixed descendants and
@@ -265,6 +291,25 @@ img { max-width: 100%; height: auto; display: block; }
 }
 
 .gnav-sheet a:last-child { border-bottom: none; }
+
+@media (max-width: 1040px) {
+  .gnav-links { display: none; }
+  .gnav-menu { display: block; }
+}
+
+/* Log in / Sign up, or the address and Log out, at the foot of the sheet.
+   Only on a phone: there the bar has room for the name, the theme toggle and
+   the burger and nothing else — with the auth buttons in it too, it measured
+   522px on a 390px screen, and the burger itself was pushed off the edge. */
+.gnav-sheet-auth { display: none; }
+
+@media (max-width: 734px) {
+  .gnav-inner > .auth-nav, .gnav-inner > .auth-slot { display: none; }
+  .gnav-sheet-auth { display: block; padding: 16px 2px 4px; }
+  .gnav-sheet-auth .auth-nav { margin-left: 0; gap: 12px; flex-wrap: wrap; }
+  .gnav-sheet-auth .auth-email { max-width: none; }
+  .gnav-sheet .gnav-sheet-auth a { padding: 11px 18px; border: 1px solid var(--line); font-size: 11px; }
+}
 
 /* ---------------- theme toggle ----------------
 
@@ -370,7 +415,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 .headline em {
   display: block;
   font-style: italic;
-  color: var(--flesh);
+  color: var(--flesh-display);
   letter-spacing: -0.028em;
   padding-left: 0.06em;
 }
@@ -607,7 +652,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
   font-weight: 400;
   letter-spacing: -0.038em;
   margin: 0;
-  color: var(--flesh);
+  color: var(--flesh-display);
 }
 
 /* Side by side, the two bento tiles carry different amounts of content — one
@@ -704,7 +749,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
   display: block;
   font-size: 1.9em;
   line-height: 0.5;
-  color: var(--flesh);
+  color: var(--flesh-display);
   opacity: 0.34;
   margin-bottom: 0.16em;
   /* Centring puts the glyph's advance width on the axis, not its ink. The
@@ -722,7 +767,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
   display: block;
   font-size: 1.9em;
   line-height: 0.5;
-  color: var(--flesh);
+  color: var(--flesh-display);
   opacity: 0.34;
   /* Larger than the opening's 0.16em because quote glyphs sit high in
      their box: above the text that bias adds distance, below it the same
@@ -993,17 +1038,28 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 
 /* ---------------- reveal ---------------- */
 
-.reveal {
+/* Visible without JavaScript. What the reader sees first fades in on CSS
+   alone, so on slow mobile data the text shows as soon as the HTML does,
+   not after the scripts arrive. Once they have, Reveal marks whatever is
+   still below the fold `.wait` (hidden) and then `.in` as it scrolls up. */
+@keyframes reveal-in {
+  from { opacity: 0; transform: translateY(30px); }
+}
+
+.reveal { animation: reveal-in 0.9s cubic-bezier(0.28,0.11,0.32,1) backwards; }
+
+.reveal.wait {
+  animation: none;
   opacity: 0;
   transform: translateY(30px);
   transition: opacity 0.9s cubic-bezier(0.28,0.11,0.32,1),
               transform 0.9s cubic-bezier(0.28,0.11,0.32,1);
 }
 
-.reveal.in { opacity: 1; transform: none; }
+.reveal.wait.in { opacity: 1; transform: none; }
 
 @media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
+  .reveal, .reveal.wait { opacity: 1; transform: none; transition: none; animation: none; }
   .pulse { animation: none; }
   html { scroll-behavior: auto; }
   .hero-figure img, .entry, .tile, .btn { transition: none; }
@@ -1026,8 +1082,6 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
   .hero-figure figcaption { left: 20px; right: 20px; bottom: 20px; }
   .quote-section { padding: 84px 22px; }
   .tile { padding: 34px 28px; min-height: 200px; }
-  .gnav-links { display: none; }
-  .gnav-menu { display: block; }
   .gnav-inner { padding: 0 22px; gap: 18px; }
   .band { min-height: 68vh; min-height: 68svh; }
   .band-copy { padding-bottom: 70px; }
@@ -1208,6 +1262,12 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
   margin: 0 0 28px;
   letter-spacing: 1.2px;
 }
+
+/* The space under an entry title comes from whatever follows it in the
+   header — the status line, or the Khmer name. A published English entry has
+   neither, so the title is last and its photograph sat on it, the descender
+   of "Variety" touching the frame. Same 28px as the status line. */
+.entry-main .headline-sm:last-child { margin-bottom: 28px; }
 
 .entry-src {
   display: flex;
@@ -1595,8 +1655,8 @@ a.section-count:hover { text-decoration: underline; }
   padding: 12px 20px;
 }
 
-.pager-step:hover:not(:disabled) { color: var(--flesh); border-color: var(--line-2); }
-.pager-step:disabled { opacity: 0.3; cursor: default; }
+.pager-step:hover:not([aria-disabled="true"]) { color: var(--flesh); border-color: var(--line-2); }
+.pager-step[aria-disabled="true"] { opacity: 0.3; cursor: default; }
 
 .pager-no {
   min-width: 42px;
@@ -1784,7 +1844,7 @@ a.section-count:hover { text-decoration: underline; }
   font-weight: 500;
   letter-spacing: 1.6px;
   text-transform: uppercase;
-  color: var(--flesh-hot);
+  color: var(--error);
 }
 
 .auth-actions {
@@ -1851,12 +1911,5 @@ a.section-count:hover { text-decoration: underline; }
 
 .auth-btn:hover { color: var(--flesh); border-color: var(--line-2); }
 
-/* On a phone the five nav links already give way to the burger. The address
-   goes with them — it is the longest string in the row and would push the
-   buttons off the edge — and the buttons stay, because logging out has to be
-   reachable by thumb. */
-@media (max-width: 734px) {
-  .auth-nav { gap: 10px; margin-left: 12px; }
-  .auth-email { display: none; }
-  .auth-btn { padding: 8px 13px; letter-spacing: 1.2px; }
-}
+/* On a phone the auth buttons leave the bar for the burger sheet — see the
+   phone-menu block. */

@@ -31,11 +31,16 @@ const mono = JetBrains_Mono({
 });
 
 /* Khmer face. Inter and Instrument Serif carry no Khmer glyphs, so without
-   this any Khmer entry falls through to whatever the device happens to have. */
+   this any Khmer entry falls through to whatever the device happens to have.
+
+   Not preloaded. At 59 kB it was the heaviest file in the head of every page,
+   in an English edition with no Khmer on it. Without the preload the browser
+   still fetches it the moment a Khmer character actually needs it. */
 const khmer = Noto_Sans_Khmer({
   subsets: ["khmer"],
   weight: ["300", "400", "600"],
   display: "swap",
+  preload: false,
   variable: "--font-khmer",
 });
 
