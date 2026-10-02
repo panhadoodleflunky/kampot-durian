@@ -96,7 +96,10 @@ export default function AuthStatus() {
         <Link className="auth-email auth-name" href="/account" title="Your account">
           {name || "Account"}
         </Link>
-        <button className="auth-btn" type="button" onClick={logOut}>
+        {/* Hidden in the laptop bar, which has no room for it beside six
+            links and a name (globals.css); it lives on /account there, and
+            stays here in the phone menu. */}
+        <button className="auth-btn auth-logout" type="button" onClick={logOut}>
           Log out
         </button>
       </div>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useRouter } from "next/navigation";
 import SignInPrompt from "./SignInPrompt.js";
 import NameForm from "./NameForm.js";
 import PasswordForm from "./PasswordForm.js";
@@ -10,7 +11,16 @@ import { createClient } from "../lib/supabase/client.js";
    can't be changed here, by the owner's choice; it is the account's
    identity and the one thing never displayed to anyone else. */
 export default function AccountPanel() {
+  const router = useRouter();
   const [state, setState] = useState({ status: "loading" });
+
+  /* Log out lives here on a laptop: the nav bar shows Contribute and the
+     name, and had no room left for a third button. */
+  async function logOut() {
+    await createClient().auth.signOut();
+    router.push("/");
+    router.refresh();
+  }
 
   useEffect(() => {
     const supabase = createClient();
@@ -47,6 +57,15 @@ export default function AccountPanel() {
       <section className="account-block">
         <h2 className="tile-label">Password</h2>
         <PasswordForm email={user.email} />
+      </section>
+
+      <section className="account-block">
+        <h2 className="tile-label">Log out</h2>
+        <div className="auth-actions">
+          <button className="auth-btn prompt-alt" type="button" onClick={logOut}>
+            Log out
+          </button>
+        </div>
       </section>
     </>
   );

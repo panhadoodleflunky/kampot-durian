@@ -2076,3 +2076,17 @@ textarea#entry-body { min-height: 16em; }
     font-size: 10px;
   }
 }
+
+/* The laptop bar, logged in: Contribute and the name only. Log out is on
+   /account (and in the phone menu). With all three beside six links, the
+   bar ran past the edge of a 1280px screen and Log out was cut off. */
+.gnav-inner > .auth-nav .auth-logout { display: none; }
+.gnav-inner > .auth-nav .auth-name { max-width: 16ch; }
+
+/* Logged in, the bar carries more (Contribute and a name), so it trades the
+   six links for the menu button earlier: measured, it needed about 1,180px
+   and overflowed a 1,060px screen by 124px. Logged out is unchanged. */
+@media (max-width: 1320px) {
+  .gnav-inner:has(.auth-name) .gnav-links { display: none; }
+  .gnav-inner:has(.auth-name) .gnav-menu { display: block; }
+}
