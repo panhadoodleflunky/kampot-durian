@@ -292,7 +292,9 @@ img { max-width: 100%; height: auto; display: block; }
 
 .gnav-sheet a:last-child { border-bottom: none; }
 
-@media (max-width: 1040px) {
+/* 1200, not the original 1040: the sixth link (Community, Lab 7) made the
+   logged-out bar overflow a 1,060px screen. */
+@media (max-width: 1200px) {
   .gnav-links { display: none; }
   .gnav-menu { display: block; }
 }
