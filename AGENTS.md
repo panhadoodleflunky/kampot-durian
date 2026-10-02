@@ -78,8 +78,15 @@ reporting. Both are gone. The rule now:
   missing. An admitted gap is worth more than a filled one.
 - Say out loud what this sourcing costs. A reader cannot check any figure here
   against an outside source, and the site must not paper over that.
-- `content/field-notes.js` and `content/sources.js` are the only places entry
-  content lives. Pages read from them; no page hard-codes an entry.
+- Since Lab 6, entries live in the Supabase `entries` table; `content/sources.js`
+  still holds the interview record and the cautions. Pages read from those;
+  no page hard-codes an entry.
+- **Field Notes are the curator's alone (Lab 7).** Only the curator account
+  can write to `entries`. Everyone else's contributions go to the separate
+  `contributions` table and appear under Community Notes, labelled as not
+  from this orchard. Never route a contributor's note into `entries`, and
+  never show a community note in the Field Notes catalogue, search, or
+  sitemap.
 - Four cautions travel with all of this material and are kept worded the same
   way everywhere they appear — see `cautions` in `content/sources.js`: peak
   prices, estimated tree counts, one orchard only, and the withheld location of
@@ -155,6 +162,8 @@ Three consequences of the above, written down so they are not argued later:
   lifted only for the install of those two packages and for the one
   `.gitignore` edit that made this file tracked. Nothing else in those files
   changes without the task naming them.
-- Sprint 2 builds contributor accounts: sign up, log in, log out. It does not
-  build entry ownership or submit-review-publish. Those are later tasks, and
-  "do not build ahead" still holds.
+- Sprint 2 builds contributor accounts (week 5) and own-your-entries (weeks
+  6–7): every entry has an owner, set from the session, and only the owner
+  can edit or delete it, enforced by row-level security. It does not build
+  submit-review-publish or any moderation. That is Sprint 3, and "do not
+  build ahead" still holds.
