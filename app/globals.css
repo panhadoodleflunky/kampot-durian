@@ -2002,3 +2002,77 @@ textarea#entry-body { min-height: 16em; }
 }
 
 .account-email { margin: 8px 0 0; font-family: var(--mono); font-size: 14px; }
+
+/* ---------------- phone polish (Lab 7) ---------------- */
+
+/* A link inside a page's opening paragraph: the guide's gold, not the
+   browser's default blue. */
+.sub a { color: var(--flesh); text-decoration-color: var(--line-2); text-underline-offset: 3px; }
+.sub a:hover { text-decoration-color: var(--flesh); }
+
+/* Where a form would be, for a logged-out visitor, and the empty Community
+   page: one sentence and real buttons, on a card like the entry cards. */
+.prompt-card {
+  max-width: 560px;
+  padding: 30px 30px 32px;
+  border: 1px solid var(--line);
+  border-radius: 24px;
+  background: rgba(var(--glass-rgb), 0.03);
+}
+.prompt-card .body-copy { margin: 0; }
+.prompt-card .auth-actions { margin-top: 22px; }
+.prompt-alt { padding: 15px 28px; font-size: 11.5px; letter-spacing: 1.8px; }
+
+@media (max-width: 734px) {
+  .prompt-card { padding: 24px 22px 26px; border-radius: 20px; }
+  .prompt-card .auth-actions > a { flex: 1; text-align: center; }
+
+  /* The phone menu, logged in or out: the name on its own line as a link
+     to the account, then two equal buttons, the first one filled — Log in
+     and Sign up, or Contribute and Log out. Before, three pills of three
+     different styles wrapped onto two ragged rows. */
+  .gnav-sheet-auth .auth-nav { gap: 10px; }
+  .gnav-sheet .gnav-sheet-auth .auth-nav > .auth-btn {
+    flex: 1;
+    text-align: center;
+    padding: 14px 16px;
+    font-size: 11px;
+    border: 1px solid var(--line-2);
+    border-radius: 999px;
+    color: var(--cream);
+  }
+  .gnav-sheet .gnav-sheet-auth .auth-nav > .auth-btn:first-child {
+    background: var(--flesh);
+    border-color: var(--flesh);
+    color: var(--on-flesh);
+  }
+  .gnav-sheet .gnav-sheet-auth a.auth-name {
+    order: -1;
+    flex-basis: 100%;
+    padding: 0 2px 8px;
+    border: none;
+    font-size: 12px;
+    color: var(--cream);
+  }
+  .gnav-sheet .gnav-sheet-auth a.auth-name::after { content: "  ·  Account \203A"; color: var(--flesh); }
+  /* A long name wraps instead of widening the sheet past the screen, and
+     the grid column may shrink below its content so nothing pushes the
+     buttons off the edge. */
+  .gnav-sheet { grid-template-columns: minmax(0, 1fr); }
+  .gnav-sheet .gnav-sheet-auth a.auth-name { white-space: normal; overflow: visible; }
+  .gnav-sheet .gnav-sheet-auth .auth-nav > .auth-btn { min-width: 0; }
+
+  /* Search: Clear sits inside the field instead of beside it, so the field
+     keeps the whole width of the phone and the button isn't squeezed
+     against the edge. */
+  .search-field { position: relative; gap: 0; }
+  .search-field .search-input { padding-right: 88px; }
+  .search-clear {
+    position: absolute;
+    right: 7px;
+    top: 50%;
+    transform: translateY(-50%);
+    padding: 10px 14px;
+    font-size: 10px;
+  }
+}

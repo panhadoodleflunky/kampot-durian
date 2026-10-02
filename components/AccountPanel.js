@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import SignInPrompt from "./SignInPrompt.js";
 import NameForm from "./NameForm.js";
 import PasswordForm from "./PasswordForm.js";
 import { createClient } from "../lib/supabase/client.js";
@@ -27,11 +27,7 @@ export default function AccountPanel() {
 
   if (state.status === "loading") return <p className="body-copy">Loading your account…</p>;
   if (state.status === "logged-out") {
-    return (
-      <p className="body-copy">
-        <Link className="link" href="/login">Log in</Link> to see your account.
-      </p>
-    );
+    return <SignInPrompt>Log in to see your account.</SignInPrompt>;
   }
 
   const { user, name } = state;

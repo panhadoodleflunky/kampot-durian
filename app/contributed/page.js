@@ -41,9 +41,12 @@ export default async function CommunityIndex() {
         <section className="section">
           <div className="inner">
             {notes.length === 0 ? (
-              <p className="body-copy">
-                Nothing yet. <Link className="link" href="/contribute">Add the first note</Link>
-              </p>
+              <div className="prompt-card">
+                <p className="body-copy">No notes yet. Yours could be the first.</p>
+                <div className="auth-actions">
+                  <Link className="btn" href="/contribute">Add a note</Link>
+                </div>
+              </div>
             ) : (
               <div className="entry-list">
                 {notes.map((note) => (

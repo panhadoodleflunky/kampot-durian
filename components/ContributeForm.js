@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import SignInPrompt from "./SignInPrompt.js";
 import { useRouter } from "next/navigation";
 import EntryForm from "./EntryForm.js";
 import { createClient } from "../lib/supabase/client.js";
@@ -70,12 +70,7 @@ export default function ContributeForm() {
 
   if (user === undefined) return <p className="body-copy">Checking who you are…</p>;
   if (user === null) {
-    return (
-      <p className="body-copy">
-        Contributing needs an account. <Link className="link" href="/login">Log in</Link>{" "}
-        or <Link className="link" href="/signup">sign up</Link>.
-      </p>
-    );
+    return <SignInPrompt>Adding an entry needs an account. Reading never does.</SignInPrompt>;
   }
   return (
     <>

@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Link from "next/link";
+import SignInPrompt from "./SignInPrompt.js";
 import { useRouter } from "next/navigation";
 import EntryForm from "./EntryForm.js";
 import { createClient } from "../lib/supabase/client.js";
@@ -77,7 +77,7 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
   if (status === "loading") return <p className="body-copy">Loading the entry…</p>;
   if (status === "failed") return <p className="auth-error">{state.message}</p>;
   if (status === "missing") return <p className="body-copy">There's no entry at this address.</p>;
-  if (status === "logged-out") return <p className="body-copy"><Link className="link" href="/login">Log in</Link> to edit your entries.</p>;
+  if (status === "logged-out") return <SignInPrompt>Log in to edit your entries.</SignInPrompt>;
   if (status === "not-yours") return <p className="body-copy">Only the person who added this entry can edit it.</p>;
 
   const { row } = state;
