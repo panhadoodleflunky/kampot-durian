@@ -29,30 +29,35 @@ function excerpt(text, limit) {
 /* One Field Note, in the shape entry-sketch.md defines. `variant` only
    changes how much of the entry the card shows, so a run of ten cards does
    not read as one repeated block. `showNumber` is off on the home page, where
-   three cards out of eleven would carry meaningless catalogue numbers. */
+   three cards out of eleven would carry meaningless catalogue numbers.
+   A community note (Lab 7) passes basePath="/contributed" and carries an
+   `author` instead of a number. */
 export default function EntryCard({
   note,
   variant = "plain",
   showNumber = true,
+  basePath = "/field-notes",
   delay = 0,
 }) {
-  const { slug, figNumber, title, khmerName, body, sources = [], tags = [], status } = note;
+  const { slug, figNumber, title, khmerName, body, sources = [], tags = [], status, author } = note;
+  const href = `${basePath}/${slug}`;
   const limit = variant === "lead" ? 320 : variant === "brief" ? 110 : 200;
   const inProgress = status === "in-progress";
 
   return (
     <Reveal as="article" className={`entry entry-${variant}`} delay={delay}>
-      {showNumber || inProgress ? (
+      {showNumber || inProgress || author ? (
         <div className="entry-head">
           {showNumber ? (
             <span className="entry-no" aria-hidden="true">{figNumber}</span>
           ) : null}
           {inProgress ? <span className="entry-status">In progress</span> : null}
+          {author ? <span className="entry-status">By {author}</span> : null}
         </div>
       ) : null}
 
       <h3 className="entry-title">
-        <Link href={`/field-notes/${slug}`} lang={lang(title)}>
+        <Link href={href} lang={lang(title)}>
           {title}
         </Link>
       </h3>
@@ -73,7 +78,7 @@ export default function EntryCard({
         <span>
           {sources.length} {sources.length === 1 ? "source" : "sources"}
         </span>
-        <Link className="link" href={`/field-notes/${slug}`}>
+        <Link className="link" href={href}>
           Read the entry
         </Link>
       </p>

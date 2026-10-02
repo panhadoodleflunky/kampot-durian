@@ -13,6 +13,7 @@ import ThemeToggle from "./ThemeToggle.js";
 const LINKS = [
   { href: "/region", label: "The Region" },
   { href: "/field-notes", label: "Field Notes" },
+  { href: "/contributed", label: "Community" },
   { href: "/field-notes#search", label: "Search" },
   { href: "/about", label: "About" },
   { href: "/sources", label: "Sources" },
