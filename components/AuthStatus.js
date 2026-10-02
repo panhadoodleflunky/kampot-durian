@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
+import AccountMenu from "./AccountMenu.js";
 
 /* Who the reader is, in the nav. Deliberately a client component: reading the
    session on the server means reading cookies, and a page that reads cookies
@@ -22,7 +23,10 @@ async function supabase() {
 /* Shows the reader's name, from `profiles`, linking to /account. Not the
    email: an address in the nav ends up in every screenshot and every
    projected demo, and the name is what the rest of the site shows anyway. */
-export default function AuthStatus() {
+/* `variant`: "bar" in the nav bar, where the name opens a small account
+   panel (AccountMenu); "sheet" in the phone menu, where everything is laid
+   out flat at finger size: the name, then Contribute and Log out. */
+export default function AuthStatus({ variant = "bar" }) {
   const router = useRouter();
   const [userId, setUserId] = useState("");
   const [name, setName] = useState("");
@@ -93,15 +97,18 @@ export default function AuthStatus() {
         <Link className="auth-btn" href="/contribute">
           Contribute
         </Link>
-        <Link className="auth-email auth-name" href="/account" title="Your account">
-          {name || "Account"}
-        </Link>
-        {/* Hidden in the laptop bar, which has no room for it beside six
-            links and a name (globals.css); it lives on /account there, and
-            stays here in the phone menu. */}
-        <button className="auth-btn auth-logout" type="button" onClick={logOut}>
-          Log out
-        </button>
+        {variant === "sheet" ? (
+          <>
+            <Link className="auth-email auth-name" href="/account" title="Your account">
+              {name || "Account"}
+            </Link>
+            <button className="auth-btn" type="button" onClick={logOut}>
+              Log out
+            </button>
+          </>
+        ) : (
+          <AccountMenu name={name} onLogOut={logOut} />
+        )}
       </div>
     );
   }

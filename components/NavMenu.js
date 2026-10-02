@@ -76,7 +76,7 @@ export default function NavMenu({ links, current }) {
               </Link>
             ))}
             <div className="gnav-sheet-auth" onClick={() => setOpen(false)}>
-              <AuthStatus />
+              <AuthStatus variant="sheet" />
             </div>
           </div>
         </>

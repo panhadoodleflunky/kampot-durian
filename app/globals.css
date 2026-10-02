@@ -2079,16 +2079,100 @@ textarea#entry-body { min-height: 16em; }
   }
 }
 
-/* The laptop bar, logged in: Contribute and the name only. Log out is on
-   /account (and in the phone menu). With all three beside six links, the
-   bar ran past the edge of a 1280px screen and Log out was cut off. */
-.gnav-inner > .auth-nav .auth-logout { display: none; }
-.gnav-inner > .auth-nav .auth-name { max-width: 16ch; }
+/* ---------------- the account panel (laptop bar) ---------------- */
 
-/* Logged in, the bar carries more (Contribute and a name), so it trades the
-   six links for the menu button earlier: measured, it needed about 1,180px
-   and overflowed a 1,060px screen by 124px. Logged out is unchanged. */
-@media (max-width: 1320px) {
-  .gnav-inner:has(.auth-name) .gnav-links { display: none; }
-  .gnav-inner:has(.auth-name) .gnav-menu { display: block; }
+.account-menu { position: relative; }
+
+.account-menu-btn { display: inline-flex; align-items: center; gap: 9px; }
+.account-menu-name {
+  /* In px, not ch: the letter-spacing made 16ch cut "Sovanpanha Nonn"
+     short. A longer name still ends in an ellipsis; the panel shows it
+     whole. */
+  max-width: 130px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.account-menu-caret {
+  width: 6px;
+  height: 6px;
+  margin-top: -3px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg);
+  transition: transform 0.2s ease;
+}
+.account-menu-btn[aria-expanded="true"] { color: var(--flesh); border-color: var(--line-2); }
+.account-menu-btn[aria-expanded="true"] .account-menu-caret { transform: rotate(225deg); margin-top: 3px; }
+
+.account-menu-panel {
+  position: absolute;
+  top: calc(100% + 10px);
+  right: 0;
+  z-index: 5;
+  min-width: 230px;
+  display: grid;
+  padding: 8px;
+  background: rgba(var(--husk-rgb), 0.97);
+  -webkit-backdrop-filter: saturate(180%) blur(22px);
+  backdrop-filter: saturate(180%) blur(22px);
+  border: 1px solid var(--line-2);
+  border-radius: 16px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
+  animation: sheet-in 0.2s cubic-bezier(0.28, 0.11, 0.32, 1);
+}
+
+.account-menu-who {
+  display: grid;
+  gap: 4px;
+  margin: 0 0 6px;
+  padding: 10px 12px 12px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.account-menu-who strong {
+  font-family: var(--sans);
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--cream);
+  overflow-wrap: anywhere;
+}
+
+.account-menu-panel a,
+.account-menu-logout {
+  display: block;
+  padding: 11px 12px;
+  border-radius: 10px;
+  background: none;
+  border: 0;
+  text-align: left;
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: var(--muted);
+  text-decoration: none;
+  cursor: pointer;
+}
+.account-menu-panel a:hover,
+.account-menu-logout:hover { background: rgba(var(--glass-rgb), 0.06); color: var(--cream); }
+.account-menu-logout { margin-top: 6px; border-top: 1px solid var(--line); border-radius: 0 0 10px 10px; color: var(--flesh); }
+
+@media (prefers-reduced-motion: reduce) {
+  .account-menu-panel { animation: none; }
+  .account-menu-caret { transition: none; }
+}
+
+/* Logged in, the bar carries more (Contribute and the name button), so it
+   trades the six links for the menu button earlier. Measured: at 1,321px it
+   still overflowed by about 40px; at 1,401px and up it fits. */
+@media (max-width: 1400px) {
+  .gnav-inner:has(.account-menu) .gnav-links { display: none; }
+  .gnav-inner:has(.account-menu) .gnav-menu { display: block; }
 }
