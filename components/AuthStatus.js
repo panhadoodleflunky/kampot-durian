@@ -19,9 +19,13 @@ async function supabase() {
   const { createClient } = await import("../lib/supabase/client.js");
   return createClient();
 }
+/* Shows the reader's name, from `profiles`, linking to /account. Not the
+   email: an address in the nav ends up in every screenshot and every
+   projected demo, and the name is what the rest of the site shows anyway. */
 export default function AuthStatus() {
   const router = useRouter();
-  const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState("");
+  const [name, setName] = useState("");
   const [ready, setReady] = useState(false);
 
   useEffect(() => {
@@ -33,15 +37,17 @@ export default function AuthStatus() {
       if (dropped) return;
 
       client.auth.getUser().then(({ data }) => {
-        setEmail(data.user?.email ?? "");
+        setUserId(data.user?.id ?? "");
         setReady(true);
       });
 
       /* Fires on login, logout and token refresh, in this tab and in any
          other tab of the same browser. Without it, logging out in one tab
-         would leave the other one still printing an email address. */
+         would leave the other one still showing a name. Only the id is
+         kept here: Supabase warns against calling it again from inside
+         this callback, so the name is fetched by the effect below. */
       listener = client.auth.onAuthStateChange((_event, session) => {
-        setEmail(session?.user?.email ?? "");
+        setUserId(session?.user?.id ?? "");
         setReady(true);
       });
     });
@@ -51,6 +57,24 @@ export default function AuthStatus() {
       listener?.data.subscription.unsubscribe();
     };
   }, []);
+
+  /* The name, once per account rather than on every token refresh; and
+     again when the account page announces a rename. */
+  useEffect(() => {
+    if (!userId) return setName("");
+    let dropped = false;
+    supabase()
+      .then((client) => client.from("profiles").select("display_name").eq("id", userId).maybeSingle())
+      .then(({ data }) => {
+        if (!dropped) setName(data?.display_name ?? "");
+      });
+    const renamed = (e) => setName(e.detail);
+    window.addEventListener("profile-renamed", renamed);
+    return () => {
+      dropped = true;
+      window.removeEventListener("profile-renamed", renamed);
+    };
+  }, [userId]);
 
   async function logOut() {
     const client = await supabase();
@@ -63,12 +87,15 @@ export default function AuthStatus() {
      single page load. */
   if (!ready) return <span className="auth-slot" aria-hidden="true" />;
 
-  if (email) {
+  if (userId) {
     return (
       <div className="auth-nav">
-        <span className="auth-email" title={email}>
-          {email}
-        </span>
+        <Link className="auth-btn" href="/contribute">
+          Contribute
+        </Link>
+        <Link className="auth-email auth-name" href="/account" title="Your account">
+          {name || "Account"}
+        </Link>
         <button className="auth-btn" type="button" onClick={logOut}>
           Log out
         </button>

@@ -27,7 +27,7 @@ export default function Login() {
 
       <main className="section" id="login">
         <div className="inner reading">
-          <AuthForm mode="login" />
+          <AuthForm />
         </div>
       </main>
 

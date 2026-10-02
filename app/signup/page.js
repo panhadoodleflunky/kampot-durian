@@ -1,7 +1,7 @@
 import SiteNav from "../../components/SiteNav.js";
 import SiteFooter from "../../components/SiteFooter.js";
 import SectionLabel from "../../components/SectionLabel.js";
-import AuthForm from "../../components/AuthForm.js";
+import SignupForm from "../../components/SignupForm.js";
 
 export const metadata = {
   title: "Sign up — Kampot Durian",
@@ -19,16 +19,16 @@ export default function Signup() {
           <SectionLabel no="01">Contributors</SectionLabel>
           <h1 className="headline-sm">Sign up.</h1>
           <p className="sub">
-            An email address and a password, and nothing else is asked for. The
-            guide is a record of testimony from named people, so an account
-            here is a name that will sit beside what it contributes.
+            An account lets you add notes to Community Notes, under your
+            name, and edit or delete them later. The Field Notes stay the
+            orchard&rsquo;s own. Your email and birthdate are never shown.
           </p>
         </div>
       </header>
 
       <main className="section" id="signup">
         <div className="inner reading">
-          <AuthForm mode="signup" />
+          <SignupForm />
         </div>
       </main>
 
