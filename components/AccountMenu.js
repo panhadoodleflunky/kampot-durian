@@ -57,9 +57,6 @@ export default function AccountMenu({ name, onLogOut }) {
           <Link href="/account" onClick={() => setOpen(false)}>
             Your account
           </Link>
-          <Link href="/contribute" onClick={() => setOpen(false)}>
-            Add an entry
-          </Link>
           <button
             type="button"
             className="account-menu-logout"
