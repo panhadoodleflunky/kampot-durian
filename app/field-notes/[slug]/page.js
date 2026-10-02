@@ -5,6 +5,7 @@ import SiteNav from "../../../components/SiteNav.js";
 import SiteFooter from "../../../components/SiteFooter.js";
 import Reveal from "../../../components/Reveal.js";
 import ImageSlot from "../../../components/ImageSlot.js";
+import OwnerActions from "../../../components/OwnerActions.js";
 import { getEntries } from "../../../lib/entries.js";
 import { getNote as getDraftNote } from "../../../content/field-notes.js";
 
@@ -94,6 +95,12 @@ export default async function FieldNote({ params }) {
                     In progress — the material behind this entry is thin.
                   </p>
                 ) : null}
+                <OwnerActions
+                  id={note.id}
+                  owner={note.owner}
+                  slug={note.slug}
+                  photoUrl={note.photoUrl}
+                />
               </Reveal>
 
               {note.image ? (
@@ -107,7 +114,8 @@ export default async function FieldNote({ params }) {
                     height={note.image.height}
                     sizes="(max-width: 780px) 100vw, 720px"
                   />
-                  <figcaption>{note.image.caption}</figcaption>
+                  {/* Contributed photos carry no caption. */}
+                  {note.image.caption ? <figcaption>{note.image.caption}</figcaption> : null}
                 </Reveal>
               ) : wanted ? (
                 /* Renders under `next dev` only — see components/ImageSlot.js. */
