@@ -69,7 +69,8 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
       console.error("update entry: no row came back for id", row.id);
       return "That change wasn't saved.";
     }
-    await refreshArchive();
+    /* Already saved: a failed refresh must not read as a failed save. */
+    await refreshArchive().catch((failed) => console.error("refresh archive:", failed));
     router.push(`${basePath}/${slug}`);
   }
 

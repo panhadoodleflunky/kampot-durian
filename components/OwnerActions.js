@@ -51,7 +51,10 @@ export default function OwnerActions({ table = "entries", basePath = "/field-not
     /* The entry is gone; its photo goes too if it was in the bucket. */
     const path = storagePath(photoUrl);
     if (path) await client.storage.from("photos").remove([path]);
-    await refreshArchive();
+    /* The delete has already happened. A dropped connection here would
+       throw and leave the button on "Deleting" for good; the pages rebuild
+       within a minute anyway, so a failed refresh is not worth stopping for. */
+    await refreshArchive().catch((failed) => console.error("refresh archive:", failed));
     router.push(basePath);
   }
 

@@ -64,7 +64,8 @@ export default function ContributeForm() {
       return saveError("insert entry", error);
     }
 
-    await refreshArchive();
+    /* Already saved: a failed refresh must not read as a failed save. */
+    await refreshArchive().catch((failed) => console.error("refresh archive:", failed));
     router.push(`${curator ? "/field-notes" : "/contributed"}/${data.slug}`);
   }
 

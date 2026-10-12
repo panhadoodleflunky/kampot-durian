@@ -45,7 +45,8 @@ export default function NameForm({ userId, current }) {
     /* The nav listens for this, so the new name appears without a reload;
        the community pages are rebuilt so the notes show it too. */
     window.dispatchEvent(new CustomEvent("profile-renamed", { detail: trimmed }));
-    await refreshArchive();
+    /* Already saved: a failed refresh must not read as a failed save. */
+    await refreshArchive().catch((failed) => console.error("refresh archive:", failed));
   }
 
   return (
