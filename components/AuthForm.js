@@ -10,8 +10,7 @@ import { createClient } from "../lib/supabase/client.js";
 
    Every failure renders one sentence that does not say which half was wrong.
    "No account found with that email" would answer, for anyone who cares to
-   ask, whether an address has an account on this site — user enumeration, and
-   Rasmey and Vanny are named on every entry here. The one exception is a
+   ask, whether an address has an account on this site — user enumeration. The one exception is a
    request that never reached Supabase: "invalid password" there would send
    the reader to retype a password that was right all along. */
 function readableError(failed) {

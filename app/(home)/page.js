@@ -218,9 +218,9 @@ export default async function Home() {
             <Reveal className="prose-row">
               <SectionLabel no="04">How this was made</SectionLabel>
               <p className="reading-body">
-                Everything here comes from Rasmey and Vanny, who own and work
-                the orchard at Teuk Chhou. Nothing else, and the guide says so
-                where it matters.
+                Everything here comes from the family who own and work the
+                orchard at Teuk Chhou, and one neighbour. Nothing else, and the
+                guide says so where it matters.
                 The method is on <Link href="/about">About the Project</Link>.
                 The interviews are on{" "}
                 <Link href="/sources">Sources &amp; Credits</Link>.

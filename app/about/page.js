@@ -74,8 +74,8 @@ export default async function About() {
           <SectionLabel no="01">About the Project</SectionLabel>
           <h1 className="headline-sm">How this was made.</h1>
           <p className="sub">
-            Two growers, one orchard. Everything here came out of what they
-            know, and nothing came off the internet.
+            One orchard and its growers. Everything here came out of what
+            they know, and nothing came off the internet.
           </p>
         </div>
       </header>
@@ -87,7 +87,8 @@ export default async function About() {
               <h2 className="tile-label">What this is</h2>
               <p className="reading-body">
                 A field guide to one durian orchard at Teuk Chhou, Kampot,
-                built entirely out of what its two growers know. Four
+                built out of what its two growers know, with a neighbour's account
+                beside theirs. Four
                 varieties. How you read a fruit for ripeness. How long each
                 one takes from petal drop to harvest. What a counterfeit looks
                 like on a highway stall. What 2024 cost them. What an export
@@ -99,13 +100,15 @@ export default async function About() {
             <Reveal className="prose-row">
               <h2 className="tile-label">Method</h2>
               <p className="reading-body">
-                {method} Rasmey and Vanny own and work the two hectares at
-                Teuk Chhou, and they answered directly for this project,
-                covering every entry here. What came out of it includes the
+                {method} The growers are my parents. They own and work the
+                two hectares at Teuk Chhou, and they answered directly for this
+                project, covering every entry here; a neighbour who grows
+                Monthong on three hectares nearby answered for three of them. What came out of it includes the
                 days from petal drop to harvest for each of their four
                 varieties, which I have not found written down anywhere else.
-                They are named as the source on every entry, because the guide
-                rests on them and on nothing else.
+                They asked not to be named, so they are credited on every entry
+                as the orchard's owners. The numbers are public; the family is
+                not.
               </p>
               <p className="reading-body">
                 This is a narrow basis on purpose. An earlier version of the
@@ -141,10 +144,11 @@ export default async function About() {
                     {open === 1 ? "is" : "are"} marked in progress.{" "}
                   </>
                 ) : null}
-                The drought entry follows three seasons
-                on one farm and cannot say how far that ran across the
-                district. The export entry can describe standing outside a
-                programme, not the programme.{" "}
+                The drought entry sets two neighbours&apos; 2024 beside the
+                growers&apos; own, but its district figure is their estimate,
+                not a count. The export entry can describe standing outside a
+                programme, and what happened to neighbours who went in, not the
+                programme itself.{" "}
                 {entries.length ? (
                   <>
                     {spell(unillustrated)} of the{" "}

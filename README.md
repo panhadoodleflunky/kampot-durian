@@ -16,7 +16,7 @@ Fall 2026. Compiled by Sovanpanha Nonn.
 
 **Primary sources only. Real people, asked directly. Nothing off the internet.**
 
-> Every claim on this site comes from Rasmey and Vanny, who own and work a
+> Every claim on this site comes from the family who own and work a
 > durian orchard at Teuk Chhou, Kampot, or from the Khmer vocabulary they use
 > in the field. No publication, news report, trade standard, research paper, or
 > website is cited anywhere, and no borrowed photograph appears.

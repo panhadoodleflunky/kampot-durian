@@ -19,7 +19,7 @@ const FIGURES = [
   {
     h: "The orchard",
     v: "~2 ha",
-    p: "Two hectares at Teuk Chhou, worked by Rasmey and Vanny, who own it. Everything here comes off it.",
+    p: "Two hectares at Teuk Chhou, worked by the family who own it. Everything here comes off it.",
   },
   {
     h: "Trees, in four varieties",

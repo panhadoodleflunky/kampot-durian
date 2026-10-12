@@ -4,8 +4,8 @@ What one entry in this archive looks like, as data.
 
 This archive is a record of testimony from real people, asked directly. Every
 entry traces to the interview behind it, so `sources` is required. There is no
-`contributor` field: Rasmey and Vanny are the source of the whole guide, and
-are named on every entry instead.
+`contributor` field: the orchard's owners are the source of the whole guide,
+and are credited on every entry instead — by role, not by name, at their request.
 
 | Field | Required? | Notes |
 |---|---|---|

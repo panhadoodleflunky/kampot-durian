@@ -39,7 +39,7 @@ against rendered screenshots of every page at desktop and mobile widths:
 
 The guide dropped every outside source: seventeen citations, every
 statistic, every reported event, one licensed photograph. What remains
-is what Rasmey and Vanny gave directly and the Khmer field vocabulary
+is what the growers gave directly and the Khmer field vocabulary
 they use, and the site says so where it matters. Copy tightened across
 the home page and field notes; sources box and tag band reworked.
 

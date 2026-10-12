@@ -12,8 +12,8 @@ export default function SiteFooter() {
         <p className="foot-fine">
           A student field guide built for ICT 340 — Vibe Coding at the American
           University of Phnom Penh, Fall 2026. Compiled from interviews with
-          Rasmey and Vanny, who own and work a durian orchard in Teuk Chhou
-          district, Kampot. Photographs by{" "}
+          the family who own and work a durian orchard in Teuk Chhou
+          district, Kampot, and one of their neighbours. Photographs by{" "}
           {collection.curator}. Interviews and credits in full on{" "}
           <Link href="/sources">Sources &amp; Credits</Link>.
         </p>
