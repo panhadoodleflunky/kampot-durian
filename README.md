@@ -114,8 +114,7 @@ Every word of the query must appear somewhere in the entry, so `kampot drought`
 finds the entry about both rather than everything about either.
 
 **Browsing is paged; searching is not.** Four entries to a page when you are
-browsing — eleven entries across three pages, each page one full turn of the
-card-variant cycle — and no pager at all once you type — a query is already the reader
+browsing — each full page one turn of the card-variant cycle — and no pager at all once you type — a query is already the reader
 narrowing the list, and paging their matches would hide results behind a
 control they did not ask for.
 

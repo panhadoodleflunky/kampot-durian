@@ -6,8 +6,8 @@
    index reads as a laid-out page instead of a list of identical blocks. */
 export const VARIANTS = ["lead", "plain", "brief", "brief", "plain"];
 
-/* Entries per page when browsing. Four, which puts the eleven entries across
-   three pages and lands each page on one full turn of the variant cycle:
+/* Entries per page when browsing. Four, which lands each full page on one
+   turn of the variant cycle:
    lead, plain, brief, brief. Searching is not paged — a query is already the
    reader narrowing the list, and paging their matches would hide results
    behind a control they did not ask for. */
