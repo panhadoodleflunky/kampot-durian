@@ -5,15 +5,18 @@
    single block of six hundred words is not readable on a phone; the entry
    page renders one <p> per element.
 
-   Every claim here comes from Rasmey and Vanny, who own and work the orchard
-   at Teuk Chhou, asked directly, together with the Khmer field vocabulary
+   Every claim here comes from the orchard's owners at Teuk Chhou, the
+   curator's parents, asked directly — with one neighbouring grower's account
+   on three entries — together with the Khmer field vocabulary
    they use there. The record is in content/sources.js.
 
    `image` is null on the entries with no photograph yet. Those carry
    `imageWanted` instead — a note on what to shoot, rendered in place on the
    entry page while running `next dev` and never in a production build. When
    the photograph exists, add it to content/photos.js, point `image` at it,
-   and delete the `imageWanted` line.
+   and delete the `imageWanted` line. Monthong and the counterfeit entry have
+   neither, on purpose: both turn on the fruit itself, there is no fruit in
+   the off-season, and a picture of anything else would be filler.
 
    khmerName is empty throughout this edition. The site is English-only for
    now; the growers' Khmer terms are held for the Khmer edition and recorded in
@@ -26,7 +29,8 @@
    on every entry. What it covered is set out on the Sources page. */
 import photos from "./photos.js";
 
-const INTERVIEW = { text: "Interview with Rasmey and Vanny, the orchard's owners" };
+const INTERVIEW = { text: "Interview with the orchard's owners, the curator's parents" };
+const NEIGHBOUR = { text: "Interview with a neighbouring grower at Teuk Chhou" };
 const VOCAB = { text: "Khmer field vocabulary" };
 
 const fieldNotes = [
@@ -100,8 +104,9 @@ const fieldNotes = [
       "In more than thirty years, no researcher and no extension officer has come to this orchard to take a sample of Sadong Kit or to write down where its trees stand. They were here before the family was, standing when the land was bought in 1994, which makes them at least thirty-two years old and probably older. There are about fifty of them, against a hundred Ov Khak, fifty Monthong and fifteen Musang King — estimates, all of it, because trees die and get replanted and no exact count holds for a season.",
       "What they produce has never been described in print either, so this is the growers' own account. Deep yellow flesh, thick enough to stick to the roof of the mouth, sweet at first and then a bitterness that stays — burnt caramel, dark roasted coffee — with a faint fermented note that leaves the tongue slightly numb. Monthong is the easy introduction to durian; this is the one people keep when they want difficulty.",
       "It is also a poor commercial fruit, and everyone knows exactly why. The whole block ripens inside seven to ten days, and once off the tree it turns watery and ferments toward sour alcohol in thirty-six to forty-eight hours. It yields thirty to forty percent less per tree than Monthong, and traders will not touch it, so it sells at the gate. When the orchards were replanted after the war the market wanted Monthong, and later Musang King at export prices; Sadong Kit survived here only because the same customers book the whole crop every April, before a fruit is cut. Older people use the full name and younger traders shorten it, and it refers to the short tight cluster of thorns near the stem. The growers give it twenty years in commercial farming and then home gardens — which says more about what was thought worth writing down than about the fruit.",
+      "Not every orchard kept it, and a neighbour who did not puts the market's case better than anyone. He grows Monthong and Ov Khak on three hectares nearby, and cut down his last three Sadong Kit in 2008: small yields, and fruit that rots on the back of a motorbike before it reaches the paved road. “It tastes wonderful, but you can't buy fertilizer or pay school fees with wonderful taste. You need volume, and Monthong gives volume.”",
     ],
-    sources: [VOCAB, INTERVIEW],
+    sources: [VOCAB, INTERVIEW, NEIGHBOUR],
     image: photos["/sadong-kit.jpg"],
     tags: ["sadong kit", "native variety", "research gap"],
     status: "published",
@@ -117,8 +122,6 @@ const fieldNotes = [
     ],
     sources: [VOCAB, INTERVIEW],
     image: null,
-    imageWanted:
-      "A Monthong fruit, on the tree or opened. Opened is the stronger picture: it is the pale sweet flesh and the four-to-six kilo size that the entry turns on. Shoot it beside an Ov Khak if one is to hand — the contrast is the whole variety.",
     tags: ["monthong", "variety", "trade"],
     status: "published",
   },
@@ -128,8 +131,9 @@ const fieldNotes = [
     title: "Musang King: A Recent Introduction",
     khmerName: "",
     body: [
-      "Musang King has no history in Kampot. What it has is fifteen trees, top-worked in May 2021 onto the limbs of ten-year-old native rootstock — not planted, but grafted onto what was already standing — from scion wood bought through an importer, out of a Malaysian nursery by way of Vietnam. The method is quick to describe: cut back the branch, split the bark, seat a wedge-cut scion, bind it, and bag it in clear plastic for three weeks until green shows. Thirty percent failed through the first rainy season, and the ones that took set their first fruit only this year, three or four to a tree.",
-      "Keeping them alive is its own work. The young shoots burn above forty degrees, which April reaches, so the row sits under seventy percent shade netting through the dry season and can be picked out from a distance by the nets and the blue tags at the trunks. The growers think the flesh comes out of this soil deeper orange and more resinous than the Malaysian frozen fruit, and they are content with the experiment at fifteen trees and certain it would be wrong at any larger scale. Their reason is not money. If enough growers swap native trees for this one, they say, the flavour that makes Kampot durian its own disappears inside a generation.",
+      "Musang King has no history in Kampot. What it has is fifteen trees, top-worked in May 2021 onto the limbs of ten-year-old native rootstock — not planted, but grafted onto what was already standing — from scion wood bought through an importer, out of a Malaysian nursery by way of Vietnam. The method is quick to describe: cut back the branch, split the bark, seat a wedge-cut scion, bind it, and bag it in clear plastic for three weeks until green shows. Thirty percent failed through the first rainy season, and the ones that took set their first fruit in June 2026, three or four to a tree.",
+      "Keeping them alive is its own work. The young shoots burn above forty degrees, which April reaches, so the row sits under seventy percent shade netting through the dry season and can be picked out from a distance by the nets and the blue tags at the trunks. The first fruit came out mustard-yellow to orange, rich, creamy and heavily alcoholic, and a little drier than the Malaysian frozen fruit, which the growers put down to the granite gravel in this soil. None of it was sold. The family ate two to judge it and gave the rest to the village chief and the head monk at the temple; 2027 will be the first season any of it goes to market.",
+      "They are content with the experiment at fifteen trees and certain it would be wrong at any larger scale. Their reason is not money. If enough growers swap native trees for this one, they say, the flavour that makes Kampot durian its own disappears inside a generation.",
     ],
     sources: [VOCAB, INTERVIEW],
     image: null,
@@ -150,8 +154,6 @@ const fieldNotes = [
     ],
     sources: [VOCAB, INTERVIEW],
     image: null,
-    imageWanted:
-      "The middlewoman weighing at the gate, or the roadside stalls on National Road 3 where relabelled fruit is sold. Alternative, and cheaper to get: a close-up of real Teuk Chhou surface — fine mountain dust, uneven thorns — since reading a fake off the skin is what the entry describes.",
     tags: ["market", "counterfeit", "price"],
     status: "published",
   },
@@ -163,12 +165,14 @@ const fieldNotes = [
     body: [
       "Durian needs a short dry spell to flower, and the dry seasons have been running long. In 2024 the trees went into survival and threw off their own flowers and young fruit to hold water: forty-three degrees in May, the mountain stream gone by late March, leaves wilting by nine every morning. Four mature trees died when their roots dried, a quarter of the season's fruit weight went to early abortion, and the rain that used to arrive in the first week of May did not reach the orchard until mid-June.",
       "So they stopped waiting for rain. Water now comes from a thirty-two-metre well pulled by a three-horsepower diesel pump burning eight to ten litres a day — twelve dollars daily in fuel to water trees — and the level in that well dropped three metres by the height of the season. Rice straw goes down fifteen centimetres deep at the drip-line, held thirty centimetres clear of the trunk so the collar will not rot, and seventy percent shade netting goes over the young trees at fifteen dollars each, worth three or four degrees. One thing failed outright: an anti-transpirant spray that clogged the leaves, brought them down, and cost two hundred dollars.",
-      "None of it is shared. Every farm here digs its own pond and drills its own well, and no government or NGO help reached this orchard after 2024. Nor was it the first loss — in 2014 floodwater from the river stood on the low lot for four days, and twelve mature Ov Khak died of root rot inside a month. Twenty years is viable, they say, but only with real water storage behind it. How far any of this runs past their fence they do not claim to know, and neither does this guide. It asked one orchard.",
+      "The deep well is the reason the losses stopped at four trees. The neighbour to the east waters from a shallow dug pond, which was mud by mid-April; he lost more than thirty mature Monthong, the leaves gone, the bark split, and root rot behind it. A second neighbour, who farms three hectares nearby, had a twenty-five-metre well that went dry in late April and a ravine off the ridge that is dry by February in a bad year, so he bought water trucked in from Kampot town — three tankers a week, thirty-five dollars a load — to keep his bearing trees alive. He lost eight trees and almost his whole early fruit set. “2024 almost bankrupted me.” Across the district, by the growers' reckoning, small farms lost anywhere from a tenth to two-fifths of their standing canopy that year.",
+      "None of it is shared. Every farm here digs its own pond and drills its own well, and no government or NGO help reached this orchard after 2024. Nor was it the first loss — in 2014 floodwater from the river stood on the low lot for four days, and twelve mature Ov Khak died of root rot inside a month. So late in 2024 the family built the storage they had been saying they needed: eighteen hundred dollars to dig the farm pond two metres deeper and wider, and a reinforced concrete wall along the intake bank so the silt that comes off the mountain in the monsoon cannot fill it back in.",
+      "The seasons since have been kinder. In 2025 the rain came back in early May, mild and steady, and the surviving trees flushed new leaf, though the crop ran about a fifth short while they rebuilt. In 2026 it came back to nine-tenths of what the orchard bore before the drought, and the oldest Ov Khak carried more than ninety fruit. The trees that lost limbs in 2024 still hold a thinner canopy than they did. Twenty years is viable, the growers say, but only with real water storage behind it. The district figure above is their estimate, not a count; this guide asked two farms, not the district.",
     ],
-    sources: [VOCAB, INTERVIEW],
+    sources: [VOCAB, INTERVIEW, NEIGHBOUR],
     image: photos["/drought-damage-tree.jpg"],
     tags: ["climate", "drought", "irrigation"],
-    status: "in-progress",
+    status: "published",
   },
   {
     slug: "kampots-season",
@@ -191,16 +195,17 @@ const fieldNotes = [
     title: "The Export Expansion, Seen from a Smallholding",
     khmerName: "",
     body: [
-      "Cambodian durian exports have grown fast, and this orchard has no part in it. The growers are not on the approved list and do not expect to be: it wants a registered pack-house, continuous chemical logging and land held in blocks, none of which a two-hectare farm has, and they put the cost of getting there at five thousand dollars. Chinese brokers came to the village twice in late 2025 offering to buy Monthong on exclusive contracts at a fixed low price, and they said no. A fifteen-hectare farm nearby did certify, and had to build concrete mixing sheds and wash stations for the workers and give up traditional manure to do it. Inspectors run seminars in village halls; none has walked this soil.",
-      "What the growers can actually measure is indirect, and so far it has gone their way. Local gate prices rose a thousand or two thousand riel a kilo once the big farms sent their crop to export and left less for Phnom Penh. They think the benefit sits with the large plantations elsewhere in the country, and that the local market suits them better anyway — Phnom Penh will buy Ov Khak, and an inspector's paperwork will not.",
-      "What they watch is the other side of it. Investors from Phnom Penh have been buying hillside land around Teuk Chhou and clearing it for Monthong and Musang King in monoculture, three to five years off bearing age, and when that crop lands they expect Monthong prices to fall hard — leaving the farms that kept the local varieties better placed. This entry is marked in progress. What the export programme looks like from inside is not something this orchard can tell you, and nobody here has been asked.",
+      "Cambodian durian exports have grown fast, and this orchard has no part in it. The growers are not on the approved list and do not expect to be: it wants a registered pack-house, continuous chemical logging and land held in blocks, none of which a two-hectare farm has, and they put the cost of getting there at five thousand dollars. A fifteen-hectare farm nearby did certify, and had to build concrete mixing sheds and wash stations for the workers and give up traditional manure to do it. A ten-hectare orchard down the road tried in late 2025 and failed its first inspection: its chemical store stood too close to its main irrigation intake, and it could not show three straight years of written spray logs. Inspectors run seminars in village halls; none has walked this soil.",
+      "Nobody this orchard actually sells to has ever asked for a certificate. The middlewoman and the Phnom Penh traders judge with their eyes, their hands and a tapping stick; only brokers for Chinese pack-houses ask about chemical logs or a GACC registration number. Asked what the five thousand dollars would have to buy, the growers were exact: a guaranteed contract for eight to ten tonnes of Monthong a season at no less than 22,000 riel a kilo, and thirty percent of the harvest paid in cash before the first fruit is cut. Without a floor on both price and volume, they say, spending it on paperwork for two hectares would be financial suicide.",
+      "The brokers came through the village in late 2025 and again in early 2026, pushing exclusive Monthong contracts. This family said no. Two of the larger growers in the village signed with a Sino-Cambodian broker, and how it went is the clearest argument in this entry. The broker paid a fair 21,000 riel a kilo, then rejected nearly a quarter of their harvest for small cosmetic faults in the thorns that any Cambodian trader would have bought, and the rejects had to be sold off locally at 12,000. That is the grade-B price: a neighbour who sells his whole crop to one middleman was paid 17,500 a kilo for grade-A Monthong in 2026, and 12,000 for the small and misshapen.",
+      "What the growers can measure from outside has so far gone their way. Gate prices rose a thousand or two thousand riel a kilo once the big farms sent their crop to export and left less for Phnom Penh, and through 2026 Monthong held between 17,000 and 20,000 riel at the gate, the Kampot name still worth a premium at home. They hear that the Phnom Penh wholesale price is beginning to soften as new plantations in Tbong Khmum and Mondulkiri come into bearing, and closer to home investors from the city have been clearing hillside around Teuk Chhou for Monthong and Musang King in monoculture, three to five years off bearing age. When that crop lands they expect Monthong to fall hard, and the farms that kept the local varieties to be better placed. What the export programme looks like from inside is not something this orchard can say. What it can say is what staying out costs, and what happened to the neighbours who went in.",
     ],
-    sources: [INTERVIEW],
+    sources: [INTERVIEW, NEIGHBOUR],
     image: null,
     imageWanted:
       "Fruit being weighed or loaded for the middlewoman, since the export trade itself is not photographable from this farm. The sharper picture is the other side of the entry: hillside land around Teuk Chhou cleared by Phnom Penh investors and planted to Monthong and Musang King in rows.",
     tags: ["export", "market", "smallholder"],
-    status: "in-progress",
+    status: "published",
   },
 ];
 
