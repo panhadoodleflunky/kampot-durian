@@ -50,10 +50,10 @@ const photos = {
   },
   "/musang-king-opened.jpg": {
     src: "/musang-king-opened.jpg",
-    width: 884,
-    height: 508,
-    alt: "A hand holding an opened durian, a lobe of pale yellow flesh set in the open husk",
-    caption: "An opened fruit, held in the hand. Photograph by the curator's family.",
+    width: 902,
+    height: 818,
+    alt: "An opened durian seen from above, three lobes of deep yellow flesh in the white inner husk",
+    caption: "An opened fruit, its flesh deep yellow. Photograph by the curator's family.",
   },
   "/opened-on-leaf.jpg": {
     src: "/opened-on-leaf.jpg",

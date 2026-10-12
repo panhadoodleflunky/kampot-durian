@@ -79,7 +79,7 @@ export const photoCredits = [
   },
   {
     file: "musang-king-opened.jpg",
-    caption: "An opened durian held in the hand",
+    caption: "An opened durian, three lobes of deep yellow flesh",
     author: "the curator's family",
     family: true,
   },
