@@ -45,9 +45,7 @@ const fieldNotes = [
       "The work itself runs to a tight schedule. Cutting starts at five and stops at half past eight, while the stems are stiff and the fruit will not sweat in the basket, and about nine in ten are taken that way. The rest are left to fall into nylon nets slung under the clusters or beds of rice straw laid below the low branches, and eaten at the farm the same day. Whatever is cut too early is simply lost. Warmth and a ripe banana will soften it, but the flesh stays rubbery and never finds its sugar.",
     ],
     sources: [VOCAB, INTERVIEW],
-    image: null,
-    imageWanted:
-      "The tapping stick — thirty centimetres of hardwood wrapped in motorcycle inner tube — held against a fruit on the branch, both hands in frame: one tapping the belt of the husk, the other on the stem. Second choice: the nylon nets slung under a cluster, or the rice straw beds under the low branches.",
+    image: photos["/opened-on-leaf.jpg"],
     tags: ["harvest", "ripeness"],
     status: "published",
   },
@@ -136,9 +134,7 @@ const fieldNotes = [
       "They are content with the experiment at fifteen trees and certain it would be wrong at any larger scale. Their reason is not money. If enough growers swap native trees for this one, they say, the flavour that makes Kampot durian its own disappears inside a generation.",
     ],
     sources: [VOCAB, INTERVIEW],
-    image: null,
-    imageWanted:
-      "The top-worked row, from far enough back that the whole row reads: seventy percent shade netting over the grafted canopy, blue tags at the trunk bases. This is the most visually distinctive thing on the farm. A close-up of one bound graft union would carry the entry too.",
+    image: photos["/musang-king-opened.jpg"],
     tags: ["musang king", "grafting", "export"],
     status: "published",
   },
@@ -201,9 +197,7 @@ const fieldNotes = [
       "What the growers can measure from outside has so far gone their way. Gate prices rose a thousand or two thousand riel a kilo once the big farms sent their crop to export and left less for Phnom Penh, and through 2026 Monthong held between 17,000 and 20,000 riel at the gate, the Kampot name still worth a premium at home. They hear that the Phnom Penh wholesale price is beginning to soften as new plantations in Tbong Khmum and Mondulkiri come into bearing, and closer to home investors from the city have been clearing hillside around Teuk Chhou for Monthong and Musang King in monoculture, three to five years off bearing age. When that crop lands they expect Monthong to fall hard, and the farms that kept the local varieties to be better placed. What the export programme looks like from inside is not something this orchard can say. What it can say is what staying out costs, and what happened to the neighbours who went in.",
     ],
     sources: [INTERVIEW, NEIGHBOUR],
-    image: null,
-    imageWanted:
-      "Fruit being weighed or loaded for the middlewoman, since the export trade itself is not photographable from this farm. The sharper picture is the other side of the entry: hillside land around Teuk Chhou cleared by Phnom Penh investors and planted to Monthong and Musang King in rows.",
+    image: photos["/fruit-stall.jpg"],
     tags: ["export", "market", "smallholder"],
     status: "published",
   },

@@ -19,7 +19,7 @@ Fall 2026. Compiled by Sovanpanha Nonn.
 > Every claim on this site comes from the family who own and work a
 > durian orchard at Teuk Chhou, Kampot, or from the Khmer vocabulary they use
 > in the field. No publication, news report, trade standard, research paper, or
-> website is cited anywhere, and no borrowed photograph appears.
+> website is cited anywhere, and every photograph is the compiler's or the family's own.
 
 This is the third version of the site, and each rule replaced a worse one. v1
 carried fabricated content — invented speakers, invented quotes, invented
@@ -141,8 +141,9 @@ twice.
 
 ## Credits
 
-Every photograph on this site is the curator's own work, taken in Kampot. There
-is no stock, licensed, or borrowed image anywhere in it — the one Wikimedia
+Every photograph on this site is the curator's own work, taken in Kampot, or a
+family photograph used with permission and credited as such. There is no
+stock or licensed image anywhere in it — the one Wikimedia
 photograph the site used to carry was removed with the published sources. All
 of it is listed on
 [`/sources`](https://kampot-durian.vercel.app/sources).

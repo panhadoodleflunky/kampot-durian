@@ -65,13 +65,15 @@ export default function Sources() {
                   <li key={credit.file}>
                     <span className="biblio-name">{credit.caption}</span>
                     <span className="biblio-note">
-                      Photograph by {credit.author}, taken in Kampot.
+                      Photograph by {credit.author}
+                      {credit.family ? ", used with permission." : ", taken in Kampot."}
                     </span>
                   </li>
                 ))}
               </ul>
               <p className="body-copy note-foot">
-                No stock, no licensed image, nothing borrowed. Corrections
+                No stock and no licensed image: every photograph is the
+                compiler&apos;s or the family&apos;s. Corrections
                 are welcome — reach the compiler through the course.
               </p>
             </Reveal>

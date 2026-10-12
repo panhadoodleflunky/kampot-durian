@@ -70,8 +70,10 @@ reporting. Both are gone. The rule now:
   source, not as background, not as a sanity check on a grower's number. If a
   grower's figure looks wrong to you, that is not a reason to go and look it
   up — it is a question for the next interview.
-- **No borrowed images.** Every photograph must be the curator's own. No stock,
-  no Wikimedia, no licensed third-party image, however correctly attributed.
+- **No borrowed images.** Every photograph must be the curator's own or the
+  curator's family's, used with their permission and credited to "the
+  curator's family" (owner's decision, 12 October 2026). No stock, no
+  Wikimedia, no licensed third-party image, however correctly attributed.
 - Never invent a speaker, quote, date, Khmer name, statistic, or photo caption.
   "I don't know" is a valid entry state — see `status: "in-progress"`.
 - Where a claim is thin, mark the entry `status: "in-progress"` and say what is

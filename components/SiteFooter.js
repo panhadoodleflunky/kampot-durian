@@ -14,7 +14,7 @@ export default function SiteFooter() {
           University of Phnom Penh, Fall 2026. Compiled from interviews with
           the family who own and work a durian orchard in Teuk Chhou
           district, Kampot, and one of their neighbours. Photographs by{" "}
-          {collection.curator}. Interviews and credits in full on{" "}
+          {collection.curator} and family. Interviews and credits in full on{" "}
           <Link href="/sources">Sources &amp; Credits</Link>.
         </p>
         <div className="foot-bottom">

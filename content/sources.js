@@ -38,8 +38,9 @@ export const cautions = [
   "The growers asked that the location of the farm's water source not be published, and it is not.",
 ];
 
-/* Photograph credits. Every image on this site was taken by the compiler, at
-   the orchard or nearby — primary material, like the interviews. */
+/* Photograph credits. Most were taken by the compiler at the orchard or
+   nearby; the three marked `family` are family photographs, used with
+   permission, and are not claimed as taken in Kampot. */
 export const photoCredits = [
   {
     file: "ov-khak-opened.jpg",
@@ -75,6 +76,24 @@ export const photoCredits = [
     file: "teuk-chou-scenic.jpg",
     caption: "The Teuk Chhou river at dusk, with the hills behind it",
     author: collection.curator,
+  },
+  {
+    file: "musang-king-opened.jpg",
+    caption: "An opened durian held in the hand",
+    author: "the curator's family",
+    family: true,
+  },
+  {
+    file: "opened-on-leaf.jpg",
+    caption: "An opened durian on a banana leaf, one lobe lifted out",
+    author: "the curator's family",
+    family: true,
+  },
+  {
+    file: "fruit-stall.jpg",
+    caption: "A durian lifted by its stem from a stall pile",
+    author: "the curator's family",
+    family: true,
   },
 ];
 
