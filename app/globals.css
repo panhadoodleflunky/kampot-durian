@@ -2107,13 +2107,28 @@ textarea#entry-body { min-height: 16em; }
 .auth-name { text-decoration: none; }
 .auth-name:hover { color: var(--flesh); text-decoration: underline; }
 
+/* The line above the contribute form explaining the Khmer boxes. */
+.entry-km-note { margin: 0 0 22px; }
+
 .account-block + .account-block {
   margin-top: 56px;
   padding-top: 40px;
   border-top: 1px solid var(--line);
 }
 
-.account-email { margin: 8px 0 0; font-family: var(--mono); font-size: 14px; }
+/* The address is what you log in with, so it reads as the page's headline
+   fact, not as body text. A long one wraps rather than running off a phone. */
+.account-email {
+  margin: 10px 0 0;
+  font-family: var(--serif);
+  font-size: 26px;
+  line-height: 1.25;
+  color: var(--cream);
+  overflow-wrap: anywhere;
+}
+@media (max-width: 734px) {
+  .account-email { font-size: 22px; }
+}
 
 /* ---------------- phone polish (Lab 7) ---------------- */
 
@@ -2321,6 +2336,11 @@ html:lang(km) :is(.btn, .link, .gnav-links a, .gnav-name, .gnav-sheet a, .auth-b
   line-height: 1.3;
 }
 html:lang(km) .auth-btn { font-size: 14px; }
+/* The site's name in the bar, a little larger and opened up: set solid,
+   the Khmer letters ran into each other. Outranks the no-letter-spacing rule
+   above by specificity; spacing falls between whole clusters, so the
+   subscripts stay on their letters. */
+html:lang(km) .gnav-name { font-size: 16px; letter-spacing: 0.8px !important; }
 html:lang(km) :is(.sec-label, .tile-label, .eyebrow, .mast-item dt, .search-label, .search-count, .entry-src,
   .entry-back, .nav-search-heading, .spec h3, .entry-status, .account-menu-who, .hero-cap-no) {
   font-size: 14px;
