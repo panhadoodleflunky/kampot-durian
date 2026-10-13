@@ -26,6 +26,9 @@ export default async function EditEntry({ params }) {
         <div className="inner">
           <SectionLabel no="01">{t.contributors}</SectionLabel>
           <h1 className="headline-sm">{t.editEntry.head}</h1>
+          {/* The Khmer edition's rows are edited as English; their *_km
+              translation is a separate column the form does not touch. */}
+          {t.editEntry.note ? <p className="sub">{t.editEntry.note}</p> : null}
         </div>
       </header>
 

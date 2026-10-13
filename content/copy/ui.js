@@ -1,6 +1,10 @@
 /* The site's furniture, in both editions: nav, footer, cards, entry pages,
    search and the small prompts. Page prose lives beside this, one file per
-   page. Functions are for strings with a number or a name in them. */
+   page. Functions are for strings with a number or a name in them.
+
+   The Khmer edition writes numbers in Khmer digits (km). Catalogue numbers
+   (Fig. 05) stay as the table stores them. */
+export const km = (n) => String(n).replace(/\d/g, (d) => "០១២៣៤៥៦៧៨៩"[d]);
 export const ui = {
   en: {
     siteName: "Kampot Durian",
@@ -108,5 +112,110 @@ export const ui = {
       you: "you",
     },
   },
-  km: {},
+  km: {
+    siteName: "ធូរេនកំពត",
+    nav: {
+      label: "ការរុករកគេហទំព័រ",
+      links: [
+        { href: "/region", label: "តំបន់" },
+        { href: "/field-notes", label: "កំណត់ត្រាចម្ការ" },
+        { href: "/contributed", label: "សហគមន៍" },
+        { href: "/about", label: "អំពីគម្រោង" },
+        { href: "/sources", label: "ប្រភព" },
+      ],
+      home: "ទំព័រដើម",
+      openMenu: "បើកម៉ឺនុយ",
+      closeMenu: "បិទម៉ឺនុយ",
+      theme: "ប្តូររវាងពណ៌ងងឹត និងពណ៌ភ្លឺ",
+      langSwitch: "EN",
+      langSwitchLabel: "Read in English — អានជាភាសាអង់គ្លេស",
+    },
+    footer: {
+      fine: [
+        "មគ្គុទ្ទេសក៍ចម្ការរបស់និស្សិតម្នាក់ ដែលបង្កើតឡើងសម្រាប់មុខវិជ្ជា ICT 340 — Vibe Coding នៅសាកលវិទ្យាល័យអាមេរិកាំងភ្នំពេញ ឆមាសសរទរដូវ ឆ្នាំ ២០២៦។ ចងក្រងចេញពីការសម្ភាសន៍ជាមួយគ្រួសារដែលជាម្ចាស់ និងជាអ្នកធ្វើចម្ការធូរេនមួយនៅស្រុកទឹកឈូ ខេត្តកំពត និងអ្នកជិតខាងម្នាក់របស់ពួកគាត់។ រូបថតដោយ",
+        " ",
+        { curator: true },
+        " និងគ្រួសារ។ ការសម្ភាសន៍ និងឈ្មោះអ្នកផ្តល់ទាំងអស់ មាននៅលើទំព័រ",
+        " ",
+        { href: "/sources", text: "ប្រភព និងអ្នកផ្តល់" },
+        "។",
+      ],
+      compiledBy: (name) => `ចងក្រងដោយ ${name}`,
+      place: () => "ខេត្តកំពត ប្រទេសកម្ពុជា",
+      back: "ត្រឡប់ទៅមគ្គុទ្ទេសក៍វិញ",
+    },
+    card: {
+      sources: (n) => `ប្រភព ${km(n)}`,
+      read: "អានអត្ថបទ",
+      by: (name) => `ដោយ ${name}`,
+    },
+    entry: {
+      back: "កំណត់ត្រាចម្ការទាំងអស់",
+      label: "កំណត់ត្រាចម្ការ",
+      sources: "ប្រភព",
+      sourcesNote: ["ខ្លឹមសារដែលការសម្ភាសន៍បាននិយាយ មានរៀបរាប់នៅលើទំព័រ", " ", { href: "/sources", text: "ប្រភព និងអ្នកផ្តល់" }, "។"],
+      next: "បន្ទាប់",
+      aside: "ប្រភព និងប្រធានបទ",
+      notFoundTitle: "រកមិនឃើញអត្ថបទ",
+    },
+    community: {
+      back: "កំណត់ចំណាំសហគមន៍ទាំងអស់",
+      label: (name) => `កំណត់ចំណាំសហគមន៍ · ដោយ ${name}`,
+      disclaimer: "ជាការរៀបរាប់ផ្ទាល់ខ្លួនរបស់អ្នកអាន។ មិនមែនមកពីការសម្ភាសន៍នៅចម្ការនេះទេ ហើយបណ្ណសារនេះមិនបានត្រួតពិនិត្យទេ។",
+      sources: "ប្រភព តាមការប្រាប់របស់អ្នកសរសេរ",
+      notFoundTitle: "រកមិនឃើញកំណត់ចំណាំ",
+      reader: "អ្នកអានម្នាក់",
+    },
+    search: {
+      label: "ស្វែងរកអត្ថបទ",
+      placeholder: "ពូជ ប្រធានបទ ឬរដូវ — ឪខាក់ ភាពរាំងស្ងួត ការប្រមូលផល",
+      clear: "សម្អាត",
+      count: (shown, total) => `${km(shown)} ក្នុងចំណោម ${km(total)} អត្ថបទ`,
+      paged: (total, _noun, page, pages) => `${km(total)} អត្ថបទ · ទំព័រ ${km(page)} នៃ ${km(pages)}`,
+      noun: () => "អត្ថបទ",
+      none: "មិនទាន់មានអត្ថបទណាមួយត្រូវបានសរសេរនៅឡើយទេ។",
+      pagerLabel: "ទំព័រនៃកំណត់ត្រាចម្ការ",
+      emptyHead: "គ្មានអ្វីនៅក្នុងមគ្គុទ្ទេសក៍ត្រូវនឹង",
+      emptyBody: (total) => `មានតែ ${km(total)} អត្ថបទប៉ុណ្ណោះ មិនមែនរាប់ម៉ឺនទេ។ រកមិនឃើញ ច្រើនតែមានន័យថា មគ្គុទ្ទេសក៍មិនទាន់បានសរសេរអំពីប្រធានបទនោះនៅឡើយ។ សាកល្បងស្វែងរកពូជ — ឪខាក់ មនថង ម៉ូសាំងឃីង — ឬប្រធានបទ៖ ការប្រមូលផល អាកាសធាតុ ការនាំចេញ ការលក់ដូរ។`,
+      showAll: (total) => `បង្ហាញអត្ថបទទាំង ${km(total)}`,
+    },
+    pager: {
+      previous: "មុន",
+      next: "បន្ទាប់",
+      page: (n, pages) => `ទំព័រ ${km(n)} នៃ ${km(pages)}`,
+    },
+    navSearch: {
+      button: "ស្វែងរកក្នុងមគ្គុទ្ទេសក៍",
+      placeholder: "ស្វែងរកក្នុងមគ្គុទ្ទេសក៍",
+      quick: "តំណរហ័ស",
+      suggestions: "ការណែនាំ",
+      empty: "រកមិនឃើញទេ។ ចុច Enter ដើម្បីស្វែងរកវានៅក្នុងកំណត់ត្រាចម្ការ។",
+      fig: (n) => `លេខ ${km(n)}`,
+      pages: [
+        { href: "/field-notes", title: "កំណត់ត្រាចម្ការ", hint: "អត្ថបទទាំងអស់" },
+        { href: "/region", title: "តំបន់", hint: "ចម្ការ ជាតួលេខ" },
+        { href: "/contributed", title: "កំណត់ចំណាំសហគមន៍", hint: "កំណត់ចំណាំពីអ្នកអាន" },
+        { href: "/about", title: "អំពីគម្រោង", hint: "របៀបដែលគម្រោងនេះកើតឡើង" },
+        { href: "/sources", title: "ប្រភព និងអ្នកផ្តល់", hint: "ការសម្ភាសន៍ និងរូបថត" },
+      ],
+    },
+    notFound: {
+      title: "រកមិនឃើញ",
+      label: "រកមិនឃើញ",
+      head: "គ្មានអត្ថបទនៅអាសយដ្ឋាននេះទេ។",
+      body: "ទំព័រនេះប្រហែលជាត្រូវបានប្តូរឈ្មោះ ឬអត្ថបទនេះមិនទាន់បានសរសេរនៅឡើយ។ បញ្ជីអត្ថបទទាំងអស់ គឺជាកន្លែងល្អបំផុតដើម្បីចាប់ផ្តើមឡើងវិញ។",
+      all: "កំណត់ត្រាចម្ការទាំងអស់",
+      back: "ត្រឡប់ទៅមគ្គុទ្ទេសក៍វិញ",
+    },
+    auth: {
+      logIn: "ចូលគណនី",
+      signUp: "ចុះឈ្មោះ",
+      logOut: "ចាកចេញ",
+      contribute: "ចូលរួមចែករំលែក",
+      account: "គណនី",
+      yourAccount: "គណនីរបស់អ្នក",
+      signedInAs: "បានចូលក្នុងនាម",
+      you: "អ្នក",
+    },
+  },
 };

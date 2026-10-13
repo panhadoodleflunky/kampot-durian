@@ -1,22 +1,24 @@
 import { getEntries } from "../lib/entries.js";
 import { siteUrl } from "../content/site.js";
+import { LANGS, localize } from "../lib/i18n.js";
 
-/* Static, rebuilt in the background at most once a minute — see lib/entries.js. */
 export const revalidate = 60;
 
-/* Every route the guide has. The entry pages come from the same Supabase
-   table the pages read, so a new entry appears here without an edit. If
-   Supabase doesn't answer this throws, and the last good sitemap is served
-   rather than one with every entry missing. */
+/* Every public page and every entry, in both editions; each URL lists its
+   other-language twin so search engines pair them. If Supabase doesn't
+   answer this throws, and the last good sitemap is served instead. */
 export default async function sitemap() {
   const base = siteUrl();
-  const pages = ["", "/region", "/field-notes", "/about", "/sources"];
+  const pages = ["/", "/region", "/field-notes", "/about", "/sources"];
   const entries = await getEntries();
-  return [
-    ...pages.map((path) => ({ url: `${base}${path}`, changeFrequency: "monthly" })),
-    ...entries.map((note) => ({
-      url: `${base}/field-notes/${note.slug}`,
+  const paths = [...pages, ...entries.map((note) => `/field-notes/${note.slug}`)];
+  return paths.flatMap((path) =>
+    LANGS.map((lang) => ({
+      url: `${base}${localize(lang, path) === "/" ? "" : localize(lang, path)}`,
       changeFrequency: "monthly",
+      alternates: {
+        languages: Object.fromEntries(LANGS.map((l) => [l, `${base}${localize(l, path) === "/" ? "" : localize(l, path)}`])),
+      },
     })),
-  ];
+  );
 }

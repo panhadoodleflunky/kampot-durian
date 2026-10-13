@@ -2248,3 +2248,50 @@ textarea#entry-body { min-height: 16em; }
   .gnav-inner:has(.account-menu) .gnav-links { display: none; }
   .gnav-inner:has(.account-menu) .gnav-menu { display: block; }
 }
+
+/* ---------------- language switch ---------------- */
+
+.lang-switch {
+  display: flex;
+  align-items: center;
+  height: 40px;
+  padding: 0 6px;
+  flex-shrink: 0;
+  font-size: 13px;
+  color: var(--dim);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+.lang-switch:lang(km) { font-family: var(--khmer); }
+.lang-switch:lang(en) { font-family: var(--mono); font-size: 11px; letter-spacing: 1.8px; }
+.gnav a.lang-switch:hover { color: var(--flesh); }
+
+/* ---------------- the Khmer edition ----------------
+
+   Khmer is never letter-spaced: the tracking that gives the English mono
+   labels their voice pulls Khmer clusters apart, and stacked subscripts
+   (ក្នុ, ស្រ) separate from their base. `!important` because the English
+   tracking is set on dozens of rules, some with two classes; this is the
+   one place that undoes it, and only under lang="km".
+
+   Khmer also stands taller than Latin — vowels above, subscripts below — so
+   every line height that was tuned tight for Instrument Serif is opened
+   up, and the small labels go up a size to stay legible. */
+html:lang(km) * { letter-spacing: normal !important; }
+
+html:lang(km) :is(.headline, .headline-sm, .stat-num, .tile-value, .entry-title, .entry-next-title, .spec-value) {
+  line-height: 1.45;
+}
+html:lang(km) .headline { font-size: clamp(56px, 9vw, 104px); }
+html:lang(km) .headline em { padding-top: 0.08em; }
+html:lang(km) .pull blockquote { line-height: 1.6; }
+html:lang(km) :is(.reading-body, .sub, .body-copy, .biblio-note, .entry-body, .entry-field-hint, .foot-fine) {
+  line-height: 1.95;
+}
+html:lang(km) :is(.sec-label, .tile-label, .eyebrow, .mast-item dt, .gnav-links a, .gnav-name, .btn, .link,
+  .auth-btn, .search-label, .search-count, .entry-src, .entry-tag, .hero-cap-no, .hero-figure figcaption,
+  .entry-back, .nav-search-heading, .nav-search-hint, .foot-bottom, .pager-step, .spec h3, .entry-status,
+  .account-menu-who, .entry-sources-note) {
+  font-size: 13px;
+}
+

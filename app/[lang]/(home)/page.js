@@ -10,7 +10,7 @@ import SectionLabel from "../../../components/SectionLabel.js";
 import Rich from "../../../components/Rich.js";
 import { pick, localize, alternates } from "../../../lib/i18n.js";
 import { pages } from "../../../content/copy/pages.js";
-import { ui } from "../../../content/copy/ui.js";
+import { ui, km } from "../../../content/copy/ui.js";
 
 /* Static, rebuilt in the background at most once a minute — see lib/entries.js. */
 export const revalidate = 60;
@@ -133,7 +133,7 @@ export default async function Home({ params }) {
             <div className="bento">
               <Reveal as="article" className="tile">
                 <p className="tile-label">{t.entriesCompiled}</p>
-                <p className="stat-num">{entries.length}</p>
+                <p className="stat-num">{lang === "km" ? km(entries.length) : entries.length}</p>
               </Reveal>
               <Reveal as="article" className="tile" delay={90}>
                 <p className="tile-label">{t.varietiesRecorded}</p>
