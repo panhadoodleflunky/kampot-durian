@@ -6,10 +6,11 @@ import { useRouter } from "next/navigation";
 import { storagePath } from "../lib/photo-upload.js";
 import { saveError } from "../lib/save-error.js";
 import { refreshArchive } from "../app/field-notes/actions.js";
+import { canManage } from "../lib/roles.js";
 
-/* Edit and Delete, shown only to the entry's owner. Checked in the browser
-   so the entry page itself stays static (see AuthStatus for the same
-   trade). Hiding the buttons is manners, not security: the update and
+/* Edit and Delete, shown only to the entry's owner and to the curator.
+   Checked in the browser so the entry page itself stays static (see
+   AuthStatus for the same trade). Hiding the buttons is manners, not security: the update and
    delete policies are what refuse a stranger, and the check for a returned
    row below is how this page finds out they did.
 
@@ -32,7 +33,7 @@ export default function OwnerActions({ table = "entries", basePath = "/field-not
   useEffect(() => {
     supabase()
       .then((client) => client.auth.getUser())
-      .then(({ data }) => setMine(Boolean(data.user) && data.user.id === owner));
+      .then(({ data }) => setMine(canManage(data.user, owner)));
   }, [owner]);
 
   async function remove() {

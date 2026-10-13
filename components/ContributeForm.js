@@ -10,12 +10,7 @@ import { entryColumns, nextFigNumber } from "../lib/entry-row.js";
 import { uploadPhoto, storagePath } from "../lib/photo-upload.js";
 import { saveError } from "../lib/save-error.js";
 import { refreshArchive } from "../app/field-notes/actions.js";
-
-/* The curator's role lives in app_metadata, which a user cannot change
-   (user_metadata they can). Read here only to pick the shelf and the
-   wording; if someone fakes it in the browser, the entries insert policy
-   checks the same claim in the database and refuses them. */
-const isCurator = (user) => user?.app_metadata?.role === "curator";
+import { isCurator } from "../lib/roles.js";
 
 /* /contribute. Hiding the form from a logged-out visitor is manners; the
    insert policies are what actually refuse them. The curator's entries go

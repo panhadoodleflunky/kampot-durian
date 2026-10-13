@@ -20,7 +20,7 @@ export default async function EditCommunityNote({ params }) {
       <header className="page-head">
         <div className="inner">
           <SectionLabel no="01">Community Notes</SectionLabel>
-          <h1 className="headline-sm">Edit your note.</h1>
+          <h1 className="headline-sm">Edit a note.</h1>
         </div>
       </header>
 

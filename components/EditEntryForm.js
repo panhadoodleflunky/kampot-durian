@@ -9,13 +9,14 @@ import { entryColumns } from "../lib/entry-row.js";
 import { uploadPhoto, storagePath } from "../lib/photo-upload.js";
 import { saveError } from "../lib/save-error.js";
 import { refreshArchive } from "../app/field-notes/actions.js";
+import { canManage } from "../lib/roles.js";
 
 /* The edit page. It reads the row straight from the table, not from the
    static page, so the form starts from what is really stored.
 
    The "not yours" message is politeness only. A stranger who skips this
    page and sends an update from the console is refused by the update policy
-   (auth.uid() = owner) — and Supabase reports that as success with zero
+   (owner or curator) — and Supabase reports that as success with zero
    rows, which is why save() checks for the row coming back. */
 /* `table` is "entries" for a field note or "contributions" for a community
    note; `basePath` is where that shelf's pages live. */
@@ -32,7 +33,7 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
       if (error) return setState({ status: "failed", message: saveError("load entry", error) });
       if (!row) return setState({ status: "missing" });
       if (!auth.user) return setState({ status: "logged-out" });
-      if (auth.user.id !== row.owner) return setState({ status: "not-yours" });
+      if (!canManage(auth.user, row.owner)) return setState({ status: "not-yours" });
       setState({ status: "ready", row, userId: auth.user.id });
     });
   }, [table, slug]);
