@@ -1,5 +1,9 @@
 "use client";
 
+import { useLang } from "../lib/use-lang.js";
+import { pick, localize } from "../lib/i18n.js";
+import { forms } from "../content/copy/forms.js";
+
 import { useEffect, useState } from "react";
 import SignInPrompt from "./SignInPrompt.js";
 import { useRouter } from "next/navigation";
@@ -8,7 +12,7 @@ import { createClient } from "../lib/supabase/client.js";
 import { entryColumns } from "../lib/entry-row.js";
 import { uploadPhoto, storagePath } from "../lib/photo-upload.js";
 import { saveError } from "../lib/save-error.js";
-import { refreshArchive } from "../app/field-notes/actions.js";
+import { refreshArchive } from "../lib/actions.js";
 import { canManage } from "../lib/roles.js";
 
 /* The edit page. It reads the row straight from the table, not from the
@@ -23,6 +27,9 @@ import { canManage } from "../lib/roles.js";
 export default function EditEntryForm({ table = "entries", basePath = "/field-notes", slug }) {
   const router = useRouter();
   const [state, setState] = useState({ status: "loading" });
+  const lang = useLang();
+  const all = pick(forms, lang);
+  const t = all.edit;
 
   useEffect(() => {
     const supabase = createClient();
@@ -30,13 +37,13 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
       supabase.auth.getUser(),
       supabase.from(table).select("id, owner, title, khmer_name, body, sources, tags, photo_url").eq("slug", slug).maybeSingle(),
     ]).then(([{ data: auth }, { data: row, error }]) => {
-      if (error) return setState({ status: "failed", message: saveError("load entry", error) });
+      if (error) return setState({ status: "failed", message: saveError("load entry", error, lang) });
       if (!row) return setState({ status: "missing" });
       if (!auth.user) return setState({ status: "logged-out" });
       if (!canManage(auth.user, row.owner)) return setState({ status: "not-yours" });
       setState({ status: "ready", row, userId: auth.user.id });
     });
-  }, [table, slug]);
+  }, [table, slug, lang]);
 
   async function save(fields, photo, kind) {
     const { row, userId } = state;
@@ -44,10 +51,10 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
     let photoUrl = row.photo_url;
     if (photo) {
       photoUrl = await uploadPhoto(supabase, userId, photo, kind).catch((failed) => {
-        saveError("photo upload", failed);
+        saveError("photo upload", failed, lang);
         return null;
       });
-      if (!photoUrl) return "The photo couldn't be uploaded. Check it's a JPEG, PNG or WebP under 5 MB, and try again.";
+      if (!photoUrl) return all.photo.uploadFailed;
     }
 
     const { data, error } = await supabase
@@ -65,24 +72,24 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
       if (unused) await supabase.storage.from("photos").remove([unused]);
     }
 
-    if (error) return saveError("update entry", error);
+    if (error) return saveError("update entry", error, lang);
     if (!saved) {
       console.error("update entry: no row came back for id", row.id);
-      return "That change wasn't saved.";
+      return all.save.notSaved;
     }
     /* Already saved: a failed refresh must not read as a failed save. */
     await refreshArchive().catch((failed) => console.error("refresh archive:", failed));
-    router.push(`${basePath}/${slug}`);
+    router.push(localize(lang, `${basePath}/${slug}`));
   }
 
   const { status } = state;
-  if (status === "loading") return <p className="body-copy">Loading the entry…</p>;
+  if (status === "loading") return <p className="body-copy">{t.loading}</p>;
   if (status === "failed") return <p className="auth-error">{state.message}</p>;
-  if (status === "missing") return <p className="body-copy">There's no entry at this address.</p>;
-  if (status === "logged-out") return <SignInPrompt>Log in to edit your entries.</SignInPrompt>;
-  if (status === "not-yours") return <p className="body-copy">Only the person who added this entry can edit it.</p>;
+  if (status === "missing") return <p className="body-copy">{t.missing}</p>;
+  if (status === "logged-out") return <SignInPrompt>{t.loggedOut}</SignInPrompt>;
+  if (status === "not-yours") return <p className="body-copy">{t.notYours}</p>;
 
   const { row } = state;
   const initial = { title: row.title, khmerName: row.khmer_name ?? "", body: row.body, sources: row.sources, tags: (row.tags ?? []).join(", ") };
-  return <EntryForm initial={initial} currentPhotoUrl={row.photo_url} submitLabel="Save changes" onSave={save} />;
+  return <EntryForm initial={initial} currentPhotoUrl={row.photo_url} submitLabel={all.entry.saveChanges} onSave={save} />;
 }

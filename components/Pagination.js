@@ -1,5 +1,10 @@
 "use client";
 
+import { useLang } from "../lib/use-lang.js";
+import { pick } from "../lib/i18n.js";
+import { ui } from "../content/copy/ui.js";
+
+
 /* Page controls for the Field Notes index. Presentational: it owns no state,
    it reports the page it was asked for. Rendered only when there is more than
    one page, so a short list never grows a control it doesn't need.
@@ -8,6 +13,7 @@
    disabled button drops keyboard focus: press Next onto the last page and
    focus fell to the top of the document, losing the reader's place. */
 export default function Pagination({ page, pages, onChange, label }) {
+  const t = pick(ui, useLang()).pager;
   if (pages <= 1) return null;
 
   const numbers = Array.from({ length: pages }, (_, i) => i + 1);
@@ -20,7 +26,7 @@ export default function Pagination({ page, pages, onChange, label }) {
         onClick={() => page > 1 && onChange(page - 1)}
         aria-disabled={page === 1}
       >
-        Previous
+        {t.previous}
       </button>
 
       <ul className="pager-list">
@@ -31,7 +37,7 @@ export default function Pagination({ page, pages, onChange, label }) {
               className="pager-no"
               onClick={() => onChange(n)}
               aria-current={n === page ? "page" : undefined}
-              aria-label={`Page ${n} of ${pages}`}
+              aria-label={t.page(n, pages)}
             >
               {String(n).padStart(2, "0")}
             </button>
@@ -45,7 +51,7 @@ export default function Pagination({ page, pages, onChange, label }) {
         onClick={() => page < pages && onChange(page + 1)}
         aria-disabled={page === pages}
       >
-        Next
+        {t.next}
       </button>
     </nav>
   );

@@ -1,5 +1,9 @@
 "use client";
 
+import { useLang } from "../lib/use-lang.js";
+import { pick, localize } from "../lib/i18n.js";
+import { forms } from "../content/copy/forms.js";
+
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import SignInPrompt from "./SignInPrompt.js";
@@ -13,12 +17,14 @@ import { createClient } from "../lib/supabase/client.js";
 export default function AccountPanel() {
   const router = useRouter();
   const [state, setState] = useState({ status: "loading" });
+  const lang = useLang();
+  const t = pick(forms, lang).account;
 
   /* Log out lives here on a laptop: the nav bar shows Contribute and the
      name, and had no room left for a third button. */
   async function logOut() {
     await createClient().auth.signOut();
-    router.push("/");
+    router.push(localize(lang, "/"));
     router.refresh();
   }
 
@@ -35,35 +41,35 @@ export default function AccountPanel() {
     });
   }, []);
 
-  if (state.status === "loading") return <p className="body-copy">Loading your account…</p>;
+  if (state.status === "loading") return <p className="body-copy">{t.loading}</p>;
   if (state.status === "logged-out") {
-    return <SignInPrompt>Log in to see your account.</SignInPrompt>;
+    return <SignInPrompt>{t.loggedOut}</SignInPrompt>;
   }
 
   const { user, name } = state;
   return (
     <>
       <section className="account-block">
-        <h2 className="tile-label">Email</h2>
+        <h2 className="tile-label">{t.email}</h2>
         <p className="body-copy account-email">{user.email}</p>
-        <p className="entry-field-hint">Only you can see this. It can&rsquo;t be changed.</p>
+        <p className="entry-field-hint">{t.emailNote}</p>
       </section>
 
       <section className="account-block">
-        <h2 className="tile-label">Name</h2>
+        <h2 className="tile-label">{t.name}</h2>
         <NameForm userId={user.id} current={name} />
       </section>
 
       <section className="account-block">
-        <h2 className="tile-label">Password</h2>
+        <h2 className="tile-label">{t.password}</h2>
         <PasswordForm email={user.email} />
       </section>
 
       <section className="account-block">
-        <h2 className="tile-label">Log out</h2>
+        <h2 className="tile-label">{t.logOut}</h2>
         <div className="auth-actions">
           <button className="auth-btn prompt-alt" type="button" onClick={logOut}>
-            Log out
+            {t.logOut}
           </button>
         </div>
       </section>

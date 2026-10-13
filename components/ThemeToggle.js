@@ -1,5 +1,9 @@
 "use client";
 
+import { useLang } from "../lib/use-lang.js";
+import { pick } from "../lib/i18n.js";
+import { ui } from "../content/copy/ui.js";
+
 /* The sun/moon switch in the nav. Dark is the site's native look; this lets
    a reader flip to cream paper and keeps the choice in localStorage, where
    the inline script in app/layout.js reads it back before first paint.
@@ -8,6 +12,7 @@
    which shows from html[data-theme], so the server and client render the
    same markup and there is nothing to hydrate wrongly. */
 export default function ThemeToggle() {
+  const label = pick(ui, useLang()).nav.theme;
   const flip = () => {
     const root = document.documentElement;
     const next = root.dataset.theme === "light" ? "dark" : "light";
@@ -23,7 +28,7 @@ export default function ThemeToggle() {
     <button
       type="button"
       className="theme-toggle"
-      aria-label="Switch between dark and light mode"
+      aria-label={label}
       onClick={flip}
     >
       <svg

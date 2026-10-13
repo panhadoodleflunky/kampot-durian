@@ -1,11 +1,15 @@
 "use client";
 
+import { useLang } from "../lib/use-lang.js";
+import { pick, localize } from "../lib/i18n.js";
+import { forms } from "../content/copy/forms.js";
+
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { storagePath } from "../lib/photo-upload.js";
 import { saveError } from "../lib/save-error.js";
-import { refreshArchive } from "../app/field-notes/actions.js";
+import { refreshArchive } from "../lib/actions.js";
 import { canManage } from "../lib/roles.js";
 
 /* Edit and Delete, shown only to the entry's owner and to the curator.
@@ -29,6 +33,9 @@ export default function OwnerActions({ table = "entries", basePath = "/field-not
   const [mine, setMine] = useState(false);
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
+  const lang = useLang();
+  const all = pick(forms, lang);
+  const t = all.owner;
 
   useEffect(() => {
     supabase()
@@ -37,7 +44,7 @@ export default function OwnerActions({ table = "entries", basePath = "/field-not
   }, [owner]);
 
   async function remove() {
-    if (!window.confirm("Delete this entry? This can't be undone.")) return;
+    if (!window.confirm(t.confirm)) return;
     setBusy(true);
     setMessage("");
     const client = await supabase();
@@ -45,9 +52,9 @@ export default function OwnerActions({ table = "entries", basePath = "/field-not
 
     if (error || data.length === 0) {
       setBusy(false);
-      if (error) return setMessage(saveError("delete entry", error));
+      if (error) return setMessage(saveError("delete entry", error, lang));
       console.error("delete entry: no row came back for id", id);
-      return setMessage("That change wasn't saved.");
+      return setMessage(all.save.notSaved);
     }
     /* The entry is gone; its photo goes too if it was in the bucket. */
     const path = storagePath(photoUrl);
@@ -56,17 +63,17 @@ export default function OwnerActions({ table = "entries", basePath = "/field-not
        throw and leave the button on "Deleting" for good; the pages rebuild
        within a minute anyway, so a failed refresh is not worth stopping for. */
     await refreshArchive().catch((failed) => console.error("refresh archive:", failed));
-    router.push(basePath);
+    router.push(localize(lang, basePath));
   }
 
   if (!mine) return null;
   return (
     <div className="owner-actions">
-      <Link className="auth-btn" href={`${basePath}/${slug}/edit`}>
-        Edit
+      <Link className="auth-btn" href={localize(lang, `${basePath}/${slug}/edit`)}>
+        {t.edit}
       </Link>
       <button className="auth-btn owner-delete" type="button" onClick={remove} disabled={busy}>
-        {busy ? "Deleting" : "Delete"}
+        {busy ? t.deleting : t.delete}
       </button>
       <p className="auth-error" role="alert">
         {message}

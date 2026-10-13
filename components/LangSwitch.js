@@ -1,0 +1,32 @@
+"use client";
+
+import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { useLang } from "../lib/use-lang.js";
+import { basePath, localize, pick } from "../lib/i18n.js";
+import { ui } from "../content/copy/ui.js";
+
+/* EN / ខ្មែរ: the same page in the other edition. The choice is kept in a
+   `lang` cookie for a year; middleware.js reads it at the front door only,
+   so a shared English link still opens in English. */
+export default function LangSwitch() {
+  const lang = useLang();
+  const path = usePathname() || "/";
+  const other = lang === "km" ? "en" : "km";
+  const t = pick(ui, lang).nav;
+  const remember = () => {
+    document.cookie = `lang=${other}; path=/; max-age=31536000; samesite=lax`;
+  };
+  return (
+    <Link
+      className="lang-switch"
+      href={localize(other, basePath(path))}
+      hrefLang={other}
+      lang={other}
+      aria-label={t.langSwitchLabel}
+      onClick={remember}
+    >
+      {t.langSwitch}
+    </Link>
+  );
+}

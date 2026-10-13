@@ -1,5 +1,9 @@
 "use client";
 
+import { useLang } from "../lib/use-lang.js";
+import { pick } from "../lib/i18n.js";
+import { forms } from "../content/copy/forms.js";
+
 import { useState } from "react";
 import FormField from "./FormField.js";
 import { createClient } from "../lib/supabase/client.js";
@@ -16,6 +20,9 @@ export default function PasswordForm({ email }) {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
+  const lang = useLang();
+  const all = pick(forms, lang);
+  const t = all.account;
 
   const field = (name) => ({
     value: values[name],
@@ -26,9 +33,9 @@ export default function PasswordForm({ email }) {
   async function onSubmit(event) {
     event.preventDefault();
     setMessage("");
-    const found = passwordErrors(values.password, values.confirm);
-    if (!values.current) found.current = "Enter your current password.";
-    else if (values.current === values.password) found.password = "Choose a password different from the current one.";
+    const found = passwordErrors(values.password, values.confirm, lang);
+    if (!values.current) found.current = t.currentMissing;
+    else if (values.current === values.password) found.password = t.same;
     setErrors(found);
     if (Object.keys(found).length > 0) return;
 
@@ -38,19 +45,19 @@ export default function PasswordForm({ email }) {
     if (check.error) {
       setBusy(false);
       if (check.error.name === "AuthRetryableFetchError") {
-        return setMessage("The server didn't answer. Check your connection and try again.");
+        return setMessage(all.save.noServer);
       }
-      return setErrors({ current: "That isn't your current password." });
+      return setErrors({ current: t.wrongCurrent });
     }
 
     const { error } = await supabase.auth.updateUser({ password: values.password });
     setBusy(false);
     if (error) {
       console.error("password change:", error);
-      return setMessage("The password wasn't changed. Try again in a minute.");
+      return setMessage(t.notChanged);
     }
     setValues(EMPTY);
-    setMessage("Password changed. Use the new one next time you log in.");
+    setMessage(t.changed);
   }
 
   return (
@@ -58,13 +65,13 @@ export default function PasswordForm({ email }) {
       {/* The email is here, hidden, for password managers: it tells them
           which saved login this new password belongs to. */}
       <input type="email" value={email} autoComplete="username" readOnly hidden />
-      <FormField id="acct-current" label="Current password" type="password" hint="To prove it's you." autoComplete="current-password" {...field("current")} />
-      <FormField id="acct-new" label="New password" type="password" hint={`At least ${PASSWORD_MIN} characters.`} autoComplete="new-password" {...field("password")} />
-      <FormField id="acct-confirm" label="New password, again" type="password" hint="Type it once more." autoComplete="new-password" {...field("confirm")} />
+      <FormField id="acct-current" label={t.current} type="password" hint={t.currentHint} autoComplete="current-password" {...field("current")} />
+      <FormField id="acct-new" label={t.newPassword} type="password" hint={t.newHint(PASSWORD_MIN)} autoComplete="new-password" {...field("password")} />
+      <FormField id="acct-confirm" label={t.again} type="password" hint={t.againHint} autoComplete="new-password" {...field("confirm")} />
       <p className="auth-error" role="status">{message}</p>
       <div className="auth-actions">
         <button className="btn auth-submit" type="submit" disabled={busy}>
-          {busy ? "Changing" : "Change password"}
+          {busy ? t.changing : t.change}
         </button>
       </div>
     </form>

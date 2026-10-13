@@ -1,13 +1,15 @@
 import Link from "next/link";
 import Reveal from "./Reveal.js";
+import { pick, localize } from "../lib/i18n.js";
+import { ui } from "../content/copy/ui.js";
 
 /* Khmer block, U+1780–U+17FF. One Khmer character anywhere is enough:
-   the passage is Khmer, and it needs the Khmer font and line height. No entry
-   in this English edition carries any, so this returns undefined throughout —
-   it is kept working for the Khmer edition. */
+   the passage is Khmer, and it needs the Khmer font and line height. In the
+   English edition this marks a Khmer title (Fig. 12's name, a reader's
+   note); in the Khmer edition, nearly everything. */
 const KHMER = /[ក-៿]/;
 
-function lang(text) {
+function langOf(text) {
   return KHMER.test(text) ? "km" : undefined;
 }
 
@@ -34,13 +36,15 @@ function excerpt(text, limit) {
    `author` instead of a number. */
 export default function EntryCard({
   note,
+  lang = "en",
   variant = "plain",
   showNumber = true,
   basePath = "/field-notes",
   delay = 0,
 }) {
   const { slug, figNumber, title, khmerName, body, sources = [], tags = [], author } = note;
-  const href = `${basePath}/${slug}`;
+  const t = pick(ui, lang).card;
+  const href = localize(lang, `${basePath}/${slug}`);
   const limit = variant === "lead" ? 320 : variant === "brief" ? 110 : 200;
 
   return (
@@ -50,12 +54,12 @@ export default function EntryCard({
           {showNumber ? (
             <span className="entry-no" aria-hidden="true">{figNumber}</span>
           ) : null}
-          {author ? <span className="entry-status">By {author}</span> : null}
+          {author ? <span className="entry-status">{t.by(author)}</span> : null}
         </div>
       ) : null}
 
       <h3 className="entry-title">
-        <Link href={href} lang={lang(title)}>
+        <Link href={href} lang={langOf(title)}>
           {title}
         </Link>
       </h3>
@@ -74,10 +78,10 @@ export default function EntryCard({
 
       <p className="entry-src">
         <span>
-          {sources.length} {sources.length === 1 ? "source" : "sources"}
+          {t.sources(sources.length)}
         </span>
         <Link className="link" href={href}>
-          Read the entry
+          {t.read}
         </Link>
       </p>
     </Reveal>

@@ -3,7 +3,10 @@
 import { useEffect, useMemo, useRef, useState } from "react";
 import { useRouter } from "next/navigation";
 import SearchSuggestions from "./SearchSuggestions.js";
-import { PAGES, suggest } from "../lib/suggest.js";
+import { pageRows, suggest } from "../lib/suggest.js";
+import { useLang } from "../lib/use-lang.js";
+import { pick, localize } from "../lib/i18n.js";
+import { ui } from "../content/copy/ui.js";
 
 /* The search in the nav, after apple.com's: a magnifier at the end of the
    bar opens a panel under it, and suggestions appear as the reader types.
@@ -11,24 +14,28 @@ import { PAGES, suggest } from "../lib/suggest.js";
    it); with nothing to suggest, Enter takes the words to the Field Notes
    search instead. The entries are fetched the first time it opens, so no
    page carries the index until someone asks for it. */
-let cached;
-const loadRows = () => (cached ??= fetch("/api/suggest").then((r) => r.json()).catch(() => (cached = undefined, [])));
+const cached = {};
+const loadRows = (lang) =>
+  (cached[lang] ??= fetch(`/api/suggest/${lang}`).then((r) => r.json()).catch(() => ((cached[lang] = undefined), [])));
 
 export default function NavSearch() {
   const router = useRouter();
+  const lang = useLang();
+  const t = pick(ui, lang).navSearch;
+  const PAGES = useMemo(() => pageRows(lang), [lang]);
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [rows, setRows] = useState([]);
   const [active, setActive] = useState(0);
   const input = useRef(null);
 
-  const hits = useMemo(() => suggest([...rows, ...PAGES], query), [rows, query]);
+  const hits = useMemo(() => suggest([...rows, ...PAGES], query), [rows, PAGES, query]);
   const typing = query.trim().length > 0;
   const list = typing ? hits : PAGES;
 
   useEffect(() => {
     if (!open) return;
-    loadRows().then(setRows);
+    loadRows(lang).then(setRows);
     input.current?.focus();
     const onKey = (e) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
@@ -37,7 +44,7 @@ export default function NavSearch() {
       window.removeEventListener("keydown", onKey);
       document.body.style.overflow = "";
     };
-  }, [open]);
+  }, [open, lang]);
 
   function close() {
     setOpen(false);
@@ -53,14 +60,14 @@ export default function NavSearch() {
       e.preventDefault();
       const pick = list[active];
       if (pick) router.push(pick.href);
-      else if (typing) router.push(`/field-notes?q=${encodeURIComponent(query.trim())}`);
+      else if (typing) router.push(localize(lang, `/field-notes?q=${encodeURIComponent(query.trim())}`));
       close();
     }
   }
 
   return (
     <>
-      <button type="button" className="theme-toggle nav-search-btn" aria-label="Search the guide" aria-expanded={open} onClick={() => (open ? close() : setOpen(true))}>
+      <button type="button" className="theme-toggle nav-search-btn" aria-label={t.button} aria-expanded={open} onClick={() => (open ? close() : setOpen(true))}>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" aria-hidden="true">
           <circle cx="10.5" cy="10.5" r="6.5" />
           <path d="M15.5 15.5 21 21" />
@@ -71,8 +78,8 @@ export default function NavSearch() {
           <div className="nav-search-scrim" onClick={close} />
           <div className="nav-search-panel" role="search">
             <div className="inner">
-              <input ref={input} className="nav-search-input" type="search" placeholder="Search the guide" aria-label="Search the guide" aria-controls="nav-search-list" aria-activedescendant={list.length ? `nav-search-list-${active}` : undefined} value={query} onChange={(e) => { setQuery(e.target.value); setActive(0); }} onKeyDown={onKeyDown} />
-              <SearchSuggestions id="nav-search-list" heading={typing ? "Suggestions" : "Quick links"} rows={list} active={active} onPick={close} empty="Nothing matches. Press Enter to search the Field Notes for it." />
+              <input ref={input} className="nav-search-input" type="search" placeholder={t.placeholder} aria-label={t.placeholder} aria-controls="nav-search-list" aria-activedescendant={list.length ? `nav-search-list-${active}` : undefined} value={query} onChange={(e) => { setQuery(e.target.value); setActive(0); }} onKeyDown={onKeyDown} />
+              <SearchSuggestions id="nav-search-list" heading={typing ? t.suggestions : t.quick} rows={list} active={active} onPick={close} empty={t.empty} />
             </div>
           </div>
         </>

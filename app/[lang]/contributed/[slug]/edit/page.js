@@ -1,0 +1,40 @@
+import SiteNav from "../../../../../components/SiteNav.js";
+import SiteFooter from "../../../../../components/SiteFooter.js";
+import { pick } from "../../../../../lib/i18n.js";
+import { pages } from "../../../../../content/copy/pages.js";
+import SectionLabel from "../../../../../components/SectionLabel.js";
+import EditEntryForm from "../../../../../components/EditEntryForm.js";
+
+export async function generateMetadata({ params }) {
+  const { lang } = await params;
+  const t = pick(pages, lang).forms.editNote;
+  return { title: t.title, robots: { index: false } };
+}
+
+/* A shell, like the field-note edit page: the contributions update policy
+   decides who may save. */
+export default async function EditCommunityNote({ params }) {
+  const { lang, slug } = await params;
+  const t = pick(pages, lang).forms;
+
+  return (
+    <>
+      <SiteNav lang={lang} current="/contributed" />
+
+      <header className="page-head">
+        <div className="inner">
+          <SectionLabel no="01">{t.editNote.label}</SectionLabel>
+          <h1 className="headline-sm">{t.editNote.head}</h1>
+        </div>
+      </header>
+
+      <main className="section" id="edit">
+        <div className="inner reading">
+          <EditEntryForm table="contributions" basePath="/contributed" slug={slug} />
+        </div>
+      </main>
+
+      <SiteFooter lang={lang} />
+    </>
+  );
+}

@@ -1,18 +1,25 @@
+"use client";
+
+import { useLang } from "../lib/use-lang.js";
+import { pick } from "../lib/i18n.js";
+import { forms } from "../content/copy/forms.js";
+
 /* The photo input. `accept` only filters the file picker — it is a hint, not
    a check — so the real test is checkPhoto in lib/photo-upload.js, run on
    submit. On the edit form the current photo is shown and keeping it is the
    default: leaving the input empty means "no change". */
 export default function PhotoField({ error, currentUrl, onChange }) {
+  const t = pick(forms, useLang()).photo;
   return (
     <div className="entry-field">
       <label className="search-label" htmlFor="entry-photo">
-        {currentUrl ? "Replace the photograph (optional)" : "Photograph"}
+        {currentUrl ? t.replace : t.label}
       </label>
       {currentUrl ? (
         /* A thumbnail the contributor already uploaded, shown only to them on
            the edit page; next/image would add nothing here. */
         // eslint-disable-next-line @next/next/no-img-element
-        <img className="entry-photo-current" src={currentUrl} alt="The entry's current photograph" />
+        <img className="entry-photo-current" src={currentUrl} alt={t.currentAlt} />
       ) : null}
       <input
         id="entry-photo"
@@ -24,7 +31,7 @@ export default function PhotoField({ error, currentUrl, onChange }) {
         onChange={(e) => onChange(e.target.files?.[0] ?? null)}
       />
       <p className="entry-field-hint" id="entry-photo-hint">
-        Your own photograph. JPEG, PNG or WebP, 5 MB at most.
+        {t.hint}
       </p>
       {error ? (
         <p className="entry-field-error" id="entry-photo-error">

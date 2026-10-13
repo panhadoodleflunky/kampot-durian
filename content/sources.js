@@ -104,3 +104,12 @@ export const photoCredits = [
 
 export const method =
   "The family who own and work the orchard at Teuk Chhou, asked directly, with one neighbour beside them, and the Khmer they use in the field.";
+
+/* Both editions. The Khmer one carries its own groups, cautions, method
+   line and photo captions; anything it leaves out shows in English. */
+const english = { sourceGroups, cautions, method, photoCredits };
+const khmer = {};
+
+export function sourcesFor(lang) {
+  return lang === "km" ? { ...english, ...khmer } : english;
+}

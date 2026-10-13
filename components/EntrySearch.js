@@ -1,6 +1,9 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
+import { useLang } from "../lib/use-lang.js";
+import { pick, localize } from "../lib/i18n.js";
+import { ui } from "../content/copy/ui.js";
 import EntryCard from "./EntryCard.js";
 import SearchBox from "./SearchBox.js";
 import SearchEmpty from "./SearchEmpty.js";
@@ -9,6 +12,8 @@ import { buildIndex, search, isQuery } from "../content/search-index.js";
 import { variantFor, pageCount, PER_PAGE } from "../content/card-variants.js";
 
 export default function EntrySearch({ notes }) {
+  const lang = useLang();
+  const t = pick(ui, lang).search;
   const [query, setQuery] = useState("");
   const [page, setPage] = useState(1);
   const inputRef = useRef(null);
@@ -17,7 +22,7 @@ export default function EntrySearch({ notes }) {
   const index = useMemo(() => buildIndex(notes), [notes]);
   const shown = useMemo(() => search(index, query), [index, query]);
   const searching = isQuery(query);
-  const noun = notes.length === 1 ? "entry" : "entries";
+  const noun = t.noun(notes.length);
 
   const pages = searching ? 1 : pageCount(shown.length);
   const safePage = Math.min(page, Math.max(pages, 1));
@@ -64,8 +69,8 @@ export default function EntrySearch({ notes }) {
         inputRef={inputRef}
         count={
           searching
-            ? `${shown.length} of ${notes.length} ${noun}`
-            : `${notes.length} ${noun} · page ${safePage} of ${pages}`
+            ? t.count(shown.length, notes.length, noun)
+            : t.paged(notes.length, noun, safePage, pages)
         }
       />
 
@@ -75,6 +80,7 @@ export default function EntrySearch({ notes }) {
             {paged.map((note, i) => (
               <EntryCard
                 key={note.slug}
+                lang={lang}
                 note={note}
                 variant={variantFor(i, paged.length)}
                 delay={(i % 3) * 70}
@@ -85,13 +91,13 @@ export default function EntrySearch({ notes }) {
             page={safePage}
             pages={pages}
             onChange={onPage}
-            label="Field note pages"
+            label={t.pagerLabel}
           />
         </>
       ) : notes.length === 0 ? (
         /* An empty table is not a failed search: there was no query to
            quote back, and nothing to "show all" of. */
-        <p className="body-copy">No entries have been written yet.</p>
+        <p className="body-copy">{t.none}</p>
       ) : (
         <SearchEmpty query={query} total={notes.length} onClear={() => onQuery("")} />
       )}

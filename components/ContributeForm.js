@@ -1,5 +1,9 @@
 "use client";
 
+import { useLang } from "../lib/use-lang.js";
+import { pick, localize } from "../lib/i18n.js";
+import { forms } from "../content/copy/forms.js";
+
 import { useEffect, useState } from "react";
 import SignInPrompt from "./SignInPrompt.js";
 import { useRouter } from "next/navigation";
@@ -9,7 +13,7 @@ import { makeSlug } from "../lib/entry-rules.js";
 import { entryColumns, nextFigNumber } from "../lib/entry-row.js";
 import { uploadPhoto, storagePath } from "../lib/photo-upload.js";
 import { saveError } from "../lib/save-error.js";
-import { refreshArchive } from "../app/field-notes/actions.js";
+import { refreshArchive } from "../lib/actions.js";
 import { isCurator } from "../lib/roles.js";
 
 /* /contribute. Hiding the form from a logged-out visitor is manners; the
@@ -19,6 +23,9 @@ import { isCurator } from "../lib/roles.js";
 export default function ContributeForm() {
   const router = useRouter();
   const [user, setUser] = useState(undefined);
+  const lang = useLang();
+  const all = pick(forms, lang);
+  const t = all.contribute;
 
   useEffect(() => {
     createClient()
@@ -32,13 +39,13 @@ export default function ContributeForm() {
        have ended in another tab since. The owner is this id — never a value
        from the form. */
     const { data: auth } = await supabase.auth.getUser();
-    if (!auth.user) return "You've been logged out. Log in again, then save.";
+    if (!auth.user) return t.loggedOut;
 
     const photoUrl = await uploadPhoto(supabase, auth.user.id, photo, kind).catch((failed) => {
-      saveError("photo upload", failed);
+      saveError("photo upload", failed, lang);
       return null;
     });
-    if (!photoUrl) return "The photo couldn't be uploaded. Check it's a JPEG, PNG or WebP under 5 MB, and try again.";
+    if (!photoUrl) return all.photo.uploadFailed;
 
     const curator = isCurator(auth.user);
     const row = { ...entryColumns(fields), slug: makeSlug(fields.title), photo_url: photoUrl, owner: auth.user.id };
@@ -56,26 +63,24 @@ export default function ContributeForm() {
     if (error) {
       /* The entry never existed, so its photo shouldn't either. */
       await supabase.storage.from("photos").remove([storagePath(photoUrl)]);
-      return saveError("insert entry", error);
+      return saveError("insert entry", error, lang);
     }
 
     /* Already saved: a failed refresh must not read as a failed save. */
     await refreshArchive().catch((failed) => console.error("refresh archive:", failed));
-    router.push(`${curator ? "/field-notes" : "/contributed"}/${data.slug}`);
+    router.push(localize(lang, `${curator ? "/field-notes" : "/contributed"}/${data.slug}`));
   }
 
-  if (user === undefined) return <p className="body-copy">Checking who you are…</p>;
+  if (user === undefined) return <p className="body-copy">{t.checking}</p>;
   if (user === null) {
-    return <SignInPrompt>Adding an entry needs an account. Reading never does.</SignInPrompt>;
+    return <SignInPrompt>{t.needAccount}</SignInPrompt>;
   }
   return (
     <>
       <p className="body-copy">
-        {isCurator(user)
-          ? "You're the curator: this goes into the Field Notes catalogue."
-          : "This goes into Community Notes, under your name. It won't appear in the orchard's Field Notes."}
+        {isCurator(user) ? t.curator : t.reader}
       </p>
-      <EntryForm photoRequired submitLabel="Add the entry" onSave={save} />
+      <EntryForm photoRequired submitLabel={all.entry.add} onSave={save} />
     </>
   );
 }

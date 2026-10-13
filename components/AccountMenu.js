@@ -1,5 +1,9 @@
 "use client";
 
+import { useLang } from "../lib/use-lang.js";
+import { pick, localize } from "../lib/i18n.js";
+import { ui } from "../content/copy/ui.js";
+
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
@@ -14,6 +18,8 @@ import Link from "next/link";
 export default function AccountMenu({ name, onLogOut }) {
   const [open, setOpen] = useState(false);
   const wrap = useRef(null);
+  const lang = useLang();
+  const t = pick(ui, lang).auth;
   const button = useRef(null);
 
   useEffect(() => {
@@ -44,18 +50,18 @@ export default function AccountMenu({ name, onLogOut }) {
         aria-controls="account-menu-panel"
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="account-menu-name">{name || "Account"}</span>
+        <span className="account-menu-name">{name || t.account}</span>
         <span className="account-menu-caret" aria-hidden="true" />
       </button>
 
       {open ? (
         <div className="account-menu-panel" id="account-menu-panel">
           <p className="account-menu-who">
-            Signed in as
-            <strong>{name || "you"}</strong>
+            {t.signedInAs}
+            <strong>{name || t.you}</strong>
           </p>
-          <Link href="/account" onClick={() => setOpen(false)}>
-            Your account
+          <Link href={localize(lang, "/account")} onClick={() => setOpen(false)}>
+            {t.yourAccount}
           </Link>
           <button
             type="button"
@@ -65,7 +71,7 @@ export default function AccountMenu({ name, onLogOut }) {
               onLogOut();
             }}
           >
-            Log out
+            {t.logOut}
           </button>
         </div>
       ) : null}

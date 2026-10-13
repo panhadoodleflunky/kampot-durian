@@ -4,6 +4,9 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AccountMenu from "./AccountMenu.js";
 import { supabase, useSession } from "../lib/use-session.js";
+import { useLang } from "../lib/use-lang.js";
+import { pick, localize } from "../lib/i18n.js";
+import { ui } from "../content/copy/ui.js";
 
 /* Who the reader is, in the nav: their name, linking to /account. Not the
    email: an address in the nav ends up in every screenshot and every
@@ -15,6 +18,9 @@ import { supabase, useSession } from "../lib/use-session.js";
 export default function AuthStatus({ variant = "bar" }) {
   const router = useRouter();
   const { userId, name, ready } = useSession();
+  const lang = useLang();
+  const t = pick(ui, lang).auth;
+  const go = (path) => localize(lang, path);
 
   async function logOut() {
     const client = await supabase();
@@ -30,16 +36,16 @@ export default function AuthStatus({ variant = "bar" }) {
   if (userId) {
     return (
       <div className="auth-nav">
-        <Link className="auth-btn" href="/contribute">
-          Contribute
+        <Link className="auth-btn" href={go("/contribute")}>
+          {t.contribute}
         </Link>
         {variant === "sheet" ? (
           <>
-            <Link className="auth-email auth-name" href="/account" title="Your account">
-              {name || "Account"}
+            <Link className="auth-email auth-name" href={go("/account")} title={t.yourAccount}>
+              {name || t.account}
             </Link>
             <button className="auth-btn" type="button" onClick={logOut}>
-              Log out
+              {t.logOut}
             </button>
           </>
         ) : (
@@ -51,11 +57,11 @@ export default function AuthStatus({ variant = "bar" }) {
 
   return (
     <div className="auth-nav">
-      <Link className="auth-btn" href="/login">
-        Log in
+      <Link className="auth-btn" href={go("/login")}>
+        {t.logIn}
       </Link>
-      <Link className="auth-btn" href="/signup">
-        Sign up
+      <Link className="auth-btn" href={go("/signup")}>
+        {t.signUp}
       </Link>
     </div>
   );

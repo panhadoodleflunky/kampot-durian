@@ -1,11 +1,15 @@
 "use client";
 
+import { useLang } from "../lib/use-lang.js";
+import { pick } from "../lib/i18n.js";
+import { forms } from "../content/copy/forms.js";
+
 import { useState } from "react";
 import FormField from "./FormField.js";
 import { createClient } from "../lib/supabase/client.js";
 import { nameError, NAME_MAX } from "../lib/signup-rules.js";
 import { saveError } from "../lib/save-error.js";
-import { refreshArchive } from "../app/field-notes/actions.js";
+import { refreshArchive } from "../lib/actions.js";
 
 /* Rename. The name lives in `profiles` — the one copy the site reads, in
    the nav and under every community note. The update policy lets a person
@@ -18,12 +22,15 @@ export default function NameForm({ userId, current }) {
   const [error, setError] = useState("");
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
+  const lang = useLang();
+  const all = pick(forms, lang);
+  const t = all.account;
 
   async function onSubmit(event) {
     event.preventDefault();
     setMessage("");
     const trimmed = name.trim();
-    const found = nameError(trimmed);
+    const found = nameError(trimmed, lang);
     setError(found);
     if (found) return;
 
@@ -35,13 +42,13 @@ export default function NameForm({ userId, current }) {
       .select("display_name");
     setBusy(false);
 
-    if (failed) return setMessage(saveError("rename", failed));
+    if (failed) return setMessage(saveError("rename", failed, lang));
     if (data.length === 0) {
       console.error("rename: no row came back for", userId);
-      return setMessage("That change wasn't saved.");
+      return setMessage(all.save.notSaved);
     }
     setName(trimmed);
-    setMessage("Saved. Your notes now show this name.");
+    setMessage(t.saved);
     /* The nav listens for this, so the new name appears without a reload;
        the community pages are rebuilt so the notes show it too. */
     window.dispatchEvent(new CustomEvent("profile-renamed", { detail: trimmed }));
@@ -53,8 +60,8 @@ export default function NameForm({ userId, current }) {
     <form className="auth-form" onSubmit={onSubmit} noValidate>
       <FormField
         id="acct-name"
-        label="Your name"
-        hint={`Shown in the menu and on your notes. Up to ${NAME_MAX} characters.`}
+        label={t.nameLabel}
+        hint={t.nameHint(NAME_MAX)}
         autoComplete="name"
         value={name}
         error={error}
@@ -63,7 +70,7 @@ export default function NameForm({ userId, current }) {
       <p className="auth-error" role="status">{message}</p>
       <div className="auth-actions">
         <button className="btn auth-submit" type="submit" disabled={busy}>
-          {busy ? "Saving" : "Save name"}
+          {busy ? all.entry.saving : t.saveName}
         </button>
       </div>
     </form>

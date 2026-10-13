@@ -1,3 +1,9 @@
+"use client";
+
+import { useLang } from "../lib/use-lang.js";
+import { pick } from "../lib/i18n.js";
+import { ui } from "../content/copy/ui.js";
+
 /* The no-results state. Its own file because this project caps a
    component at roughly 80 lines and EntrySearch was over with this inline.
 
@@ -9,19 +15,18 @@
 const KHMER = /[ក-៿]/;
 
 export default function SearchEmpty({ query, total, onClear }) {
+  const t = pick(ui, useLang()).search;
   return (
     <div className="search-none">
       <p className="search-none-head">
-        Nothing in the guide matches{" "}
+        {t.emptyHead}{" "}
         <span lang={KHMER.test(query) ? "km" : undefined}>“{query}”</span>.
       </p>
       <p className="body-copy">
-        {total} entries, not eleven thousand. A blank usually means the guide
-        has not got to the subject yet. Try a variety — Ov Khak, Monthong,
-        Musang King — or a subject: harvest, climate, export, trade.
+        {t.emptyBody(total)}
       </p>
       <button type="button" className="btn search-none-btn" onClick={onClear}>
-        Show all {total} entries
+        {t.showAll(total)}
       </button>
     </div>
   );

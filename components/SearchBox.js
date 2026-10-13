@@ -1,12 +1,18 @@
 "use client";
 
+import { useLang } from "../lib/use-lang.js";
+import { pick } from "../lib/i18n.js";
+import { ui } from "../content/copy/ui.js";
+
+
 /* The search field itself. Presentational — it holds no state, so the query
    lives in one place (EntrySearch) rather than two. */
 export default function SearchBox({ value, onChange, inputRef, count }) {
+  const t = pick(ui, useLang()).search;
   return (
     <div className="search" id="search">
       <label className="search-label" htmlFor="entry-search">
-        Search the entries
+        {t.label}
       </label>
       <div className="search-field">
         <input
@@ -16,7 +22,7 @@ export default function SearchBox({ value, onChange, inputRef, count }) {
           type="search"
           value={value}
           onChange={(e) => onChange(e.target.value)}
-          placeholder="A variety, a subject, a season — Ov Khak, drought, harvest"
+          placeholder={t.placeholder}
           autoComplete="off"
           spellCheck="false"
           aria-describedby="entry-search-count"
@@ -30,7 +36,7 @@ export default function SearchBox({ value, onChange, inputRef, count }) {
           onClick={() => onChange("")}
           disabled={!value}
         >
-          Clear
+          {t.clear}
         </button>
       </div>
       {/* Announced to screen readers on every change, not just on submit. */}

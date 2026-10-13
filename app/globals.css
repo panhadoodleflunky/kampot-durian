@@ -1389,6 +1389,15 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
   margin-left: auto;
 }
 
+/* The block notice under a community note's title ("a reader's own
+   account"). Restored 13 October: it was removed with the in-progress
+   banner, which shared it. */
+.entry-status-block {
+  display: inline-block;
+  margin: 0 0 28px;
+  letter-spacing: 1.2px;
+}
+
 /* The space under an entry title comes from whatever follows it in the
    header — the Khmer name, or the owner's buttons. An entry with neither has
    the title last and its photograph sat on it, the descender

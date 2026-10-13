@@ -3,6 +3,9 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import AuthStatus from "./AuthStatus.js";
+import { useLang } from "../lib/use-lang.js";
+import { pick, localize } from "../lib/i18n.js";
+import { ui } from "../content/copy/ui.js";
 
 /* The phone menu. Below 735px the nav bar has no room for its five links,
    and hiding three of them (the old behaviour) left whole pages unreachable
@@ -19,6 +22,8 @@ import AuthStatus from "./AuthStatus.js";
 export default function NavMenu({ links, current }) {
   const [open, setOpen] = useState(false);
   const burger = useRef(null);
+  const lang = useLang();
+  const t = pick(ui, lang).nav;
 
   /* Escape closes and hands focus back to the burger, and the page behind
      the sheet stops scrolling while it is up — otherwise a stray swipe
@@ -53,7 +58,7 @@ export default function NavMenu({ links, current }) {
         className={`gnav-burger${open ? " is-open" : ""}`}
         aria-expanded={open}
         aria-controls="gnav-sheet"
-        aria-label={open ? "Close menu" : "Open menu"}
+        aria-label={open ? t.closeMenu : t.openMenu}
         onClick={() => setOpen((v) => !v)}
       >
         <span className="gnav-burger-bar" aria-hidden="true" />
@@ -65,10 +70,10 @@ export default function NavMenu({ links, current }) {
           {/* Tapping the dimmed page closes the sheet, like every phone menu. */}
           <div className="gnav-scrim" onClick={() => setOpen(false)} />
           <div className="gnav-sheet" id="gnav-sheet">
-            {[{ href: "/", label: "Home" }, ...links].map((link) => (
+            {[{ href: "/", to: localize(lang, "/"), label: t.home }, ...links].map((link) => (
               <Link
                 key={link.href}
-                href={link.href}
+                href={link.to}
                 aria-current={current === link.href ? "page" : undefined}
                 onClick={() => setOpen(false)}
               >

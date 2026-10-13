@@ -1,5 +1,9 @@
 "use client";
 
+import { useLang } from "../lib/use-lang.js";
+import { pick, localize } from "../lib/i18n.js";
+import { forms } from "../content/copy/forms.js";
+
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -24,6 +28,9 @@ export default function SignupForm() {
   const [errors, setErrors] = useState({});
   const [message, setMessage] = useState("");
   const [busy, setBusy] = useState(false);
+  const lang = useLang();
+  const all = pick(forms, lang);
+  const t = all.signup;
 
   const field = (name) => ({
     value: values[name],
@@ -35,9 +42,9 @@ export default function SignupForm() {
     event.preventDefault();
     setMessage("");
     const fields = { ...values, name: values.name.trim(), email: values.email.trim() };
-    const found = validateSignup(fields);
+    const found = validateSignup(fields, lang);
     setErrors(found);
-    if (Object.keys(found).length > 0) return setMessage("Fix the fields marked below, then try again.");
+    if (Object.keys(found).length > 0) return setMessage(t.fix);
 
     setBusy(true);
     const data = { display_name: fields.name, agreed_at: new Date().toISOString() };
@@ -52,34 +59,32 @@ export default function SignupForm() {
     if (error) {
       console.error("signup:", error);
       return setMessage(
-        error.name === "AuthRetryableFetchError"
-          ? "The server didn't answer. Check your connection and try again."
-          : "That account could not be created. Try a different email, or try again in a minute.",
+        error.name === "AuthRetryableFetchError" ? all.save.noServer : t.failed,
       );
     }
-    if (!result.session) return setMessage("Check your email for a link to confirm the account, then log in.");
-    router.push("/contribute");
+    if (!result.session) return setMessage(t.confirmEmail);
+    router.push(localize(lang, "/contribute"));
     router.refresh();
   }
 
   return (
     <form className="auth-form" onSubmit={onSubmit} noValidate>
-      <FormField id="su-name" label="Your name" hint={`Shown on your notes. Up to ${NAME_MAX} characters.`} autoComplete="name" {...field("name")} />
-      <FormField id="su-email" label="Email" type="email" hint="Never shown to anyone." autoComplete="email" inputMode="email" {...field("email")} />
-      <FormField id="su-password" label="Password" type="password" hint={`At least ${PASSWORD_MIN} characters.`} autoComplete="new-password" {...field("password")} />
-      <FormField id="su-confirm" label="Password, again" type="password" hint="Type it once more." autoComplete="new-password" {...field("confirm")} />
-      <FormField id="su-birthdate" label="Birthdate (optional)" type="date" hint="Kept private. Never shown." autoComplete="bday" {...field("birthdate")} />
+      <FormField id="su-name" label={t.name} hint={t.nameHint(NAME_MAX)} autoComplete="name" {...field("name")} />
+      <FormField id="su-email" label={t.email} type="email" hint={t.emailHint} autoComplete="email" inputMode="email" {...field("email")} />
+      <FormField id="su-password" label={t.password} type="password" hint={t.passwordHint(PASSWORD_MIN)} autoComplete="new-password" {...field("password")} />
+      <FormField id="su-confirm" label={t.confirm} type="password" hint={t.confirmHint} autoComplete="new-password" {...field("confirm")} />
+      <FormField id="su-birthdate" label={t.birthdate} type="date" hint={t.birthdateHint} autoComplete="bday" {...field("birthdate")} />
 
       <label className="signup-agree" htmlFor="su-agree">
         <input id="su-agree" type="checkbox" checked={values.agreed} aria-invalid={errors.agreed ? true : undefined} onChange={(e) => setValues({ ...values, agreed: e.target.checked })} />
-        I&rsquo;ll only add what I was told or saw myself, say who told me, and use my own photographs.
+        {t.agree}
       </label>
       {errors.agreed ? <p className="entry-field-error">{errors.agreed}</p> : null}
 
       <p className="auth-error" role="alert">{message}</p>
       <div className="auth-actions">
-        <button className="btn auth-submit" type="submit" disabled={busy}>{busy ? "Creating the account" : "Sign up"}</button>
-        <Link className="link" href="/login">Already have an account? Log in</Link>
+        <button className="btn auth-submit" type="submit" disabled={busy}>{busy ? t.busy : t.submit}</button>
+        <Link className="link" href={localize(lang, "/login")}>{t.toLogin}</Link>
       </div>
     </form>
   );
