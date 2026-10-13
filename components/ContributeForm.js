@@ -41,11 +41,15 @@ export default function ContributeForm() {
     const { data: auth } = await supabase.auth.getUser();
     if (!auth.user) return t.loggedOut;
 
-    const photoUrl = await uploadPhoto(supabase, auth.user.id, photo, kind).catch((failed) => {
-      saveError("photo upload", failed, lang);
-      return null;
-    });
-    if (!photoUrl) return all.photo.uploadFailed;
+    /* The photograph is optional; without one the entry simply has none. */
+    let photoUrl = null;
+    if (photo) {
+      photoUrl = await uploadPhoto(supabase, auth.user.id, photo, kind).catch((failed) => {
+        saveError("photo upload", failed, lang);
+        return null;
+      });
+      if (!photoUrl) return all.photo.uploadFailed;
+    }
 
     const curator = isCurator(auth.user);
     const row = { ...entryColumns(fields), slug: makeSlug(fields.title), photo_url: photoUrl, owner: auth.user.id };
@@ -62,7 +66,7 @@ export default function ContributeForm() {
 
     if (error) {
       /* The entry never existed, so its photo shouldn't either. */
-      await supabase.storage.from("photos").remove([storagePath(photoUrl)]);
+      if (photoUrl) await supabase.storage.from("photos").remove([storagePath(photoUrl)]);
       return saveError("insert entry", error, lang);
     }
 
@@ -80,7 +84,7 @@ export default function ContributeForm() {
       <p className="body-copy">
         {isCurator(user) ? t.curator : t.reader}
       </p>
-      <EntryForm photoRequired submitLabel={all.entry.add} onSave={save} />
+      <EntryForm submitLabel={all.entry.add} onSave={save} />
     </>
   );
 }

@@ -35,7 +35,7 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
     const supabase = createClient();
     Promise.all([
       supabase.auth.getUser(),
-      supabase.from(table).select("id, owner, title, khmer_name, body, sources, tags, photo_url").eq("slug", slug).maybeSingle(),
+      supabase.from(table).select("id, owner, title, khmer_name, body, sources, tags, title_km, body_km, sources_km, tags_km, photo_url").eq("slug", slug).maybeSingle(),
     ]).then(([{ data: auth }, { data: row, error }]) => {
       if (error) return setState({ status: "failed", message: saveError("load entry", error, lang) });
       if (!row) return setState({ status: "missing" });
@@ -90,7 +90,17 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
   if (status === "not-yours") return <p className="body-copy">{t.notYours}</p>;
 
   const { row } = state;
-  const initial = { title: row.title, khmerName: row.khmer_name ?? "", body: row.body, sources: row.sources, tags: (row.tags ?? []).join(", ") };
+  const initial = {
+    title: row.title,
+    titleKm: row.title_km ?? "",
+    khmerName: row.khmer_name ?? "",
+    body: row.body,
+    bodyKm: row.body_km ?? "",
+    sources: row.sources,
+    sourcesKm: row.sources_km ?? "",
+    tags: (row.tags ?? []).join(", "),
+    tagsKm: (row.tags_km ?? []).join(", "),
+  };
   /* The curator editing someone else's note keeps their photograph: a new
      one would upload into the curator's folder, and the photo_url_ours
      constraint ties a note's photo to its author's folder. */
