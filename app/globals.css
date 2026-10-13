@@ -235,14 +235,17 @@ img { max-width: 100%; height: auto; display: block; }
   border-bottom: 1px solid var(--line);
 }
 
+/* 80px wider than the page, and 24px between items: measured, the English
+   bar with Log in and Sign up needs 1,111px, and anything less let the icons
+   slide right the moment the login buttons arrived. */
 .gnav-inner {
-  max-width: var(--wrap);
+  max-width: calc(var(--wrap) + 80px);
   height: 100%;
   margin: 0 auto;
   padding: 0 30px;
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 24px;
 }
 
 .gnav-logo { display: flex; align-items: center; color: var(--flesh-display); flex-shrink: 0; }
@@ -279,7 +282,7 @@ img { max-width: 100%; height: auto; display: block; }
 
 /* The desktop link row. On a phone the whole row hides and the burger menu
    takes over — see the phone-menu block further down. */
-.gnav-links { display: flex; align-items: center; gap: 30px; }
+.gnav-links { display: flex; align-items: center; gap: 26px; }
 
 /* ---------------- phone menu ----------------
 
@@ -1244,7 +1247,9 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
   .hero-figure figcaption { left: 20px; right: 20px; bottom: 20px; }
   .quote-section { padding: 84px 22px; }
   .tile { padding: 34px 28px; min-height: 200px; }
-  .gnav-inner { padding: 0 22px; gap: 18px; }
+  /* The icons are 40px pads; 6px between them is enough air, and the
+     English name, search, switch, theme and menu then fit a 390px screen. */
+  .gnav-inner { padding: 0 22px; gap: 6px; }
   .band { min-height: 68vh; min-height: 68svh; }
   .band-copy { padding-bottom: 70px; }
   .entry { padding: 36px 28px; border-radius: 20px; }
@@ -1266,10 +1271,13 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
    Field guide — page shells, entry variants, bibliography
    ============================================================ */
 
+/* The same width in both editions (the English name is the wider), so the
+   links that follow it start at the same place when the language changes. */
 .gnav-home {
   display: flex;
   align-items: center;
   gap: 12px;
+  min-width: 160px;
   text-decoration: none;
   flex-shrink: 0;
 }
@@ -2185,27 +2193,18 @@ textarea#entry-body { min-height: 16em; }
 
 .account-menu { position: relative; }
 
-.account-menu-btn { display: inline-flex; align-items: center; gap: 9px; }
-.account-menu-name {
-  /* In px, not ch: the letter-spacing made 16ch cut "Sovanpanha Nonn"
-     short. A longer name still ends in an ellipsis; the panel shows it
-     whole. */
-  max-width: 130px;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
+/* A round badge with the reader's initial, the size of the icons beside it. */
+.account-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  letter-spacing: 0;
 }
-.account-menu-caret {
-  width: 6px;
-  height: 6px;
-  margin-top: -3px;
-  border-right: 1.5px solid currentColor;
-  border-bottom: 1.5px solid currentColor;
-  transform: rotate(45deg);
-  transition: transform 0.2s ease;
-}
+.account-menu-initial { font-size: 13px; line-height: 1; }
 .account-menu-btn[aria-expanded="true"] { color: var(--flesh); border-color: var(--line-2); }
-.account-menu-btn[aria-expanded="true"] .account-menu-caret { transform: rotate(225deg); margin-top: 3px; }
 
 .account-menu-panel {
   position: absolute;
@@ -2268,15 +2267,6 @@ textarea#entry-body { min-height: 16em; }
 
 @media (prefers-reduced-motion: reduce) {
   .account-menu-panel { animation: none; }
-  .account-menu-caret { transition: none; }
-}
-
-/* Logged in, the bar carries more (Contribute and the name button), so it
-   trades the six links for the menu button earlier. Measured: at 1,321px it
-   still overflowed by about 40px; at 1,401px and up it fits. */
-@media (max-width: 1400px) {
-  .gnav-inner:has(.account-menu) .gnav-links { display: none; }
-  .gnav-inner:has(.account-menu) .gnav-menu { display: block; }
 }
 
 /* ---------------- language switch ---------------- */
@@ -2284,8 +2274,11 @@ textarea#entry-body { min-height: 16em; }
 .lang-switch {
   display: flex;
   align-items: center;
+  justify-content: center;
+  /* One width for ខ្មែរ and EN, so the icons beside it stay put. */
+  width: 44px;
   height: 40px;
-  padding: 0 6px;
+  padding: 0;
   flex-shrink: 0;
   font-size: 13px;
   color: var(--dim);

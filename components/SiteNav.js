@@ -18,6 +18,10 @@ import { ui } from "../content/copy/ui.js";
    active link can be marked for screen readers in either edition without
    making this a client component.
 
+   The links follow the logo and everything after the spacer is pinned to
+   the right edge, so the login buttons, which arrive a moment after the
+   page, grow into the gap and push nothing.
+
    The inline links are the desktop nav. On a phone the whole row hides and
    NavMenu takes over — the old approach dropped three of the five links at
    that width and left those pages unreachable by touch. */
@@ -33,7 +37,6 @@ export default function SiteNav({ lang = "en", current }) {
           </span>
           <span className="gnav-name">{t.siteName}</span>
         </Link>
-        <span className="gnav-spacer" />
         <div className="gnav-links">
           {links.map((link) => (
             <Link
@@ -45,6 +48,7 @@ export default function SiteNav({ lang = "en", current }) {
             </Link>
           ))}
         </div>
+        <span className="gnav-spacer" />
         <AuthStatus />
         <NavSearch />
         <LangSwitch />
