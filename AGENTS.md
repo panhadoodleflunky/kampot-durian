@@ -21,7 +21,7 @@ One student's Khmer Living Archive, built in ICT 340 at AUPP. Every student buil
 3. Never write an API key, token, or password into any file. This repository is public.
 4. Keep diffs scoped to what was asked. If completing the task honestly requires touching another file, say which file and why before editing it.
 5. One component per file in `components/`, plain function components, roughly 80 lines or less. If a component wants to be bigger, split it.
-6. Khmer text is first-class content, not an edge case. Never transliterate or "fix" it, and never invent it. **This edition is English-only by the owner's decision of 9 September 2026** — the growers' Khmer terms were removed from the site and preserved in `PROJECT.md` §8, ready to go back in for the Khmer edition. Do not re-insert them into this edition, and do not delete the `khmerName` field or the language-detection code that will carry them. Sample data comes from the student's real entries, never lorem ipsum.
+6. Khmer text is first-class content, not an edge case. Never transliterate or "fix" it, and never invent it. **The site has two editions since 14 October 2026:** English at the plain addresses, Khmer under `/km`. Every visible string lives in `content/copy/` (or `content/sources.js`, `content/photos.js`, and the entries' `*_km` columns) with an `en` and a `km` side; never hard-code a string in a page or component. The Khmer is an AI translation checked by the owner, using the growers' own terms from `PROJECT.md` §8; the owner confirms any new term. After editing Khmer text, run `node scripts/khmer-breaks.mjs` on the file to restore its word-break markers. Sample data comes from the student's real entries, never lorem ipsum.
 
 ## Working style
 

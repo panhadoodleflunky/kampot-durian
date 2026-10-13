@@ -2,6 +2,34 @@
    Kampot Durian — archival editorial theme
    ============================================================ */
 
+/* ---------------- Khmer faces ----------------
+
+   Self-hosted, Khmer subset only (public/fonts, SIL Open Font License,
+   licences beside the files). The unicode-range keeps them from ever being
+   used for Latin: in a mixed line the English faces carry the English.
+   Battambang ships 400 and 700; everything lighter than 600 uses the 400. */
+@font-face {
+  font-family: "Battambang";
+  src: url("/fonts/battambang-400-khmer.woff2") format("woff2");
+  font-weight: 100 599;
+  font-display: swap;
+  unicode-range: U+1780-17FF, U+19E0-19FF, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: "Battambang";
+  src: url("/fonts/battambang-700-khmer.woff2") format("woff2");
+  font-weight: 600 900;
+  font-display: swap;
+  unicode-range: U+1780-17FF, U+19E0-19FF, U+200C-200D, U+25CC;
+}
+@font-face {
+  font-family: "Hanuman";
+  src: url("/fonts/hanuman-khmer.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+1780-17FF, U+19E0-19FF, U+200C-200D, U+25CC;
+}
+
 :root {
   color-scheme: dark;
   --husk: #0B0E0B;
@@ -51,10 +79,14 @@
   --photo-line: rgba(233, 188, 99, 0.32);
   /* Khmer sits in every stack: Latin faces have no Khmer glyphs, so the
      browser needs somewhere to fall to before it reaches the system. */
-  --khmer: var(--font-khmer), "Noto Sans Khmer", "Khmer OS", sans-serif;
-  --mono: var(--font-mono), ui-monospace, "SF Mono", monospace, var(--khmer);
-  --serif: var(--font-display), "Iowan Old Style", Georgia, serif, var(--khmer);
-  --sans: var(--font-body), -apple-system, "Helvetica Neue", sans-serif, var(--khmer);
+  /* The Khmer faces sit straight after the site's own, before any generic
+     family. They cover only Khmer (unicode-range), so Latin never reaches
+     them, and Khmer never reaches a system font — on a Mac the generic
+     serif hands it to one that drops stacked marks below the line. */
+  --khmer: "Battambang", "Khmer OS", sans-serif;
+  --mono: var(--font-mono), "Battambang", ui-monospace, "SF Mono", monospace;
+  --serif: var(--font-display), "Hanuman", "Iowan Old Style", Georgia, serif;
+  --sans: var(--font-body), "Battambang", -apple-system, "Helvetica Neue", sans-serif;
   --wrap: 1120px;
   --nav-h: 58px;
 }
@@ -1038,7 +1070,6 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 
 /* Khmer stacks taller than Latin and its vowel signs sit above and below the
    consonant, so the Latin line height clips them. */
-.entry :lang(km) { font-family: var(--khmer); }
 .entry-body:lang(km) { line-height: 2.05; font-weight: 400; }
 .entry-title:lang(km) {
   line-height: 1.45;
@@ -1116,7 +1147,6 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 }
 
 .entry-tag:lang(km) {
-  font-family: var(--khmer);
   text-transform: none;
   letter-spacing: 0;
   font-size: 12px;
@@ -1832,7 +1862,7 @@ a.section-count:hover { text-decoration: underline; }
   overflow-wrap: anywhere;
 }
 
-.search-none-head :lang(km) { font-family: var(--khmer); line-height: 1.9; }
+.search-none-head :lang(km) { line-height: 1.9; }
 .search-none .body-copy { margin: 0; }
 .search-none-btn { margin-top: 30px; }
 
@@ -2262,46 +2292,46 @@ textarea#entry-body { min-height: 16em; }
   text-decoration: none;
   transition: color 0.2s ease;
 }
-.lang-switch:lang(km) { font-family: var(--khmer); }
 .lang-switch:lang(en) { font-family: var(--mono); font-size: 11px; letter-spacing: 1.8px; }
 .gnav a.lang-switch:hover { color: var(--flesh); }
 
 /* ---------------- the Khmer edition ----------------
 
-   Khmer is never letter-spaced: the tracking that gives the English mono
-   labels their voice pulls Khmer clusters apart, and stacked subscripts
-   (ក្នុ, ស្រ) separate from their base. `!important` because the English
-   tracking is set on dozens of rules, some with two classes; this is the
-   one place that undoes it, and only under lang="km".
+   Three adjustments, all under lang="km" and nowhere else.
 
-   Khmer also stands taller than Latin — vowels above, subscripts below — so
-   every line height that was tuned tight for Instrument Serif is opened
-   up, and the small labels go up a size to stay legible. */
+   1. No letter-spacing. The tracking that gives the English mono labels
+      their voice pulls Khmer clusters apart and separates stacked
+      subscripts (ក្នុ, ស្រ) from their base. `!important` because that
+      tracking is set on dozens of rules; this is the one place it is undone.
+
+   2. Line heights opened for vowels above and subscripts below, but only
+      as far as they need: the headings are sized so a page takes about the
+      same height in both editions, and switching does not shove it down.
+
+   3. Small text sized to its container. English labels are 10.5–11.5px
+      spaced capitals; Khmer at that size reads as tiny inside the same
+      pill or button. Three tiers: buttons and nav, labels, fine print. */
 html:lang(km) * { letter-spacing: normal !important; }
 
-/* Our Khmer face first. The English stacks reach the generic `serif` /
-   `sans-serif` before Noto Sans Khmer, and on a Mac that hands Khmer to an
-   older system font that drops stacked marks (the ្ង ួ of ស្ងួត) far below
-   the line. Latin in the Khmer edition (EN, ICT 340) falls through to the
-   site's own faces. */
-html:lang(km) {
-  --serif: var(--font-khmer), var(--font-display), "Noto Sans Khmer", serif;
-  --sans: var(--font-khmer), var(--font-body), "Noto Sans Khmer", sans-serif;
+html:lang(km) .headline { font-size: clamp(56px, 7.4vw, 112px); line-height: 1.18; }
+html:lang(km) :is(.headline-sm, .stat-num, .tile-value, .entry-title, .entry-next-title, .spec-value) {
+  line-height: 1.38;
+}
+html:lang(km) .pull blockquote { line-height: 1.55; }
+html:lang(km) :is(.reading-body, .sub, .body-copy, .biblio-note, .entry-body, .entry-field-hint, .foot-fine) {
+  line-height: 1.9;
 }
 
-html:lang(km) :is(.headline, .headline-sm, .stat-num, .tile-value, .entry-title, .entry-next-title, .spec-value) {
-  line-height: 1.65;
+html:lang(km) :is(.btn, .link, .gnav-links a, .gnav-name, .gnav-sheet a, .auth-btn, .search-clear, .pager-step,
+  .account-menu-btn, .account-menu-panel a, .account-menu-logout) {
+  font-size: 15px;
+  line-height: 1.3;
 }
-html:lang(km) .headline { font-size: clamp(56px, 9vw, 104px); }
-html:lang(km) .headline em { padding-top: 0.08em; }
-html:lang(km) .pull blockquote { line-height: 1.6; }
-html:lang(km) :is(.reading-body, .sub, .body-copy, .biblio-note, .entry-body, .entry-field-hint, .foot-fine) {
-  line-height: 1.95;
+html:lang(km) .auth-btn { font-size: 14px; }
+html:lang(km) :is(.sec-label, .tile-label, .eyebrow, .mast-item dt, .search-label, .search-count, .entry-src,
+  .entry-back, .nav-search-heading, .spec h3, .entry-status, .account-menu-who, .hero-cap-no) {
+  font-size: 14px;
 }
-html:lang(km) :is(.sec-label, .tile-label, .eyebrow, .mast-item dt, .gnav-links a, .gnav-name, .btn, .link,
-  .auth-btn, .search-label, .search-count, .entry-src, .entry-tag, .hero-cap-no, .hero-figure figcaption,
-  .entry-back, .nav-search-heading, .nav-search-hint, .foot-bottom, .pager-step, .spec h3, .entry-status,
-  .account-menu-who, .entry-sources-note) {
+html:lang(km) :is(.entry-tag, .nav-search-hint, .hero-figure figcaption, .foot-bottom, .entry-sources-note) {
   font-size: 13px;
 }
-

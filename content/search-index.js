@@ -10,7 +10,7 @@
    word separator in Khmer and some keyboards emit it, so a pasted query can
    carry breaks the stored text does not have. Removing them from both sides
    compares the letters rather than the invisible marks. */
-const ZERO_WIDTH = /[\u200B-\u200D\uFEFF]/g;
+const ZERO_WIDTH = /[\u200B-\u200D\u2060\uFEFF]/g;
 
 export const norm = (s) =>
   typeof s === "string" ? s.normalize("NFC").replace(ZERO_WIDTH, "").toLowerCase() : "";

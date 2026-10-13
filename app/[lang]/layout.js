@@ -2,7 +2,6 @@ import {
   Instrument_Serif,
   Inter,
   JetBrains_Mono,
-  Noto_Sans_Khmer,
 } from "next/font/google";
 import "../globals.css";
 import { siteUrl } from "../../content/site.js";
@@ -32,19 +31,13 @@ const mono = JetBrains_Mono({
   variable: "--font-mono",
 });
 
-/* Khmer face. Inter and Instrument Serif carry no Khmer glyphs, so without
-   this any Khmer entry falls through to whatever the device happens to have.
-
-   Not preloaded. At 59 kB it was the heaviest file in the head of every page,
-   in an English edition with no Khmer on it. Without the preload the browser
-   still fetches it the moment a Khmer character actually needs it. */
-const khmer = Noto_Sans_Khmer({
-  subsets: ["khmer"],
-  weight: ["300", "400", "600"],
-  display: "swap",
-  preload: false,
-  variable: "--font-khmer",
-});
+/* Khmer faces: Hanuman for headings, Battambang for text (owner's choice,
+   14 October 2026). Self-hosted from public/fonts, Khmer letters only, and
+   declared in globals.css. On the Khmer edition they are preloaded, so the
+   page is drawn in them first time instead of in a fallback that reflows
+   when they arrive; the English edition fetches them only if a Khmer word
+   actually appears. */
+const KHMER_FONTS = ["battambang-400-khmer.woff2", "hanuman-khmer.woff2"];
 
 /* The site's default title, description and social card, per edition. */
 export async function generateMetadata({ params }) {
@@ -84,11 +77,16 @@ export default async function RootLayout({ children, params }) {
   return (
     <html
       lang={lang}
-      className={`${display.variable} ${body.variable} ${mono.variable} ${khmer.variable}`}
+      className={`${display.variable} ${body.variable} ${mono.variable}`}
       /* the inline script above sets data-theme before React hydrates */
       suppressHydrationWarning
     >
       <body>
+        {lang === "km"
+          ? KHMER_FONTS.map((file) => (
+              <link key={file} rel="preload" href={`/fonts/${file}`} as="font" type="font/woff2" crossOrigin="" />
+            ))
+          : null}
         <script dangerouslySetInnerHTML={{ __html: themeInit }} />
         {children}
       </body>

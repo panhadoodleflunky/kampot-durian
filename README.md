@@ -52,6 +52,12 @@ Nothing secret is committed.
 
 ## The stack
 
+**Two editions.** English at the plain addresses, Khmer under `/km` — same
+pages, same data, a language switch in the nav. `middleware.js` maps English
+addresses onto `app/[lang]/` without changing them; every string comes from
+`content/copy/`. The Khmer is set in Hanuman and Battambang, self-hosted from
+`public/fonts` (SIL Open Font License) and preloaded on Khmer pages.
+
 Next.js 15 (App Router), React 19, plain JavaScript. **Five dependencies**: the
 framework three, plus `@supabase/supabase-js` and `@supabase/ssr`, approved for
 Sprint 2 (see `AGENTS.md`).
@@ -67,32 +73,41 @@ Sprint 2 (see `AGENTS.md`).
 ## How it is laid out
 
 ```
+middleware.js                English addresses → app/[lang]/ (lang "en"); /km as is
 app/
-  (home)/page.js             home — hero, featured entries, method note
-  region/  about/  sources/  the orchard; method and gaps; interviews and credits
-  field-notes/(index)/       browse + search over every entry, four to a page
-  field-notes/[slug]/        one entry; /edit for the curator
-  field-notes/actions.js     server action: rebuild the pages after a write
-  contributed/               Community Notes from other accounts, and their /edit
-  contribute/                the form: curator → Field Notes, anyone else → Community
-  login/  signup/  account/  the front door, and the account page
-  layout.js  sitemap.js  robots.js  not-found.js  globals.css
+  [lang]/layout.js           the root layout, per edition (html lang, fonts, metadata)
+  [lang]/(home)/page.js      home — hero, featured entries, method note
+  [lang]/region/ about/ sources/   the orchard; method and gaps; interviews and credits
+  [lang]/field-notes/(index)/      browse + search over every entry, four to a page
+  [lang]/field-notes/[slug]/       one entry; /edit for the curator
+  [lang]/contributed/        Community Notes from other accounts, and their /edit
+  [lang]/contribute/         the form: curator → Field Notes, anyone else → Community
+  [lang]/login/ signup/ account/   the front door, and the account page
+  [lang]/not-found.js  [lang]/[...rest]/   the 404, in both editions
+  api/suggest/[lang]/        the nav search's index, fetched on first open
+  sitemap.js  robots.js  globals.css
 components/                  one component per file, ~80 lines or less
   EntrySearch, SearchBox, Pagination, SearchEmpty, EntryCard     browse and search
   EntryForm, FormField, PhotoField, ContributeForm, EditEntryForm, OwnerActions
   AuthForm, SignupForm, AuthStatus, AccountMenu, AccountPanel, NameForm, PasswordForm, SignInPrompt
-  SiteNav, NavMenu, SiteFooter, SectionLabel, DurianGlyph, Reveal, ThemeToggle
+  SiteNav, NavMenu, NavSearch, SearchSuggestions, LangSwitch, LangOnly, SiteFooter,
+  SectionLabel, DurianGlyph, Reveal, ThemeToggle, Rich (a sentence with links, from copy)
 lib/
   entries.js                 every read: rows → entries, cached static pages
   entry-rules.js  entry-row.js  signup-rules.js   validation and row shaping
   photo-upload.js  save-error.js  roles.js         uploads, error wording, who may edit
+  i18n.js  use-lang.js       the two editions: localize(), pick() with English fallback
+  suggest.js  use-session.js  use-search-handoff.js  actions.js
   supabase/client.js  supabase/server.js           browser and server clients
 content/
-  photos.js                  size, alt text and caption for each photograph in public/
+  copy/ui.js pages.js forms.js   every string on the site, { en, km }
+  photos.js                  size, alt text and caption (both editions) per photograph
   sources.js                 the interview record, cautions, photo credits, method
   search-index.js            which fields are searchable, and the matcher
   card-variants.js           the grid cycle and paging maths, as pure functions
   site.js                    the site's base URL
+public/fonts/                the Khmer faces and their licences
+scripts/khmer-breaks.mjs     re-run after editing Khmer: marks where lines may break
 collection.config.js         archive identity: name, description, curator, source
 entry-sketch.md              what one entry is, as data
 ```

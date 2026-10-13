@@ -13,8 +13,8 @@ const photos = {
     caption:
       "Durian flowers. The growers observe bats working them at night, and hawk moths alongside.",
     km: {
-      alt: "ផ្កាធុរេនពណ៌បៃតងស្លេកលាយស មួយចង្កោមថតជិតៗ កេសរវែងៗសំយុងចុះ",
-      caption: "ផ្កាធុរេន។ អ្នកដាំសង្កេតឃើញប្រចៀវមកលើផ្កានៅពេលយប់ ព្រមទាំងមេអំបៅយប់ផងដែរ។",
+      alt: "ផ្កា​ធុរេនព​ណ៌​បៃតង​ស្លេក​លាយស មួយ​ចង្កោម​ថត​ជិ​ត⁠ៗ កេស​រវែង⁠ៗ​សំយុង​ចុះ",
+      caption: "ផ្កា​ធុរេន⁠។ អ្នក​ដាំ​សង្កេតឃើញ​ប្រចៀវ​មក​លើ​ផ្កា​នៅពេល​យប់ ព្រមទាំង​មេអំបៅ​យប់​ផង​ដែរ⁠។",
     },
   },
   "/tree-in-fruit.jpg": {
@@ -24,8 +24,8 @@ const photos = {
     alt: "A durian tree hung with dozens of mature spiked fruit, its branches braced with support lines",
     caption: "Fruit carried on the branch, the limbs braced with lines against the weight.",
     km: {
-      alt: "ដើមធុរេនមានផ្លែចាស់ៗរាប់សិប មែកត្រូវបានចងទ្រដោយខ្សែ",
-      caption: "ផ្លែនៅលើមែក មែកត្រូវបានចងខ្សែទប់ទម្ងន់។",
+      alt: "ដើ​មធុរេន​មាន​ផ្លែ​ចាស់⁠ៗ​រាប់​សិប មែក​ត្រូវ​បាន​ចង​ទ្រដោយ​ខ្សែ",
+      caption: "ផ្លែ​នៅ​លើ​មែក មែក​ត្រូវ​បាន​ចងខ្សែ​ទប់​ទម្ងន់⁠។",
     },
   },
   "/ov-khak-opened.jpg": {
@@ -35,8 +35,8 @@ const photos = {
     alt: "A hand holding an opened durian half, thick pale-yellow flesh in the shell, a whole fruit hanging on the tree behind",
     caption: "An opened fruit, held beneath a tree still carrying its own.",
     km: {
-      alt: "ដៃកាន់ផ្លែធុរេនបកពាក់កណ្តាល សាច់ក្រាស់ពណ៌លឿងស្លេកនៅក្នុងសំបក មានផ្លែមួយទៀតព្យួរលើដើមនៅខាងក្រោយ",
-      caption: "ផ្លែដែលបានបក កាន់នៅក្រោមដើមដែលនៅមានផ្លែរបស់វា។",
+      alt: "ដៃ​កាន់​ផ្លែ​ធុរេនប​ក​ពាក់កណ្តាល សាច់​ក្រាស់​ពណ៌លឿង​ស្លេក​នៅក្នុង​សំបក មាន​ផ្លែ​មួយទៀត​ព្យួរ​លើ​ដើម​នៅ​ខាងក្រោយ",
+      caption: "ផ្លែ​ដែល​បាន​បក កាន់​នៅ​ក្រោម​ដើម​ដែល​នៅ​មាន​ផ្លែ​របស់​វា⁠។",
     },
   },
   "/sadong-kit.jpg": {
@@ -46,8 +46,8 @@ const photos = {
     alt: "A single Sadong Kit fruit hanging from a branch against a blue sky, another fruit visible behind it",
     caption: "A Sadong Kit fruit on the tree, in the growers' own orchard.",
     km: {
-      alt: "ផ្លែសដុងកិតមួយព្យួរពីមែក នៅលើផ្ទៃមេឃពណ៌ខៀវ មានផ្លែមួយទៀតនៅខាងក្រោយ",
-      caption: "ផ្លែសដុងកិតមួយនៅលើដើម ក្នុងចម្ការរបស់អ្នកដាំផ្ទាល់។",
+      alt: "ផ្លែ​សដុងកិត​មួយ​ព្យួរ​ពី​មែក នៅ​លើ​ផ្ទៃមេឃ​ពណ៌ខៀវ មាន​ផ្លែ​មួយទៀត​នៅ​ខាងក្រោយ",
+      caption: "ផ្លែ​សដុងកិត​មួយ​នៅ​លើ​ដើម ក្នុង​ចម្ការ​របស់​អ្នក​ដាំ​ផ្ទាល់⁠។",
     },
   },
   "/drought-damage-tree.jpg": {
@@ -57,8 +57,8 @@ const photos = {
     alt: "A durian tree with browned, wilting leaves dropping from its branches after drought stress",
     caption: "A drought-stressed tree, its leaves browned and dropping.",
     km: {
-      alt: "ដើមធុរេនមានស្លឹកឡើងត្នោត ស្រពោន ហើយជ្រុះពីមែក ក្រោយរងភាពរាំងស្ងួត",
-      caption: "ដើមឈើរងគ្រោះភាពរាំងស្ងួត ស្លឹកឡើងត្នោត ហើយជ្រុះ។",
+      alt: "ដើ​មធុរេន​មាន​ស្លឹក​ឡើងត្នោត ស្រពោន ហើយ​ជ្រុះ​ពី​មែក ក្រោយ​រង​ភាពរាំងស្ងួត",
+      caption: "ដើមឈើ​រងគ្រោះ​ភាពរាំងស្ងួត ស្លឹក​ឡើងត្នោត ហើយ​ជ្រុះ⁠។",
     },
   },
   "/harvest-ready-to-sell.jpg": {
@@ -69,8 +69,8 @@ const photos = {
     caption:
       "A season's harvest laid out between the trees, stems trimmed, the truck waiting.",
     km: {
-      alt: "ផ្លែធុរេនដែលប្រមូលបានរាប់រយផ្លែ ដាក់រាយលើតង់នៅចន្លោះដើមឈើ មានឡានដឹកទំនិញរង់ចាំនៅខាងក្រោយ",
-      caption: "ផលពេញមួយរដូវ ដាក់រាយនៅចន្លោះដើមឈើ ទងត្រូវបានកាត់តម្រឹម ហើយឡានកំពុងរង់ចាំ។",
+      alt: "ផ្លែ​ធុរេនដែ​លប្រ​មូល​បាន​រាប់​រយ​ផ្លែ ដាក់រាយ​លើ​តង់​នៅចន្លោះ​ដើមឈើ មាន​ឡាន​ដឹកទំនិញ​រង់ចាំ​នៅ​ខាងក្រោយ",
+      caption: "ផល​ពេញ​មួយ​រដូវ ដាក់រាយ​នៅចន្លោះ​ដើមឈើ ទង​ត្រូវ​បាន​កាត់តម្រឹម ហើយ​ឡាន​កំពុង​រង់ចាំ⁠។",
     },
   },
   "/musang-king-opened.jpg": {
@@ -80,8 +80,8 @@ const photos = {
     alt: "An opened durian seen from above, three lobes of deep yellow flesh in the white inner husk",
     caption: "An opened fruit, its flesh deep yellow. Photograph by the curator's family.",
     km: {
-      alt: "ផ្លែធុរេនដែលបានបក មើលពីលើ សាច់ពណ៌លឿងចាស់បីក្លែប នៅក្នុងសំបកខាងក្នុងពណ៌ស",
-      caption: "ផ្លែដែលបានបក សាច់ពណ៌លឿងចាស់។ រូបថតដោយគ្រួសាររបស់អ្នកចងក្រង។",
+      alt: "ផ្លែ​ធុរេនដែ​លបា​នប​ក មើល​ពីលើ សាច់​ពណ៌លឿង​ចាស់​បី​ក្លែប នៅក្នុង​សំបក​ខាងក្នុង​ពណ៌ស",
+      caption: "ផ្លែ​ដែល​បាន​បក សាច់​ពណ៌លឿង​ចាស់⁠។ រូបថត​ដោយ​គ្រួសារ​របស់​អ្នក​ចងក្រង⁠។",
     },
   },
   "/opened-on-leaf.jpg": {
@@ -91,8 +91,8 @@ const photos = {
     alt: "An opened durian on a banana leaf, its stem still attached, one lobe of flesh lifted out in front",
     caption: "An opened fruit on a banana leaf, the stem still on. Photograph by the curator's family.",
     km: {
-      alt: "ផ្លែធុរេនដែលបានបកលើស្លឹកចេក ទងនៅជាប់ ក្លែបសាច់មួយត្រូវបានលើកមកដាក់ខាងមុខ",
-      caption: "ផ្លែដែលបានបកលើស្លឹកចេក ទងនៅជាប់។ រូបថតដោយគ្រួសាររបស់អ្នកចងក្រង។",
+      alt: "ផ្លែ​ធុរេនដែ​លបា​នប​ក​លើ​ស្លឹកចេក ទង​នៅ​ជាប់ ក្លែប​សាច់​មួយ​ត្រូវ​បាន​លើក​មក​ដាក់​ខាងមុខ",
+      caption: "ផ្លែ​ដែល​បាន​បក​លើ​ស្លឹកចេក ទង​នៅ​ជាប់⁠។ រូបថត​ដោយ​គ្រួសារ​របស់​អ្នក​ចងក្រង⁠។",
     },
   },
   "/fruit-stall.jpg": {
@@ -102,8 +102,8 @@ const photos = {
     alt: "A hand lifting a durian by its stem from a heaped stall, the cut stems of the others marked red",
     caption: "A fruit lifted by its stem from a stall pile. Photograph by the curator's family.",
     km: {
-      alt: "ដៃលើកផ្លែធុរេនតាមទងពីគំនរនៅតូប ទងនៃផ្លែផ្សេងទៀតដែលកាត់ហើយ ត្រូវបានគូសពណ៌ក្រហម",
-      caption: "ផ្លែមួយដែលលើកតាមទងពីគំនរនៅតូប។ រូបថតដោយគ្រួសាររបស់អ្នកចងក្រង។",
+      alt: "ដៃ​លើក​ផ្លែ​ធុរេន​តាម​ទង​ពី​គំនរ​នៅ​តូប ទង​នៃ​ផ្លែ​ផ្សេងទៀត​ដែលកាត់​ហើយ ត្រូវ​បាន​គូស​ពណ៌ក្រហម",
+      caption: "ផ្លែ​មួយ​ដែល​លើក​តាម​ទង​ពី​គំនរ​នៅ​តូប⁠។ រូបថត​ដោយ​គ្រួសារ​របស់​អ្នក​ចងក្រង⁠។",
     },
   },
 };

@@ -14,7 +14,8 @@ and are credited on every entry instead — by role, not by name, at their reque
 | slug | required | url-safe id, e.g. `reading-ripeness` — becomes `/field-notes/[slug]` |
 | figNumber | required | catalogue number shown on the card, e.g. "01" |
 | title | required | short name for the entry, e.g. "Reading Ripeness" |
-| khmerName | optional | the Khmer term, rendered and searchable where given (Fig. 12 carries one). The rest of the glossary waits for the Khmer edition |
+| khmerName | optional | the Khmer term, rendered and searchable where given (Fig. 12 carries one) |
+| title_km, body_km, sources_km, tags_km | optional | the Khmer edition's text; where empty, that field shows in English |
 | body | required | the entry itself, written in the guide's own voice |
 | sources | required | one or more interviews the claims trace to — never a publication |
 | image | optional | stored as `photo_url`: a path in `public/` (size, alt and caption in `content/photos.js`) or a contributed photo in the `photos` bucket |
