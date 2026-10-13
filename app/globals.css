@@ -2188,6 +2188,7 @@ textarea#entry-body { min-height: 16em; }
   letter-spacing: 0;
 }
 .account-menu-initial { font-size: 13px; line-height: 1; }
+.account-menu-person { width: 17px; height: 17px; }
 .account-menu-btn[aria-expanded="true"] { color: var(--flesh); border-color: var(--line-2); }
 
 .account-menu-panel {

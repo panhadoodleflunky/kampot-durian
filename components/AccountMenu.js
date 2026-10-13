@@ -54,9 +54,20 @@ export default function AccountMenu({ name, onLogOut }) {
         title={name || t.account}
         onClick={() => setOpen((v) => !v)}
       >
-        <span className="account-menu-initial" aria-hidden="true">
-          {initial(name || t.account)}
-        </span>
+        {/* Only ever the reader's own initial. Until the name is known, an
+            outline of a person: never the first letter of "Account" or គណនី,
+            which would flicker from one language's letter to another's on
+            every switch. */}
+        {name ? (
+          <span className="account-menu-initial" aria-hidden="true">
+            {initial(name)}
+          </span>
+        ) : (
+          <svg className="account-menu-person" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8.5" r="3.5" fill="none" stroke="currentColor" strokeWidth="1.5" />
+            <path d="M5.5 19.5c1.2-3.3 3.6-5 6.5-5s5.3 1.7 6.5 5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
+          </svg>
+        )}
       </button>
 
       {open ? (
