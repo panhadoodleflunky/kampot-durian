@@ -9,18 +9,10 @@ import { NextResponse } from "next/server";
    The language button stores the reader's choice in a `lang` cookie; only
    the front door (/) honours it, so a shared English link still opens in
    English. */
-/* The edition also rides along as an `x-lang` request header, for the one
-   page that is not handed its route params: the 404. */
-function withLang(request, lang) {
-  const headers = new Headers(request.headers);
-  headers.set("x-lang", lang);
-  return { request: { headers } };
-}
-
 export function middleware(request) {
   const { pathname, search } = request.nextUrl;
 
-  if (pathname === "/km" || pathname.startsWith("/km/")) return NextResponse.next(withLang(request, "km"));
+  if (pathname === "/km" || pathname.startsWith("/km/")) return NextResponse.next();
 
   if (pathname === "/en" || pathname.startsWith("/en/")) {
     const url = request.nextUrl.clone();
@@ -37,7 +29,7 @@ export function middleware(request) {
   const url = request.nextUrl.clone();
   url.pathname = `/en${pathname === "/" ? "" : pathname}`;
   url.search = search;
-  return NextResponse.rewrite(url, withLang(request, "en"));
+  return NextResponse.rewrite(url);
 }
 
 /* Not for Next's own files, the API, or anything with a file extension

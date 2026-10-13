@@ -13,8 +13,8 @@ const photos = {
     caption:
       "Durian flowers. The growers observe bats working them at night, and hawk moths alongside.",
     km: {
-      alt: "ផ្កាធូរេនពណ៌បៃតងស្លេកលាយស មួយចង្កោមថតជិតៗ កេសរវែងៗសំយុងចុះ",
-      caption: "ផ្កាធូរេន។ អ្នកដាំសង្កេតឃើញជ្រៀវមកលើផ្កានៅពេលយប់ ព្រមទាំងមេអំបៅយប់ផងដែរ។",
+      alt: "ផ្កាធុរេនពណ៌បៃតងស្លេកលាយស មួយចង្កោមថតជិតៗ កេសរវែងៗសំយុងចុះ",
+      caption: "ផ្កាធុរេន។ អ្នកដាំសង្កេតឃើញប្រចៀវមកលើផ្កានៅពេលយប់ ព្រមទាំងមេអំបៅយប់ផងដែរ។",
     },
   },
   "/tree-in-fruit.jpg": {
@@ -24,7 +24,7 @@ const photos = {
     alt: "A durian tree hung with dozens of mature spiked fruit, its branches braced with support lines",
     caption: "Fruit carried on the branch, the limbs braced with lines against the weight.",
     km: {
-      alt: "ដើមធូរេនមានផ្លែចាស់ៗរាប់សិប មែកត្រូវបានចងទ្រដោយខ្សែ",
+      alt: "ដើមធុរេនមានផ្លែចាស់ៗរាប់សិប មែកត្រូវបានចងទ្រដោយខ្សែ",
       caption: "ផ្លែនៅលើមែក មែកត្រូវបានចងខ្សែទប់ទម្ងន់។",
     },
   },
@@ -35,7 +35,7 @@ const photos = {
     alt: "A hand holding an opened durian half, thick pale-yellow flesh in the shell, a whole fruit hanging on the tree behind",
     caption: "An opened fruit, held beneath a tree still carrying its own.",
     km: {
-      alt: "ដៃកាន់ផ្លែធូរេនបកពាក់កណ្តាល សាច់ក្រាស់ពណ៌លឿងស្លេកនៅក្នុងសំបក មានផ្លែមួយទៀតព្យួរលើដើមនៅខាងក្រោយ",
+      alt: "ដៃកាន់ផ្លែធុរេនបកពាក់កណ្តាល សាច់ក្រាស់ពណ៌លឿងស្លេកនៅក្នុងសំបក មានផ្លែមួយទៀតព្យួរលើដើមនៅខាងក្រោយ",
       caption: "ផ្លែដែលបានបក កាន់នៅក្រោមដើមដែលនៅមានផ្លែរបស់វា។",
     },
   },
@@ -57,7 +57,7 @@ const photos = {
     alt: "A durian tree with browned, wilting leaves dropping from its branches after drought stress",
     caption: "A drought-stressed tree, its leaves browned and dropping.",
     km: {
-      alt: "ដើមធូរេនមានស្លឹកឡើងត្នោត ស្រពោន ហើយជ្រុះពីមែក ក្រោយរងភាពរាំងស្ងួត",
+      alt: "ដើមធុរេនមានស្លឹកឡើងត្នោត ស្រពោន ហើយជ្រុះពីមែក ក្រោយរងភាពរាំងស្ងួត",
       caption: "ដើមឈើរងគ្រោះភាពរាំងស្ងួត ស្លឹកឡើងត្នោត ហើយជ្រុះ។",
     },
   },
@@ -69,7 +69,7 @@ const photos = {
     caption:
       "A season's harvest laid out between the trees, stems trimmed, the truck waiting.",
     km: {
-      alt: "ផ្លែធូរេនដែលប្រមូលបានរាប់រយផ្លែ ដាក់រាយលើតង់នៅចន្លោះដើមឈើ មានឡានដឹកទំនិញរង់ចាំនៅខាងក្រោយ",
+      alt: "ផ្លែធុរេនដែលប្រមូលបានរាប់រយផ្លែ ដាក់រាយលើតង់នៅចន្លោះដើមឈើ មានឡានដឹកទំនិញរង់ចាំនៅខាងក្រោយ",
       caption: "ផលពេញមួយរដូវ ដាក់រាយនៅចន្លោះដើមឈើ ទងត្រូវបានកាត់តម្រឹម ហើយឡានកំពុងរង់ចាំ។",
     },
   },
@@ -80,7 +80,7 @@ const photos = {
     alt: "An opened durian seen from above, three lobes of deep yellow flesh in the white inner husk",
     caption: "An opened fruit, its flesh deep yellow. Photograph by the curator's family.",
     km: {
-      alt: "ផ្លែធូរេនដែលបានបក មើលពីលើ សាច់ពណ៌លឿងចាស់បីក្លែប នៅក្នុងសំបកខាងក្នុងពណ៌ស",
+      alt: "ផ្លែធុរេនដែលបានបក មើលពីលើ សាច់ពណ៌លឿងចាស់បីក្លែប នៅក្នុងសំបកខាងក្នុងពណ៌ស",
       caption: "ផ្លែដែលបានបក សាច់ពណ៌លឿងចាស់។ រូបថតដោយគ្រួសាររបស់អ្នកចងក្រង។",
     },
   },
@@ -91,7 +91,7 @@ const photos = {
     alt: "An opened durian on a banana leaf, its stem still attached, one lobe of flesh lifted out in front",
     caption: "An opened fruit on a banana leaf, the stem still on. Photograph by the curator's family.",
     km: {
-      alt: "ផ្លែធូរេនដែលបានបកលើស្លឹកចេក ទងនៅជាប់ ក្លែបសាច់មួយត្រូវបានលើកមកដាក់ខាងមុខ",
+      alt: "ផ្លែធុរេនដែលបានបកលើស្លឹកចេក ទងនៅជាប់ ក្លែបសាច់មួយត្រូវបានលើកមកដាក់ខាងមុខ",
       caption: "ផ្លែដែលបានបកលើស្លឹកចេក ទងនៅជាប់។ រូបថតដោយគ្រួសាររបស់អ្នកចងក្រង។",
     },
   },
@@ -102,7 +102,7 @@ const photos = {
     alt: "A hand lifting a durian by its stem from a heaped stall, the cut stems of the others marked red",
     caption: "A fruit lifted by its stem from a stall pile. Photograph by the curator's family.",
     km: {
-      alt: "ដៃលើកផ្លែធូរេនតាមទងពីគំនរនៅតូប ទងនៃផ្លែផ្សេងទៀតដែលកាត់ហើយ ត្រូវបានគូសពណ៌ក្រហម",
+      alt: "ដៃលើកផ្លែធុរេនតាមទងពីគំនរនៅតូប ទងនៃផ្លែផ្សេងទៀតដែលកាត់ហើយ ត្រូវបានគូសពណ៌ក្រហម",
       caption: "ផ្លែមួយដែលលើកតាមទងពីគំនរនៅតូប។ រូបថតដោយគ្រួសាររបស់អ្នកចងក្រង។",
     },
   },
