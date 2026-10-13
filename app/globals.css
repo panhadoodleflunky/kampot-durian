@@ -2279,8 +2279,18 @@ textarea#entry-body { min-height: 16em; }
    up, and the small labels go up a size to stay legible. */
 html:lang(km) * { letter-spacing: normal !important; }
 
+/* Our Khmer face first. The English stacks reach the generic `serif` /
+   `sans-serif` before Noto Sans Khmer, and on a Mac that hands Khmer to an
+   older system font that drops stacked marks (the ្ង ួ of ស្ងួត) far below
+   the line. Latin in the Khmer edition (EN, ICT 340) falls through to the
+   site's own faces. */
+html:lang(km) {
+  --serif: var(--font-khmer), var(--font-display), "Noto Sans Khmer", serif;
+  --sans: var(--font-khmer), var(--font-body), "Noto Sans Khmer", sans-serif;
+}
+
 html:lang(km) :is(.headline, .headline-sm, .stat-num, .tile-value, .entry-title, .entry-next-title, .spec-value) {
-  line-height: 1.45;
+  line-height: 1.65;
 }
 html:lang(km) .headline { font-size: clamp(56px, 9vw, 104px); }
 html:lang(km) .headline em { padding-top: 0.08em; }
