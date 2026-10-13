@@ -91,7 +91,7 @@ export default async function About() {
                 varieties. How you read a fruit for ripeness. How long each
                 one takes from petal drop to harvest. What a counterfeit looks
                 like on a highway stall. What 2024 cost them. What an export
-                boom looks like from a farm that sells only to middlemen. It is
+                boom looks like from a farm outside it. It is
                 testimony, not a survey.
               </p>
             </Reveal>
