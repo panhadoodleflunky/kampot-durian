@@ -14,7 +14,7 @@ const photos = {
       "Durian flowers. The growers observe bats working them at night, and hawk moths alongside.",
     km: {
       alt: "ផ្កាធូរេនពណ៌បៃតងស្លេកលាយស មួយចង្កោមថតជិតៗ កេសរវែងៗសំយុងចុះ",
-      caption: "ផ្កាធូរេន។ អ្នកដាំសង្កេតឃើញសត្វប្រចៀវមកស៊ីទឹកដមផ្កានៅពេលយប់ និងមេអំបៅយប់ផងដែរ។",
+      caption: "ផ្កាធូរេន។ អ្នកដាំសង្កេតឃើញជ្រៀវមកលើផ្កានៅពេលយប់ ព្រមទាំងមេអំបៅយប់ផងដែរ។",
     },
   },
   "/tree-in-fruit.jpg": {

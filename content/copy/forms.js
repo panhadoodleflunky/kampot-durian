@@ -125,7 +125,7 @@ export const forms = {
   },
   km: {
     rules: {
-      required: (label) => `ត្រូវការ${label}។`,
+      required: (label) => `សូមបំពេញ${label}។`,
       tooShort: (label, min) => `${label} ត្រូវមានយ៉ាងហោចណាស់ ${km(min)} តួអក្សរ។`,
       tooLong: (label, max, length) => `${label} អាចមានច្រើនបំផុត ${km(max)} តួអក្សរ (ឥឡូវ ${km(length)})។`,
       tooManyTags: (max) => `ស្លាកច្រើនបំផុត ${km(max)}។`,
