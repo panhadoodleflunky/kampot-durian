@@ -4,10 +4,8 @@ import { notFound } from "next/navigation";
 import SiteNav from "../../../components/SiteNav.js";
 import SiteFooter from "../../../components/SiteFooter.js";
 import Reveal from "../../../components/Reveal.js";
-import ImageSlot from "../../../components/ImageSlot.js";
 import OwnerActions from "../../../components/OwnerActions.js";
 import { getEntries } from "../../../lib/entries.js";
-import { getNote as getDraftNote } from "../../../content/field-notes.js";
 
 /* Entries live in Supabase. Every entry that exists at build time is built
    as a static page, and rebuilt in the background at most once a minute, so
@@ -60,11 +58,6 @@ export default async function FieldNote({ params }) {
   const { note, next } = await lookUp(slug);
   if (!note) notFound();
 
-  /* The photograph brief is a development aid that never went into the
-     table (ImageSlot renders under `next dev` only), so it is still read from
-     content/field-notes.js while that file exists. */
-  const wanted = note.image ? null : getDraftNote(slug)?.imageWanted;
-
   return (
     <>
       <SiteNav current="/field-notes" />
@@ -112,13 +105,6 @@ export default async function FieldNote({ params }) {
                   {/* Contributed photos carry no caption. */}
                   {note.image.caption ? <figcaption>{note.image.caption}</figcaption> : null}
                 </Reveal>
-              ) : wanted ? (
-                /* Renders under `next dev` only — see components/ImageSlot.js. */
-                <ImageSlot
-                  figNumber={note.figNumber}
-                  title={note.title}
-                  brief={wanted}
-                />
               ) : null}
 
               <Reveal>

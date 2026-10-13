@@ -17,10 +17,7 @@ export const metadata = {
 
 export default async function FieldNotesIndex() {
   /* `EntrySearch` is a client component, so whatever is handed to it is
-     serialised into this page's payload and shipped. Rows out of Supabase
-     never carry `imageWanted` — that was a `content/field-notes.js`-only,
-     dev-only field — so there is nothing left to strip at this boundary.
-     If Supabase doesn't answer this throws, and the last good copy is served
+     serialised into this page's payload and shipped. If Supabase doesn't answer this throws, and the last good copy is served
      instead — see lib/entries.js. */
   const notes = await getEntries();
 
@@ -41,9 +38,9 @@ export default async function FieldNotesIndex() {
         <section className="section">
           <div className="inner">
             {/* Client component: it owns the query state and the
-                filtering. The data comes from Supabase now, not
-                content/field-notes.js — the page reads it and hands it
-                down, so nothing about an entry is hardcoded here. */}
+                filtering. The data comes from Supabase — the page reads
+                it and hands it down, so nothing about an entry is
+                hardcoded here. */}
             <EntrySearch notes={notes} />
             <Reveal>
               <p className="body-copy note-foot">

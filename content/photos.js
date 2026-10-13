@@ -1,7 +1,7 @@
 /* The photographs, keyed by the path the `entries` table stores in
    `photo_url`. The table holds the path only (the Session 11 worksheet chose
    that, and flagged the cost); the size next/image needs and the alt and
-   caption prose live here, so they survive the move off content/field-notes.js.
+   caption prose live here.
    A new photograph needs a line here as well as its file in public/. */
 const photos = {
   "/durian-flower.jpg": {
