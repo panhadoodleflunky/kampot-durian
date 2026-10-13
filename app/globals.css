@@ -31,6 +31,13 @@
   --leaf-rgb: 76, 184, 120;
   --glass-rgb: 255, 255, 255;
   --on-flesh: #16200F;
+  /* Filled surfaces — buttons and selection. The same gold as --flesh in
+     dark mode; kept as its own token so light mode can keep a bright gold
+     fill while its text accents go green (gold text on a light page has to
+     be darkened until it is brown). */
+  --fill: #E9BC63;
+  --fill-hot: #F5A623;
+  --on-fill: #16200F;
   --grain-opacity: 0.4;
   /* Scrims and text that sit ON photographs. These do not flip in light
      mode — a light wash over a dark photograph erases it, so the images
@@ -52,44 +59,78 @@
   --nav-h: 58px;
 }
 
-/* Light mode: Satra. Khmer palm-leaf manuscripts — straw-coloured leaf,
-   soot-black script, red lacquer covers, gilt edges. Chosen 25 September
-   2026 from four options shown on the running site, over tea-stained paper
-   (#C8B994), laterite and river-dusk.
+/* Light mode: Stone. A warm light grey, chosen 13 October 2026 after straw
+   paper, white, grey, ivory, sage and "dim" dark versions were all shown on
+   the running site and turned down.
 
-   Why red for the accent: on any paper dim enough to sit with the
-   photographs, a gold small enough to be a link has to be darkened until it
-   is just another brown beside the brown text. Red stays apart from the text
-   by hue, however dark it gets. Gold is kept where the type is large enough
-   (24px and up needs 3:1, not 4.5:1): --flesh-display, the gilt.
+   Two rules make it work, and both came out of the ones that didn't:
+   1. Gold is never text here. Gold dark enough to read on a light page is
+      brown — that was the "Satra" straw theme's whole problem. Gold appears
+      only as a fill (--fill: buttons, selection, the highlighter behind
+      "Durian") with dark text on it; text accents are husk green.
+   2. The dark theme's effects are switched off or replaced below (grain
+      blend, gold glows, see-through cards). They add light on black and
+      add dirt on a light page.
 
-   Every ink reads at 4.5:1 or better on both paper tones (--husk and
-   --husk-2); --flesh-display reads at 3:1 or better, for large type only.
-   Dark stays the default; this applies only when the reader has chosen
+   Every ink reads at 4.5:1 or better on both --husk and --husk-2 (body
+   11.2, muted 6.3, dim 5.3, green 4.8); --flesh-display, large type only,
+   4.1. Dark stays the default; this applies only when the reader has chosen
    light with the nav toggle. */
 html[data-theme="light"] {
   color-scheme: light;
-  --husk: #CDBC8C;
-  --husk-2: #C3B07E;
-  --flesh: #7C2517;
-  --flesh-hot: #5E1A10;
-  --flesh-display: #785707;
-  --error: #1A160E;
-  --leaf: #214C29;
-  --cream: #1A160E;
-  --muted: #463D29;
-  --dim: #4B422D;
-  --line: rgba(26, 22, 14, 0.24);
-  --line-2: rgba(26, 22, 14, 0.45);
-  --husk-rgb: 205, 188, 140;
-  /* Feeds only the glows and washes (the top light, the photo shadow, tile
-     hovers), never text. It follows the gilt, not the red: a red glow on
-     straw paper read as a pink halo under the hero photograph. */
-  --flesh-rgb: 120, 87, 7;
-  --leaf-rgb: 33, 76, 41;
-  --glass-rgb: 26, 22, 14;
-  --on-flesh: #F5ECD2;
-  --grain-opacity: 0.3;
+  --husk: #DDD9D2;
+  --husk-2: #D2CDC4;
+  --surface: #E8E5DF;
+  --flesh: #17603A;
+  --flesh-hot: #0C4728;
+  --flesh-display: #1F6B40;
+  --error: #1A1814;
+  --leaf: #1E6B42;
+  --cream: #1A1814;
+  --muted: #46423A;
+  --dim: #524D44;
+  --line: rgba(26, 24, 20, 0.12);
+  --line-2: rgba(26, 24, 20, 0.26);
+  --husk-rgb: 221, 217, 210;
+  /* Feeds only the top wash; gold, so it reads as warmth, not as a stain. */
+  --flesh-rgb: 233, 188, 99;
+  --leaf-rgb: 30, 107, 66;
+  --glass-rgb: 255, 255, 255;
+  --on-flesh: #16200F;
+  --grain-opacity: 0.12;
+}
+
+/* Light only: what the dark theme's effects become on a light page. */
+html[data-theme="light"] body::before { mix-blend-mode: soft-light; }
+html[data-theme="light"] .tile::before { display: none; }
+html[data-theme="light"] .quote-section { background: none; }
+/* Cards are raised from the page by a surface and a soft shadow, not sunk
+   into it by a see-through fill. */
+html[data-theme="light"] .tile,
+html[data-theme="light"] .entry {
+  background: var(--surface);
+  box-shadow: 0 1px 2px rgba(26, 24, 20, 0.06), 0 8px 24px -16px rgba(26, 24, 20, 0.18);
+}
+html[data-theme="light"] .tile:hover,
+html[data-theme="light"] .entry:hover {
+  box-shadow: 0 2px 4px rgba(26, 24, 20, 0.06), 0 18px 36px -18px rgba(26, 24, 20, 0.28);
+}
+html[data-theme="light"] .entry-sources,
+html[data-theme="light"] .search-input,
+html[data-theme="light"] .prompt-card { background: var(--surface); }
+html[data-theme="light"] .hero-figure { box-shadow: 0 30px 60px -30px rgba(26, 24, 20, 0.4); }
+html[data-theme="light"] .account-menu-panel { box-shadow: 0 12px 28px rgba(26, 24, 20, 0.16); }
+html[data-theme="light"] .eyebrow { background: transparent; }
+html[data-theme="light"] .entry-no { opacity: 1; }
+/* Quote marks are decoration: solid gold, not faded green. */
+html[data-theme="light"] .pull blockquote::before,
+html[data-theme="light"] .pull blockquote::after { opacity: 1; color: #D9A441; }
+/* "Durian" in ink over a gold highlighter band — the gold kept bright. */
+html[data-theme="light"] .headline em {
+  color: var(--cream);
+  width: fit-content;
+  padding: 0 0.08em;
+  background: linear-gradient(transparent 58%, #F2D58C 58%, #F2D58C 90%, transparent 90%);
 }
 
 * { box-sizing: border-box; }
@@ -137,7 +178,7 @@ body::before {
 
 img { max-width: 100%; height: auto; display: block; }
 
-::selection { background: var(--flesh); color: var(--on-flesh); }
+::selection { background: var(--fill); color: var(--on-fill); }
 
 [id] { scroll-margin-top: calc(var(--nav-h) + 24px); }
 
@@ -562,15 +603,15 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
   font-weight: 500;
   letter-spacing: 1.8px;
   text-transform: uppercase;
-  background: var(--flesh);
-  color: var(--on-flesh);
+  background: var(--fill);
+  color: var(--on-fill);
   padding: 16px 30px;
   border-radius: 980px;
   text-decoration: none;
   transition: background 0.25s ease, transform 0.25s ease;
 }
 
-.btn:hover { background: var(--flesh-hot); transform: translateY(-2px); }
+.btn:hover { background: var(--fill-hot); transform: translateY(-2px); }
 
 .link {
   font-family: var(--mono);
@@ -1977,9 +2018,9 @@ textarea#entry-body { min-height: 16em; }
     color: var(--cream);
   }
   .gnav-sheet .gnav-sheet-auth .auth-nav > .auth-btn:first-child {
-    background: var(--flesh);
-    border-color: var(--flesh);
-    color: var(--on-flesh);
+    background: var(--fill);
+    border-color: var(--fill);
+    color: var(--on-fill);
   }
   .gnav-sheet .gnav-sheet-auth a.auth-name {
     order: -1;
