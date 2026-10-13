@@ -11,14 +11,14 @@ One student's Khmer Living Archive, built in ICT 340 at AUPP. Every student buil
 - Next.js 15, App Router, React 19.
 - JavaScript only. No TypeScript, no .ts or .tsx files, ever.
 - Plain React. No CSS frameworks, no component libraries, no state libraries.
-- Styling follows the existing pattern: inline style objects (see `app/page.js`) or a plain CSS file.
+- Styling lives in `app/globals.css`: plain CSS, colour tokens on `:root` with a dark default and the light "Stone" theme, and a block of Khmer-edition rules under `html:lang(km)`.
 - `collection.config.js` is the single source of the archive's identity (name, description, curator, source). Read from it; never hard-code those values.
 
 ## Hard rules
 
 1. Do not add dependencies. The three in `package.json` are the whole list. If a task seems to need a package, stop and say so instead of installing it.
 2. Do not touch `package.json`, `package-lock.json`, `next.config.mjs`, or `.gitignore` unless the task explicitly names them.
-3. Never write an API key, token, or password into any file. This repository is public.
+3. Never write an API key, token, or password into any file. The repository has been private since 13 October 2026; write as if it were public anyway.
 4. Keep diffs scoped to what was asked. If completing the task honestly requires touching another file, say which file and why before editing it.
 5. One component per file in `components/`, plain function components, roughly 80 lines or less. If a component wants to be bigger, split it.
 6. Khmer text is first-class content, not an edge case. Never transliterate or "fix" it, and never invent it. **The site has two editions since 14 October 2026:** English at the plain addresses, Khmer under `/km`. Every visible string lives in `content/copy/` (or `content/sources.js`, `content/photos.js`, and the entries' `*_km` columns) with an `en` and a `km` side; never hard-code a string in a page or component. The Khmer is an AI translation checked by the owner, using the growers' own terms from `PROJECT.md` §8; the owner confirms any new term. After editing Khmer text, run `node scripts/khmer-breaks.mjs` on the file to restore its word-break markers. Sample data comes from the student's real entries, never lorem ipsum.
@@ -110,14 +110,15 @@ task, and must clear the bar in `PROJECT.md` §2.
 
 ## Repository hygiene — what may be pushed
 
-**This repository is public, and the course instructor is a collaborator.** On
+**This repository was public until 13 October 2026 (private since), and the course instructor is a collaborator.** On
 4 September 2026 the working notes were removed from it and its history was
 rewritten, because `INTERVIEW-ANSWERS.md` contained the orchard's exact
 location and the growers' household income figures, and `/about` publicly
 promises that location is not published.
 
-**Commit only these:** source under `app/`, `components/`, `content/`; assets
-in `public/`; `collection.config.js`, `entry-sketch.md`, `README.md`,
+**Commit only these:** source under `app/`, `components/`, `content/`, `lib/`,
+`scripts/`; `middleware.js`; assets in `public/` (including `public/fonts/`);
+`AGENTS.md`, `collection.config.js`, `entry-sketch.md`, `README.md`,
 `package.json`, `package-lock.json`, `next.config.mjs`, `.gitignore`.
 
 **`AGENTS.md` is tracked as of 15 September 2026.** It is this file, it holds
