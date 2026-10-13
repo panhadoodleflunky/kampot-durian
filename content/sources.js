@@ -14,7 +14,7 @@ export const sourceGroups = [
     items: [
       {
         name: "Interview with the orchard's owners",
-        note: "A second-generation durian family at Teuk Chhou — the curator's parents — own and work the two hectares, and almost everything in this guide was given by them directly. They asked not to be named: the numbers are public, the family is not. It covers how a fruit is read for ripeness — the stem-joint swelling, the thorn-tip colour, the knock-test sound and the tapping stick behind it; the rule against spraying into the canopy while the trees are in flower, and the bats and moths that do the pollinating; the days from petal drop to harvest for all four varieties, a figure this project has not found written down anywhere; the flavour, sub-types and grafting requirement of Ov Khak; the harvest window and spoilage rate of Sadong Kit, and why it has become rare to grow and sell; Monthong's arrival in Kampot and why it was planted; the 2021 Musang King top-working, its failure rate and its first fruit in 2026; the mechanics of counterfeit relabelling and the farm-gate-to-retail price spread; the 2024 drought in detail and the 2014 flood; what kills a tree — root rot, pests, storms — and how the trees are sprayed and fed; the orchard year month by month; the 2024 drought on the neighbouring farms and the recovery since; and the export programme as it looks from a two-hectare farm with no part in it, including what certification would have to pay and what happened to the neighbours who signed with a broker.",
+        note: "A second-generation durian family at Teuk Chhou — the curator's parents — own and work the two hectares, and almost everything in this guide was given by them directly. They asked not to be named: the numbers are public, the family is not. It covers how a fruit is read for ripeness — the stem-joint swelling, the thorn-tip colour, the knock-test sound and the tapping stick behind it; the rule against spraying into the canopy while the trees are in flower, and the bats and moths that do the pollinating; the days from petal drop to harvest for all four varieties, a figure this project has not found written down anywhere; the flavour, sub-types and grafting requirement of Ov Khak; the harvest window and spoilage rate of Sadong Kit, and why it has become rare to grow and sell; Monthong's arrival in Kampot and why it was planted; the 2021 Musang King top-working, its failure rate and its first fruit in 2026; the mechanics of counterfeit relabelling and the farm-gate-to-retail price spread; the 2024 drought in detail and the 2014 flood; what kills a tree — root rot, pests, storms — and how the trees are sprayed and fed; the orchard year month by month; the 2024 drought on the neighbouring farms and the recovery since; and the export programme as it looks from a two-hectare farm outside it, whose fruit reaches exporters only through the middlemen who buy it, including what certification would have to pay and what happened to the neighbours who signed with a broker.",
       },
       {
         name: "Interview with a neighbouring grower at Teuk Chhou",
@@ -75,6 +75,11 @@ export const photoCredits = [
   {
     file: "teuk-chou-scenic.jpg",
     caption: "The Teuk Chhou river at dusk, with the hills behind it",
+    author: collection.curator,
+  },
+  {
+    file: "what-kills-a-durian-tree.jpg",
+    caption: "A durian tree dying back, its leaves browned on the branch",
     author: collection.curator,
   },
   {
