@@ -17,7 +17,7 @@ const EMPTY = { title: "", khmerName: "", body: "", sources: "", tags: "" };
    the same way in both. It validates and trims; what "save" means (insert or
    update) is the `onSave` the page passes in. onSave resolves with nothing
    on success — it navigates away itself — or with a message to show. */
-export default function EntryForm({ initial = EMPTY, currentPhotoUrl, photoRequired, submitLabel, onSave }) {
+export default function EntryForm({ initial = EMPTY, currentPhotoUrl, photoRequired, photoLocked, submitLabel, onSave }) {
   const [values, setValues] = useState(initial);
   const [photo, setPhoto] = useState(null);
   const [errors, setErrors] = useState({});
@@ -72,7 +72,7 @@ export default function EntryForm({ initial = EMPTY, currentPhotoUrl, photoRequi
       <FormField id="entry-body" label={label.body} multiline rows={12} hint={t.bodyHint(RULES.body.min, RULES.body.max)} {...field("body")} />
       <FormField id="entry-sources" label={label.sources} hint={t.sourcesHint(limit("sources"))} {...field("sources")} />
       <FormField id="entry-tags" label={t.tagsLabel} hint={t.tagsHint(MAX_TAGS)} {...field("tags")} />
-      <PhotoField error={errors.photo} currentUrl={currentPhotoUrl} onChange={setPhoto} />
+      {photoLocked ? null : <PhotoField error={errors.photo} currentUrl={currentPhotoUrl} onChange={setPhoto} />}
 
       <p className="auth-error" role="alert">
         {message}

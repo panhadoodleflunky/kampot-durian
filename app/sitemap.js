@@ -12,13 +12,17 @@ export default async function sitemap() {
   const pages = ["/", "/region", "/field-notes", "/about", "/sources"];
   const entries = await getEntries();
   const paths = [...pages, ...entries.map((note) => `/field-notes/${note.slug}`)];
+  /* The absolute URL of a path in one edition; the home page is the bare
+     domain in English and /km in Khmer. */
+  const url = (lang, path) => {
+    const local = localize(lang, path);
+    return local === "/" ? base : `${base}${local}`;
+  };
   return paths.flatMap((path) =>
     LANGS.map((lang) => ({
-      url: `${base}${localize(lang, path) === "/" ? "" : localize(lang, path)}`,
+      url: url(lang, path),
       changeFrequency: "monthly",
-      alternates: {
-        languages: Object.fromEntries(LANGS.map((l) => [l, `${base}${localize(l, path) === "/" ? "" : localize(l, path)}`])),
-      },
+      alternates: { languages: Object.fromEntries(LANGS.map((l) => [l, url(l, path)])) },
     })),
   );
 }

@@ -14,6 +14,10 @@ import { ui } from "../../content/copy/ui.js";
    Known cost of the [lang] root layout: a 404 for an address no page
    answers arrives with an empty body and is drawn by the browser (status
    still 404). Every other page is fully server-rendered. */
+/* Static, for the same reason: the tab title cannot follow the edition
+   without a request-bound read, so it is the English one in both. */
+export const metadata = { title: "Not found — Kampot Durian" };
+
 function NotFoundIn({ lang }) {
   const t = pick(ui, lang).notFound;
   return (

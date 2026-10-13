@@ -91,5 +91,9 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
 
   const { row } = state;
   const initial = { title: row.title, khmerName: row.khmer_name ?? "", body: row.body, sources: row.sources, tags: (row.tags ?? []).join(", ") };
-  return <EntryForm initial={initial} currentPhotoUrl={row.photo_url} submitLabel={all.entry.saveChanges} onSave={save} />;
+  /* The curator editing someone else's note keeps their photograph: a new
+     one would upload into the curator's folder, and the photo_url_ours
+     constraint ties a note's photo to its author's folder. */
+  const photoLocked = row.owner !== state.userId;
+  return <EntryForm initial={initial} currentPhotoUrl={row.photo_url} photoLocked={photoLocked} submitLabel={all.entry.saveChanges} onSave={save} />;
 }

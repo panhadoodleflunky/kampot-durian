@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useLang } from "../lib/use-lang.js";
 import { pick, localize } from "../lib/i18n.js";
 import { ui } from "../content/copy/ui.js";
 import EntryCard from "./EntryCard.js";
+import { useSearchHandoff } from "../lib/use-search-handoff.js";
 import SearchBox from "./SearchBox.js";
 import SearchEmpty from "./SearchEmpty.js";
 import Pagination from "./Pagination.js";
@@ -30,28 +31,14 @@ export default function EntrySearch({ notes }) {
     ? shown
     : shown.slice((safePage - 1) * PER_PAGE, safePage * PER_PAGE);
 
-  /* Focus the box when arrived at from the nav's Search link. Also listens for
-     the hash changing, since Next does not remount the page when you follow
-     /field-notes#search while already on /field-notes. */
-  useEffect(() => {
-    const focus = () => {
-      if (window.location.hash === "#search") inputRef.current?.focus();
-    };
-    focus();
-    /* A search handed over from the nav (Enter with no suggestion) arrives
-       as ?q=, and starts the list already filtered. */
-    const handed = new URLSearchParams(window.location.search).get("q");
-    if (handed) setQuery(handed);
-    window.addEventListener("hashchange", focus);
-    return () => window.removeEventListener("hashchange", focus);
-  }, []);
-
   /* A new query starts at the first page, or the reader lands on an empty
      page 2 of a result set that now has three matches. */
   function onQuery(next) {
     setQuery(next);
     setPage(1);
   }
+
+  useSearchHandoff(inputRef, onQuery);
 
   /* Back to the top of the list on a page change — otherwise the reader keeps
      the scroll position of the last card and appears to have gone nowhere. */

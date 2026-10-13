@@ -11,19 +11,16 @@ import { storagePath } from "../lib/photo-upload.js";
 import { saveError } from "../lib/save-error.js";
 import { refreshArchive } from "../lib/actions.js";
 import { canManage } from "../lib/roles.js";
+import { supabase } from "../lib/use-session.js";
 
 /* Edit and Delete, shown only to the entry's owner and to the curator.
    Checked in the browser so the entry page itself stays static (see
-   AuthStatus for the same trade). Hiding the buttons is manners, not security: the update and
-   delete policies are what refuse a stranger, and the check for a returned
-   row below is how this page finds out they did.
+   AuthStatus for the same trade). Hiding the buttons is manners, not
+   security: the update and delete policies are what refuse a stranger, and
+   the check for a returned row below is how this page finds out they did.
 
-   supabase-js arrives as a separate chunk after the page is readable, the
-   same way AuthStatus loads it. */
-async function supabase() {
-  const { createClient } = await import("../lib/supabase/client.js");
-  return createClient();
-}
+   supabase-js arrives as a separate chunk after the page is readable
+   (lib/use-session.js), the same way the nav loads it. */
 
 /* `table` and `basePath` say which shelf the entry is on: field notes
    ("entries", /field-notes) or community notes ("contributions",

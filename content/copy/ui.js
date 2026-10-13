@@ -59,6 +59,7 @@ export const ui = {
       sources: "Sources, as the author gives them",
       notFoundTitle: "Note not found",
       reader: "A reader",
+      photoAlt: (title) => `Photograph for the entry “${title}”`,
     },
     search: {
       label: "Search the entries",
@@ -165,6 +166,7 @@ export const ui = {
       sources: "ប្រភព តាមការប្រាប់របស់អ្នកសរសេរ",
       notFoundTitle: "រកមិនឃើញកំណត់ចំណាំ",
       reader: "អ្នកអានម្នាក់",
+      photoAlt: (title) => `រូបថតសម្រាប់អត្ថបទ «${title}»`,
     },
     search: {
       label: "ស្វែងរកអត្ថបទ",

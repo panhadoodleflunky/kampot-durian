@@ -58,9 +58,14 @@ export default function NavSearch() {
       setActive((i) => (i + step + list.length) % Math.max(list.length, 1));
     } else if (e.key === "Enter") {
       e.preventDefault();
-      const pick = list[active];
-      if (pick) router.push(pick.href);
-      else if (typing) router.push(localize(lang, `/field-notes?q=${encodeURIComponent(query.trim())}`));
+      const chosen = list[active];
+      if (chosen) router.push(chosen.href);
+      else if (typing) {
+        router.push(localize(lang, `/field-notes?q=${encodeURIComponent(query.trim())}`));
+        /* Already on Field Notes, the push does not remount its search,
+           so the words are handed over directly too. */
+        window.dispatchEvent(new CustomEvent("nav-search", { detail: query.trim() }));
+      }
       close();
     }
   }
