@@ -75,9 +75,10 @@ reporting. Both are gone. The rule now:
   curator's family" (owner's decision, 12 October 2026). No stock, no
   Wikimedia, no licensed third-party image, however correctly attributed.
 - Never invent a speaker, quote, date, Khmer name, statistic, or photo caption.
-  "I don't know" is a valid entry state — see `status: "in-progress"`.
-- Where a claim is thin, mark the entry `status: "in-progress"` and say what is
-  missing. An admitted gap is worth more than a filled one.
+  "I don't know" is a valid answer.
+- Where a claim is thin, say what is missing in the entry's own text. An
+  admitted gap is worth more than a filled one. (The site no longer shows an
+  "in progress" label, by the owner's decision of 13 October 2026.)
 - Say out loud what this sourcing costs. A reader cannot check any figure here
   against an outside source, and the site must not paper over that.
 - Since Lab 6, entries live in the Supabase `entries` table; `content/sources.js`

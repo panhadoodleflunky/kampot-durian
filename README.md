@@ -3,7 +3,7 @@
 A field guide to one durian orchard at Teuk Chhou, Kampot — its varieties, its
 season, how its growers read a fruit for ripeness, what a counterfeit looks
 like on a highway stall, and what the 2024 drought cost them. Every word of it
-came out of interviews with the two people who work the land.
+came out of interviews with the family who work the land, and one neighbour.
 
 Live: **https://kampot-durian.vercel.app**
 
@@ -33,72 +33,88 @@ outside source. The gain is that nothing here is second-hand, and two things on
 it — the days from petal drop to harvest for four Cambodian varieties, and a
 description of Sadong Kit — do not appear to exist anywhere else.
 
-That is why entries carry a `status` of `published` or `in-progress`, why
-`/about` has a section called "What is missing", and why the Khmer glossary
-is kept aside for a future edition instead of guessed at here.
+That is why `/about` has a section called "What is missing", and why the Khmer
+glossary is kept aside for a future edition instead of guessed at here.
 
 ## Running it
 
 ```bash
 npm install
 npm run dev      # http://localhost:3000
+npm run build
 ```
 
-```bash
-npm run build    # 22 static pages
-```
-
-Requires Node 18.18 or newer. No environment variables, no database, no API
-keys — the site is fully static.
+Requires Node 18.18 or newer and two environment variables in `.env.local`
+(and on Vercel): `NEXT_PUBLIC_SUPABASE_URL` and
+`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Both are public by design — the
+row-level security policies on the tables are the protection, not the key.
+Nothing secret is committed.
 
 ## The stack
 
-Next.js 15 (App Router), React 19, plain JavaScript. **Three dependencies
-total**, all of them the framework itself:
+Next.js 15 (App Router), React 19, plain JavaScript. **Five dependencies**: the
+framework three, plus `@supabase/supabase-js` and `@supabase/ssr`, approved for
+Sprint 2 (see `AGENTS.md`).
 
 | | |
 |---|---|
 | Styling | one hand-written CSS file, `app/globals.css` — no framework |
 | State | React's own `useState`; no state library |
-| Content | plain JS modules; no CMS, no MDX, no database |
+| Data | Supabase Postgres: `entries` (the Field Notes), `contributions` (Community Notes), `profiles` (display names), and a `photos` storage bucket |
+| Auth | Supabase email and password |
 | Search | a pure function over an array; no search library |
-
-That is a deliberate constraint, not an omission.
 
 ## How it is laid out
 
 ```
 app/
-  page.js                  home — hero, three featured entries, method note
-  region/page.js           the orchard, the setting, the scale, the pressure
-  field-notes/page.js      browse + search over every entry, four to a page
-  field-notes/[slug]/      one entry per page, statically generated
-  about/page.js            what this is, method, what is missing, why
-  sources/page.js          the interview record, cautions, photograph credits
-  globals.css              the whole stylesheet
-components/
-  EntrySearch.js           client component: owns the search query and the page
-  SearchBox.js             the search field itself, presentational
-  Pagination.js            the page controls, presentational
-  SearchEmpty.js           the no-results state
-  EntryCard.js             one entry, in three width variants
-  SiteNav / SiteFooter / SectionLabel / DurianGlyph / Reveal
+  (home)/page.js             home — hero, featured entries, method note
+  region/  about/  sources/  the orchard; method and gaps; interviews and credits
+  field-notes/(index)/       browse + search over every entry, four to a page
+  field-notes/[slug]/        one entry; /edit for the curator
+  field-notes/actions.js     server action: rebuild the pages after a write
+  contributed/               Community Notes from other accounts, and their /edit
+  contribute/                the form: curator → Field Notes, anyone else → Community
+  login/  signup/  account/  the front door, and the account page
+  layout.js  sitemap.js  robots.js  not-found.js  globals.css
+components/                  one component per file, ~80 lines or less
+  EntrySearch, SearchBox, Pagination, SearchEmpty, EntryCard     browse and search
+  EntryForm, FormField, PhotoField, ContributeForm, EditEntryForm, OwnerActions
+  AuthForm, SignupForm, AuthStatus, AccountMenu, AccountPanel, NameForm, PasswordForm, SignInPrompt
+  SiteNav, NavMenu, SiteFooter, SectionLabel, DurianGlyph, Reveal, ThemeToggle
+lib/
+  entries.js                 every read: rows → entries, cached static pages
+  entry-rules.js  entry-row.js  signup-rules.js   validation and row shaping
+  photo-upload.js  save-error.js  roles.js         uploads, error wording, who may edit
+  supabase/client.js  supabase/server.js           browser and server clients
 content/
-  field-notes.js           the entries — the data behind every page
-  search-index.js          which fields are searchable, and the matcher
-  card-variants.js         the grid cycle and the paging maths, as pure functions
-  sources.js               the interview record, cautions, photo credits, method string
-collection.config.js       archive identity: name, description, curator, source
+  photos.js                  size, alt text and caption for each photograph in public/
+  sources.js                 the interview record, cautions, photo credits, method
+  search-index.js            which fields are searchable, and the matcher
+  card-variants.js           the grid cycle and paging maths, as pure functions
+  site.js                    the site's base URL
+collection.config.js         archive identity: name, description, curator, source
+entry-sketch.md              what one entry is, as data
 ```
 
-**Pages never hardcode entry content.** They read `content/field-notes.js` and
-render what is there. Adding an entry is a data edit, not a layout edit.
+**Pages never hardcode entry content.** They read the `entries` table through
+`lib/entries.js`. Adding an entry is a row, not a deploy.
+
+### Who may write what
+
+Enforced by row-level security in the database, not by hiding buttons:
+
+- **Anyone** can read everything.
+- **The curator** (`role: curator` in the account's app metadata, which a user
+  cannot set) is the only account that writes Field Notes, and is the site's
+  admin: it can edit or delete any Community Note.
+- **Any other account** can add Community Notes and edit or delete only its own.
 
 ### The entry shape
 
 Defined in [`entry-sketch.md`](entry-sketch.md). `slug`, `figNumber`, `title`,
 `body`, and `sources` are required; `khmerName`, `image`, `tags`, and `status`
-are optional, and `khmerName` is left empty rather than guessed.
+are optional.
 
 ### The search
 
@@ -131,12 +147,8 @@ Two things it handles that a naive `includes()` would not:
 | Sprint | Feature | State |
 |---|---|---|
 | 1 | Browse and search | built |
-| 2 | Contributor accounts, own-your-entries | not started |
-| 3 | Submit, review, publish | not started |
-
-Sprint features are built when the sprint asks for them, not ahead of it —
-Sprint 2 changes how entries are stored, so building it early means building it
-twice.
+| 2 | Contributor accounts, own-your-entries | built |
+| 3 | Submit, review, publish | not started — the curator-as-admin piece was built early, by choice |
 
 ## Credits
 
