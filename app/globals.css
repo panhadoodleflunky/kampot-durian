@@ -1259,16 +1259,10 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
   margin-left: auto;
 }
 
-.entry-status-block {
-  display: inline-block;
-  margin: 0 0 28px;
-  letter-spacing: 1.2px;
-}
-
 /* The space under an entry title comes from whatever follows it in the
-   header — the status line, or the Khmer name. A published English entry has
-   neither, so the title is last and its photograph sat on it, the descender
-   of "Variety" touching the frame. Same 28px as the status line. */
+   header — the Khmer name, or the owner's buttons. An entry with neither has
+   the title last and its photograph sat on it, the descender
+   of "Variety" touching the frame. */
 .entry-main .headline-sm:last-child { margin-bottom: 28px; }
 
 .entry-src {

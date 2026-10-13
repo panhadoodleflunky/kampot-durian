@@ -39,19 +39,17 @@ export default function EntryCard({
   basePath = "/field-notes",
   delay = 0,
 }) {
-  const { slug, figNumber, title, khmerName, body, sources = [], tags = [], status, author } = note;
+  const { slug, figNumber, title, khmerName, body, sources = [], tags = [], author } = note;
   const href = `${basePath}/${slug}`;
   const limit = variant === "lead" ? 320 : variant === "brief" ? 110 : 200;
-  const inProgress = status === "in-progress";
 
   return (
     <Reveal as="article" className={`entry entry-${variant}`} delay={delay}>
-      {showNumber || inProgress || author ? (
+      {showNumber || author ? (
         <div className="entry-head">
           {showNumber ? (
             <span className="entry-no" aria-hidden="true">{figNumber}</span>
           ) : null}
-          {inProgress ? <span className="entry-status">In progress</span> : null}
           {author ? <span className="entry-status">By {author}</span> : null}
         </div>
       ) : null}

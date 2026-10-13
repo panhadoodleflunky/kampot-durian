@@ -63,7 +63,7 @@ export default async function Home() {
           <div className="hero-copy">
             <p className="eyebrow">
               <span className="pulse" />
-              Field guide in progress
+              Field guide
             </p>
             <h1 className="headline">
               Kampot

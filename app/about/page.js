@@ -56,7 +56,6 @@ export default async function About() {
      this throws, and the last good copy is served — see lib/entries.js. The
      counting sentences are left out only when there is nothing to count. */
   const entries = await getEntries();
-  const open = entries.filter((n) => n.status === "in-progress").length;
 
   /* Counted, not typed. This sentence used to name Monthong and Musang King,
      and by the time three more entries were written it was naming two of the
@@ -138,12 +137,6 @@ export default async function About() {
             <Reveal className="prose-row">
               <h2 className="tile-label">What is missing</h2>
               <p className="reading-body">
-                {entries.length ? (
-                  <>
-                    {open} of the {entries.length} entries{" "}
-                    {open === 1 ? "is" : "are"} marked in progress.{" "}
-                  </>
-                ) : null}
                 The drought entry sets two neighbours&apos; 2024 beside the
                 growers&apos; own, but its district figure is their estimate,
                 not a count. The export entry can describe standing outside a

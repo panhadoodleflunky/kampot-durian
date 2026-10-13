@@ -90,11 +90,6 @@ export default async function FieldNote({ params }) {
                 {note.khmerName ? (
                   <p className="entry-khmer entry-khmer-lg" lang="km">{note.khmerName}</p>
                 ) : null}
-                {note.status === "in-progress" ? (
-                  <p className="entry-status entry-status-block">
-                    In progress — the material behind this entry is thin.
-                  </p>
-                ) : null}
                 <OwnerActions
                   id={note.id}
                   owner={note.owner}
