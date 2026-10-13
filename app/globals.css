@@ -354,6 +354,95 @@ img { max-width: 100%; height: auto; display: block; }
   .gnav-sheet .gnav-sheet-auth a { padding: 11px 18px; border: 1px solid var(--line); font-size: 11px; }
 }
 
+/* ---------------- nav search ----------------
+
+   The magnifier borrows the theme toggle's button; the panel drops under
+   the bar across the full width, over a scrim, the way apple.com's does.
+   Positioned off `.gnav` like the phone sheet, for the same reason: the
+   nav's backdrop-filter makes it the containing block anyway. */
+.nav-search-btn svg { width: 18px; height: 18px; }
+.nav-search-btn[aria-expanded="true"] { color: var(--flesh); }
+
+.nav-search-scrim {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  height: 100vh;
+  z-index: 1;
+  background: rgba(var(--husk-rgb), 0.55);
+  animation: nav-search-fade 0.2s ease;
+}
+
+.nav-search-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  /* Side padding of its own: the page's gutter comes from the sections,
+     and the panel sits outside them. */
+  padding: 26px 22px 30px;
+  background: var(--husk);
+  border-bottom: 1px solid var(--line);
+  animation: nav-search-drop 0.22s ease;
+}
+
+.nav-search-input {
+  width: 100%;
+  padding: 6px 0 14px;
+  border: none;
+  border-bottom: 1px solid var(--line-2);
+  background: none;
+  color: var(--cream);
+  font-family: var(--serif);
+  font-size: clamp(24px, 3vw, 32px);
+  outline: none;
+  -webkit-appearance: none;
+}
+.nav-search-input::placeholder { color: var(--dim); }
+.nav-search-input::-webkit-search-cancel-button { display: none; }
+
+.nav-search-results { margin-top: 18px; }
+.nav-search-results ul { list-style: none; margin: 0; padding: 0; }
+.nav-search-heading {
+  margin: 0 0 8px;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 1.8px;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.gnav .nav-search-results a {
+  text-transform: none;
+  letter-spacing: normal;
+  white-space: normal;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 9px 0;
+  text-decoration: none;
+  color: var(--muted);
+}
+.gnav .nav-search-results a:hover, .gnav .nav-search-results a.is-active { color: var(--flesh); }
+.nav-search-title { min-width: 0; font-family: var(--sans); font-size: 16px; }
+.nav-search-hint {
+  flex-shrink: 0;
+  font-family: var(--mono);
+  font-size: 10.5px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: var(--dim);
+}
+.nav-search-empty { margin: 4px 0 0; font-size: 15px; color: var(--muted); }
+
+@keyframes nav-search-drop { from { opacity: 0; transform: translateY(-8px); } }
+@keyframes nav-search-fade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .nav-search-panel, .nav-search-scrim { animation: none; }
+}
+
 /* ---------------- theme toggle ----------------
 
    One button, two inline icons; CSS shows whichever names the mode a tap

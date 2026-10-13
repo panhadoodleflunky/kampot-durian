@@ -3,18 +3,17 @@ import collection from "../collection.config.js";
 import AuthStatus from "./AuthStatus.js";
 import DurianGlyph from "./DurianGlyph.js";
 import NavMenu from "./NavMenu.js";
+import NavSearch from "./NavSearch.js";
 import ThemeToggle from "./ThemeToggle.js";
 
 /* The destinations of the guide. Home is the logo, so it is not repeated in
-   the list. Search points at the Field Notes index, where the one search box
-   lives; the #search hash tells it to focus the input on arrival. Keeping the
-   box on that one page is deliberate — a box in the nav would make this a
-   client component and ship the search index on every page of the site. */
+   the list. Search is not a link any more: NavSearch, the magnifier at the
+   end of the bar, opens it from any page, and fetches its index only when
+   opened, so SiteNav stays a server component and no page carries it. */
 const LINKS = [
   { href: "/region", label: "The Region" },
   { href: "/field-notes", label: "Field Notes" },
   { href: "/contributed", label: "Community" },
-  { href: "/field-notes#search", label: "Search" },
   { href: "/about", label: "About" },
   { href: "/sources", label: "Sources" },
 ];
@@ -48,6 +47,7 @@ export default function SiteNav({ current }) {
           ))}
         </div>
         <AuthStatus />
+        <NavSearch />
         <ThemeToggle />
         <NavMenu links={LINKS} current={current} />
       </div>

@@ -33,6 +33,10 @@ export default function EntrySearch({ notes }) {
       if (window.location.hash === "#search") inputRef.current?.focus();
     };
     focus();
+    /* A search handed over from the nav (Enter with no suggestion) arrives
+       as ?q=, and starts the list already filtered. */
+    const handed = new URLSearchParams(window.location.search).get("q");
+    if (handed) setQuery(handed);
     window.addEventListener("hashchange", focus);
     return () => window.removeEventListener("hashchange", focus);
   }, []);
