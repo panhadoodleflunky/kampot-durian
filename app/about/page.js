@@ -37,8 +37,8 @@ const SPECS = [
   },
   {
     h: "Status",
-    v: "Ongoing",
-    p: "Entries are added as the growers are asked more.",
+    v: "Complete",
+    p: "Twelve entries. This edition is closed; later seasons may add to it.",
   },
 ];
 

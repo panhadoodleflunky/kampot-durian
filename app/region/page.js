@@ -74,7 +74,7 @@ export default function Region() {
                 The orchards here drink what comes down off the hills. That is
                 why the district suits durian, and it is the weakness in it.
                 When the mountain stream fails there is nothing behind it but
-                a well and a diesel pump.
+                a well, a diesel pump and the farm&apos;s own pond.
               </p>
             </Reveal>
           </div>
@@ -113,18 +113,22 @@ export default function Region() {
                 did not reach the trees until mid-June.
               </p>
               <p className="reading-body">
-                How far that ran past their fence they do not claim to know,
-                and this guide will not guess. What they can describe is the
-                mechanism, because they live on it. Orchards on these slopes
+                The neighbours came off worse: one lost more than thirty
+                mature trees, another bought water by the tanker. How far it
+                ran across the district the growers can only estimate, and
+                this guide does not count it for them. What they can describe
+                is the mechanism, because they live on it. Orchards on these slopes
                 run on rainfall and run-off, and there is no reserve behind
                 either. Fruit stops reaching size and drops early. What
                 survives ripens too fast to taste right. Their answer was a
                 thirty-two-metre well, a diesel pump, rice straw at the
-                drip-line, and netting over the young grafts.{" "}
+                drip-line, netting over the young grafts, and, late in 2024, a
+                deeper pond.{" "}
                 <Link href="/field-notes/when-the-rain-doesnt-come">
                   Read the full entry on the drought
                 </Link>
-                , which follows one family through the last three seasons of it.
+                , which follows 2024 on this farm and two of its neighbours, and
+                the two seasons since.
               </p>
             </Reveal>
           </div>
