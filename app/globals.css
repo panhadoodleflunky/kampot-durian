@@ -152,7 +152,6 @@ html[data-theme="light"] .search-input,
 html[data-theme="light"] .prompt-card { background: var(--surface); }
 html[data-theme="light"] .hero-figure { box-shadow: 0 30px 60px -30px rgba(26, 24, 20, 0.4); }
 html[data-theme="light"] .account-menu-panel { box-shadow: 0 12px 28px rgba(26, 24, 20, 0.16); }
-html[data-theme="light"] .eyebrow { background: transparent; }
 html[data-theme="light"] .entry-no { opacity: 1; }
 /* Quote marks are decoration: solid gold, not faded green. */
 html[data-theme="light"] .pull blockquote::before,
@@ -536,35 +535,6 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 }
 
 /* ---------------- type ---------------- */
-
-.eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  font-family: var(--mono);
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 2.6px;
-  text-transform: uppercase;
-  color: var(--flesh);
-  padding: 9px 17px;
-  border: 1px solid var(--line-2);
-  border-radius: 999px;
-  background: rgba(var(--flesh-rgb), 0.05);
-  margin: 0 0 38px;
-}
-
-.pulse {
-  width: 6px; height: 6px; border-radius: 50%;
-  background: var(--leaf);
-  box-shadow: 0 0 0 0 rgba(var(--leaf-rgb), 0.7);
-  animation: pulse 2.4s ease-out infinite;
-}
-
-@keyframes pulse {
-  70%  { box-shadow: 0 0 0 10px rgba(var(--leaf-rgb), 0); }
-  100% { box-shadow: 0 0 0 0 rgba(var(--leaf-rgb), 0); }
-}
 
 /* Instrument Serif is a single 400 weight drawn for large sizes —
    it wants scale and tight tracking, not weight changes. */
@@ -1225,7 +1195,6 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal, .reveal.wait { opacity: 1; transform: none; transition: none; animation: none; }
-  .pulse { animation: none; }
   html { scroll-behavior: auto; }
   .hero-figure img, .entry, .tile, .btn { transition: none; }
   .gnav-sheet { animation: none; }
@@ -2322,6 +2291,9 @@ textarea#entry-body { min-height: 16em; }
 html:lang(km) * { letter-spacing: normal !important; }
 
 html:lang(km) .headline { font-size: clamp(56px, 7.4vw, 112px); line-height: 1.18; }
+/* កំពត on its own line, dropped a little: at 1.18 the vowel sign under ធុ
+   met the sign over កំ. */
+html:lang(km) .headline em { margin-top: 0.14em; }
 html:lang(km) :is(.headline-sm, .stat-num, .tile-value, .entry-title, .entry-next-title, .spec-value) {
   line-height: 1.38;
 }
@@ -2341,10 +2313,19 @@ html:lang(km) .auth-btn { font-size: 14px; }
    above by specificity; spacing falls between whole clusters, so the
    subscripts stay on their letters. */
 html:lang(km) .gnav-name { font-size: 16px; letter-spacing: 0.8px !important; }
-html:lang(km) :is(.sec-label, .tile-label, .eyebrow, .mast-item dt, .search-label, .search-count, .entry-src,
+html:lang(km) :is(.sec-label, .tile-label, .mast-item dt, .search-label, .search-count, .entry-src,
   .entry-back, .nav-search-heading, .spec h3, .entry-status, .account-menu-who, .hero-cap-no) {
   font-size: 14px;
 }
 html:lang(km) :is(.entry-tag, .nav-search-hint, .hero-figure figcaption, .foot-bottom, .entry-sources-note) {
   font-size: 13px;
 }
+
+/* ---------------- reader-written text ----------------
+
+   A community note can hold a "word" longer than its column (a link, or a
+   test typed as one long run). Allowed to break anywhere as a last resort,
+   it wraps inside the card and the page instead of running out of them or
+   across the text beside it. Ordinary words still wrap at their spaces. */
+:is(.entry, .entry-main, .entry-side) { overflow-wrap: anywhere; }
+

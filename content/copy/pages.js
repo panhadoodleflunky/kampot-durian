@@ -17,7 +17,6 @@ export const pages = {
     },
     home: {
       masthead: { compiledBy: "Compiled by", province: "Province", method: "Method", interview: "Interview" },
-      eyebrow: "Field guide",
       headline: "Kampot",
       headlineEm: "Durian",
       read: "Read the field notes",
@@ -161,7 +160,6 @@ export const pages = {
     },
     home: {
       masthead: { compiledBy: "ចងក្រង​ដោយ", province: "ខេត្ត", method: "វិធីសាស្ត្រ", interview: "ការ​សម្ភាសន៍" },
-      eyebrow: "មគ្គុទ្ទេសក៍​ចម្ការ",
       headline: "ធុរេន",
       headlineEm: "កំពត",
       read: "អាន​កំណត់ត្រា​ចម្ការ",

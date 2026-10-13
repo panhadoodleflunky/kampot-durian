@@ -105,6 +105,7 @@ export const forms = {
     },
     account: {
       loading: "Loading your account…",
+      loadingName: "Loading your name…",
       loggedOut: "Log in to see your account.",
       email: "Email",
       emailNote: "Only you can see this. It can’t be changed.",
@@ -231,6 +232,7 @@ export const forms = {
     },
     account: {
       loading: "កំពុង​ផ្ទុក​គណនី​របស់​អ្នក…",
+      loadingName: "កំពុង​ផ្ទុក​ឈ្មោះ​របស់​អ្នក…",
       loggedOut: "សូម​ចូល​គណនី ដើម្បី​មើល​គណនី​របស់​អ្នក⁠។",
       email: "អ៊ីមែល",
       emailNote: "មានតែ​អ្នក​ប៉ុណ្ណោះ​ដែល​អាច​មើលឃើញ⁠។ មិន​អាច​ប្តូរ​បានទេ⁠។",

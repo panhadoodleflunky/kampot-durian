@@ -28,17 +28,30 @@ export default function AccountPanel() {
     router.refresh();
   }
 
+  /* getSession, not getUser: it reads the session this browser already
+     holds, with no round trip, so the email shows at once. getUser asks the
+     auth server to vouch for it first, which is the right call before
+     trusting a user on a server; here nothing is trusted. Every change on
+     this page goes through the table policies and the auth server anyway.
+     The name is the one thing that has to be fetched; it fills in after. */
   useEffect(() => {
     const supabase = createClient();
-    supabase.auth.getUser().then(async ({ data }) => {
-      if (!data.user) return setState({ status: "logged-out" });
+    let dropped = false;
+    supabase.auth.getSession().then(async ({ data }) => {
+      const user = data.session?.user;
+      if (dropped) return;
+      if (!user) return setState({ status: "logged-out" });
+      setState({ status: "ready", user, name: null });
       const { data: profile } = await supabase
         .from("profiles")
         .select("display_name")
-        .eq("id", data.user.id)
+        .eq("id", user.id)
         .maybeSingle();
-      setState({ status: "ready", user: data.user, name: profile?.display_name ?? "" });
+      if (!dropped) setState({ status: "ready", user, name: profile?.display_name ?? "" });
     });
+    return () => {
+      dropped = true;
+    };
   }, []);
 
   if (state.status === "loading") return <p className="body-copy">{t.loading}</p>;
@@ -57,7 +70,11 @@ export default function AccountPanel() {
 
       <section className="account-block">
         <h2 className="tile-label">{t.name}</h2>
-        <NameForm userId={user.id} current={name} />
+        {name === null ? (
+          <p className="entry-field-hint">{t.loadingName}</p>
+        ) : (
+          <NameForm userId={user.id} current={name} />
+        )}
       </section>
 
       <section className="account-block">

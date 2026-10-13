@@ -70,10 +70,6 @@ export default async function Home({ params }) {
       <header className="hero">
         <div className="inner hero-grid">
           <div className="hero-copy">
-            <p className="eyebrow">
-              <span className="pulse" />
-              {t.eyebrow}
-            </p>
             <h1 className="headline">
               {t.headline}
               <em>{t.headlineEm}</em>
