@@ -67,6 +67,7 @@ export async function generateMetadata({ params }) {
 /* Runs before anything paints. A reader who chose light mode (stored by
    ThemeToggle) would otherwise see a dark flash on every page load. Dark
    needs no marker — it is the default palette in globals.css. */
+// EMPTY CATCH.  IF STORAGE IS BLOCKED THE READER GETS DARK MODE AND NEVER LEARNS WHY.
 const themeInit = `try{if(localStorage.getItem("theme")==="light")document.documentElement.dataset.theme="light"}catch(e){}`;
 
 /* Both editions are built ahead. Any other first segment is refused
