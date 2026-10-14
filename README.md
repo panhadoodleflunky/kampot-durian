@@ -34,7 +34,8 @@ it — the days from petal drop to harvest for four Cambodian varieties, and a
 description of Sadong Kit — do not appear to exist anywhere else.
 
 That is why `/about` has a section called "What is missing", and why the Khmer
-glossary is kept aside for a future edition instead of guessed at here.
+edition (under `/km`) uses the growers' own field terms, confirmed by the
+curator, rather than dictionary guesses.
 
 ## Running it
 
