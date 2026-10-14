@@ -7,7 +7,7 @@ import { forms } from "../content/copy/forms.js";
 import { useState } from "react";
 import FormField from "./FormField.js";
 import PhotoField from "./PhotoField.js";
-import { RULES, MAX_TAGS, validateEntry } from "../lib/entry-rules.js";
+import { RULES, MAX_TAGS, validateEntry, tidy } from "../lib/entry-rules.js";
 import { checkPhoto } from "../lib/photo-upload.js";
 import { saveError } from "../lib/save-error.js";
 
@@ -42,7 +42,7 @@ export default function EntryForm({ initial = EMPTY, currentPhotoUrl, photoLocke
   async function onSubmit(event) {
     event.preventDefault();
     setMessage("");
-    const trimmed = Object.fromEntries(Object.entries(values).map(([k, v]) => [k, v.trim()]));
+    const trimmed = Object.fromEntries(Object.entries(values).map(([k, v]) => [k, tidy(v)]));
     const found = validateEntry(trimmed, lang);
 
     /* No file means no photograph on a new entry, and "keep the old one" on
