@@ -10,10 +10,11 @@ import { useRouter } from "next/navigation";
 import { storagePath } from "../lib/photo-upload.js";
 import { saveError } from "../lib/save-error.js";
 import { refreshArchive } from "../lib/actions.js";
-import { canManage } from "../lib/roles.js";
+import { canEdit, canDelete } from "../lib/roles.js";
 import { supabase } from "../lib/use-session.js";
 
-/* Edit and Delete, shown only to the entry's owner and to the curator.
+/* Edit, shown only to the entry's owner; Delete, to its owner and to the
+   curator (who reviews notes but doesn't rewrite them, since Sprint 3).
    Checked in the browser so the entry page itself stays static (see
    AuthStatus for the same trade). Hiding the buttons is manners, not
    security: the update and delete policies are what refuse a stranger, and
@@ -27,7 +28,7 @@ import { supabase } from "../lib/use-session.js";
    /contributed). */
 export default function OwnerActions({ table = "entries", basePath = "/field-notes", id, owner, slug, photoUrl }) {
   const router = useRouter();
-  const [mine, setMine] = useState(false);
+  const [may, setMay] = useState({ edit: false, remove: false });
   const [busy, setBusy] = useState(false);
   const [message, setMessage] = useState("");
   const lang = useLang();
@@ -37,7 +38,7 @@ export default function OwnerActions({ table = "entries", basePath = "/field-not
   useEffect(() => {
     supabase()
       .then((client) => client.auth.getUser())
-      .then(({ data }) => setMine(canManage(data.user, owner)));
+      .then(({ data }) => setMay({ edit: canEdit(data.user, owner), remove: canDelete(data.user, owner) }));
   }, [owner]);
 
   async function remove() {
@@ -63,12 +64,14 @@ export default function OwnerActions({ table = "entries", basePath = "/field-not
     router.push(localize(lang, basePath));
   }
 
-  if (!mine) return null;
+  if (!may.remove) return null;
   return (
     <div className="owner-actions">
-      <Link className="auth-btn" href={localize(lang, `${basePath}/${slug}/edit`)}>
-        {t.edit}
-      </Link>
+      {may.edit ? (
+        <Link className="auth-btn" href={localize(lang, `${basePath}/${slug}/edit`)}>
+          {t.edit}
+        </Link>
+      ) : null}
       <button className="auth-btn owner-delete" type="button" onClick={remove} disabled={busy}>
         {busy ? t.deleting : t.delete}
       </button>

@@ -21,7 +21,7 @@ const EMPTY = { title: "", titleKm: "", khmerName: "", body: "", bodyKm: "", sou
    Each English box has an optional Khmer box under it (lang="km", so the
    reader's keyboard and the page's Khmer fonts apply). The photograph is
    optional too. */
-export default function EntryForm({ initial = EMPTY, currentPhotoUrl, photoLocked, submitLabel, onSave }) {
+export default function EntryForm({ initial = EMPTY, currentPhotoUrl, submitLabel, onSave }) {
   const [values, setValues] = useState(initial);
   const [photo, setPhoto] = useState(null);
   const [errors, setErrors] = useState({});
@@ -82,7 +82,7 @@ export default function EntryForm({ initial = EMPTY, currentPhotoUrl, photoLocke
       <FormField id="entry-sources-km" label={label.sourcesKm} hint={t.sourcesKmHint(limit("sourcesKm"))} lang="km" {...field("sourcesKm")} />
       <FormField id="entry-tags" label={t.tagsLabel} hint={t.tagsHint(MAX_TAGS)} {...field("tags")} />
       <FormField id="entry-tags-km" label={t.tagsKmLabel} hint={t.tagsHint(MAX_TAGS)} lang="km" {...field("tagsKm")} />
-      {photoLocked ? null : <PhotoField error={errors.photo} currentUrl={currentPhotoUrl} onChange={setPhoto} />}
+      <PhotoField error={errors.photo} currentUrl={currentPhotoUrl} onChange={setPhoto} />
 
       <p className="auth-error" role="alert">
         {message}

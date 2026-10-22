@@ -13,14 +13,14 @@ import { entryColumns } from "../lib/entry-row.js";
 import { uploadPhoto, storagePath } from "../lib/photo-upload.js";
 import { saveError } from "../lib/save-error.js";
 import { refreshArchive } from "../lib/actions.js";
-import { canManage } from "../lib/roles.js";
+import { canEdit } from "../lib/roles.js";
 
 /* The edit page. It reads the row straight from the table, not from the
    static page, so the form starts from what is really stored.
 
    The "not yours" message is politeness only. A stranger who skips this
    page and sends an update from the console is refused by the update policy
-   (owner or curator) — and Supabase reports that as success with zero
+   (owner only) — and Supabase reports that as success with zero
    rows, which is why save() checks for the row coming back. */
 /* `table` is "entries" for a field note or "contributions" for a community
    note; `basePath` is where that shelf's pages live. */
@@ -40,7 +40,7 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
       if (error) return setState({ status: "failed", message: saveError("load entry", error, lang) });
       if (!row) return setState({ status: "missing" });
       if (!auth.user) return setState({ status: "logged-out" });
-      if (!canManage(auth.user, row.owner)) return setState({ status: "not-yours" });
+      if (!canEdit(auth.user, row.owner)) return setState({ status: "not-yours" });
       setState({ status: "ready", row, userId: auth.user.id });
     });
   }, [table, slug, lang]);
@@ -57,9 +57,15 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
       if (!photoUrl) return all.photo.uploadFailed;
     }
 
+    /* A community note goes back to review when it is edited (Sprint 3), so
+       the update says "pending" — the edit policy refuses anything else from
+       a non-reviewer, a published note included. A reviewer's own note keeps
+       its status. If the question fails, the safe answer is "not a
+       reviewer". Field notes have no review step. */
+    const review = table === "contributions" && (await supabase.rpc("is_reviewer")).data !== true;
     const { data, error } = await supabase
       .from(table)
-      .update({ ...entryColumns(fields), photo_url: photoUrl })
+      .update({ ...entryColumns(fields), photo_url: photoUrl, ...(review ? { status: "pending" } : {}) })
       .eq("id", row.id)
       .select("id");
 
@@ -79,7 +85,9 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
     }
     /* Already saved: a failed refresh must not read as a failed save. */
     await refreshArchive().catch((failed) => console.error("refresh archive:", failed));
-    router.push(localize(lang, `${basePath}/${slug}`));
+    /* A note waiting for review has no public page yet; its author sees it
+       on My notes. */
+    router.push(localize(lang, review ? "/my-entries" : `${basePath}/${slug}`));
   }
 
   const { status } = state;
@@ -101,9 +109,5 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
     tags: (row.tags ?? []).join(", "),
     tagsKm: (row.tags_km ?? []).join(", "),
   };
-  /* The curator editing someone else's note keeps their photograph: a new
-     one would upload into the curator's folder, and the photo_url_ours
-     constraint ties a note's photo to its author's folder. */
-  const photoLocked = row.owner !== state.userId;
-  return <EntryForm initial={initial} currentPhotoUrl={row.photo_url} photoLocked={photoLocked} submitLabel={all.entry.saveChanges} onSave={save} />;
+  return <EntryForm initial={initial} currentPhotoUrl={row.photo_url} submitLabel={all.entry.saveChanges} onSave={save} />;
 }
