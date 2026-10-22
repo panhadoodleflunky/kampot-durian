@@ -55,7 +55,7 @@ export const ui = {
     community: {
       back: "All community notes",
       label: (name) => `Community note · by ${name}`,
-      disclaimer: "A reader’s own account. Not from this orchard’s interviews, and not checked by the archive.",
+      disclaimer: "A reader’s own account, not from this orchard’s interviews. The curator read it before it went up, but did not check its facts.",
       sources: "Sources, as the author gives them",
       notFoundTitle: "Note not found",
       reader: "A reader",
@@ -110,6 +110,7 @@ export const ui = {
       account: "Account",
       yourAccount: "Your account",
       signedInAs: "Signed in as",
+      myNotes: "My notes",
       you: "you",
     },
   },
@@ -162,7 +163,7 @@ export const ui = {
     community: {
       back: "កំណត់ចំណាំ​សហគមន៍​ទាំងអស់",
       label: (name) => `កំណត់ចំណាំ​សហគមន៍ · ដោយ ${name}`,
-      disclaimer: "ជា​ការ​រៀបរាប់​ផ្ទាល់ខ្លួន​របស់​អ្នកអាន⁠។ មិនមែន​មក​ពី​ការ​សម្ភាសន៍​នៅ​ចម្ការ​នេះ​ទេ ហើយ​បណ្ណ​សារ​នេះ​មិនបាន​ត្រួតពិនិត្យ​ទេ⁠។",
+      disclaimer: "ជា​ការ​រៀបរាប់​ផ្ទាល់ខ្លួន​របស់​អ្នកអាន មិនមែន​មក​ពី​ការ​សម្ភាសន៍​នៅ​ចម្ការ​នេះ​ទេ⁠។ អ្នក​ចងក្រង​បាន​អាន​វា មុន​ពេល​ដាក់​បង្ហាញ ប៉ុន្តែ​មិនបាន​ផ្ទៀងផ្ទាត់​ការពិត​ក្នុង​នោះ​ទេ⁠។",
       sources: "ប្រភព តាម​ការ​ប្រាប់​របស់​អ្នក​សរសេរ",
       notFoundTitle: "រក​មិនឃើញ​កំណត់ចំណាំ",
       reader: "អ្នកអាន​ម្នាក់",
@@ -217,6 +218,7 @@ export const ui = {
       account: "គណនី",
       yourAccount: "គណនី​របស់​អ្នក",
       signedInAs: "បាន​ចូលក្នុង​នាម",
+      myNotes: "កំណត់ចំណាំ​របស់ខ្ញុំ",
       you: "អ្នក",
     },
   },
