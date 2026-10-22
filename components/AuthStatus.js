@@ -14,7 +14,7 @@ import { ui } from "../content/copy/ui.js";
 
    `variant`: "bar" in the nav bar, where the name opens a small account
    panel (AccountMenu); "sheet" in the phone menu, where everything is laid
-   out flat at finger size: the name, then Contribute and Log out. */
+   out flat at finger size: Contribute, the name, My notes and Log out. */
 export default function AuthStatus({ variant = "bar" }) {
   const router = useRouter();
   const { userId, name, ready } = useSession();
@@ -43,6 +43,9 @@ export default function AuthStatus({ variant = "bar" }) {
           <>
             <Link className="auth-email auth-name" href={go("/account")} title={t.yourAccount}>
               {name || t.account}
+            </Link>
+            <Link className="auth-btn" href={go("/my-entries")}>
+              {t.myNotes}
             </Link>
             <button className="auth-btn" type="button" onClick={logOut}>
               {t.logOut}

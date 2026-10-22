@@ -8,8 +8,8 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 
 /* The reader's initial in the laptop bar, as a button that opens a small
-   panel: who you are, your account, and Log out. An initial, not the whole
-   name: the bar then measures the same logged in as logged out, so nothing in
+   panel: who you are, My notes, your account, and Log out. An initial, not
+   the whole name: the bar then measures the same logged in as logged out, so nothing in
    it moves when the session arrives, and the six links never have to give
    way to the menu button for a logged-in reader. The full name is in the
    panel and in the button's label.
@@ -76,6 +76,9 @@ export default function AccountMenu({ name, onLogOut }) {
             {t.signedInAs}
             <strong>{name || t.you}</strong>
           </p>
+          <Link href={localize(lang, "/my-entries")} onClick={() => setOpen(false)}>
+            {t.myNotes}
+          </Link>
           <Link href={localize(lang, "/account")} onClick={() => setOpen(false)}>
             {t.yourAccount}
           </Link>
