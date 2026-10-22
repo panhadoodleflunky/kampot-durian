@@ -84,12 +84,14 @@ app/
   [lang]/contributed/        Community Notes from other accounts, and their /edit
   [lang]/contribute/         the form: curator → Field Notes, anyone else → Community
   [lang]/login/ signup/ account/   the front door, and the account page
+  [lang]/my-entries/         My notes: your own Community Notes and their review status
   [lang]/not-found.js  [lang]/[...rest]/   the 404, in both editions
   api/suggest/[lang]/        the nav search's index, fetched on first open
   sitemap.js  robots.js  globals.css
 components/                  one component per file, ~80 lines or less
   EntrySearch, SearchBox, Pagination, SearchEmpty, EntryCard     browse and search
   EntryForm, FormField, PhotoField, ContributeForm, EditEntryForm, OwnerActions
+  SentNotice, MyEntries, MyNote                                   waiting for review
   AuthForm, SignupForm, AuthStatus, AccountMenu, AccountPanel, NameForm, PasswordForm, SignInPrompt
   SiteNav, NavMenu, NavSearch, SearchSuggestions, LangSwitch, LangOnly, SiteFooter,
   SectionLabel, DurianGlyph, Reveal, ThemeToggle, Rich (a sentence with links, from copy)
@@ -120,11 +122,16 @@ entry-sketch.md              what one entry is, as data
 
 Enforced by row-level security in the database, not by hiding buttons:
 
-- **Anyone** can read everything.
+- **Anyone** can read the Field Notes and every *published* Community Note.
 - **The curator** (`role: curator` in the account's app metadata, which a user
-  cannot set) is the only account that writes Field Notes, and is the site's
-  admin: it can edit or delete any Community Note.
+  cannot set) is the only account that writes Field Notes, and may delete
+  (take down) any Community Note, but not rewrite one.
 - **Any other account** can add Community Notes and edit or delete only its own.
+- **Review (Sprint 3).** A new Community Note is `pending` and only its author
+  and the reviewer can see it. Only an account in the `reviewers` table (which
+  only the SQL Editor can change) can publish it or send it back, through the
+  `review_entry()` database function; a returned note can carry the
+  reviewer's note. Editing a note sends it back to `pending`.
 
 ### The entry shape
 
