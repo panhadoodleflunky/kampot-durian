@@ -6,6 +6,7 @@ import { forms } from "../content/copy/forms.js";
 
 import { useEffect, useState } from "react";
 import SignInPrompt from "./SignInPrompt.js";
+import SentNotice from "./SentNotice.js";
 import { useRouter } from "next/navigation";
 import EntryForm from "./EntryForm.js";
 import { createClient } from "../lib/supabase/client.js";
@@ -19,10 +20,14 @@ import { isCurator } from "../lib/roles.js";
 /* /contribute. Hiding the form from a logged-out visitor is manners; the
    insert policies are what actually refuse them. The curator's entries go
    into the Field Notes catalogue (`entries`); everyone else's go to
-   Community Notes (`contributions`), never into the family's catalogue. */
+   Community Notes (`contributions`), never into the family's catalogue.
+   A community note starts "pending" (the table's default; the form never
+   sends a status) and waits for the curator, so its author is told so
+   instead of being sent to a page the public can't see yet. */
 export default function ContributeForm() {
   const router = useRouter();
   const [user, setUser] = useState(undefined);
+  const [sent, setSent] = useState(false);
   const lang = useLang();
   const all = pick(forms, lang);
   const t = all.contribute;
@@ -70,15 +75,18 @@ export default function ContributeForm() {
       return saveError("insert entry", error, lang);
     }
 
+    /* Nothing public changed: the note is pending. */
+    if (!curator) return setSent(true);
     /* Already saved: a failed refresh must not read as a failed save. */
     await refreshArchive().catch((failed) => console.error("refresh archive:", failed));
-    router.push(localize(lang, `${curator ? "/field-notes" : "/contributed"}/${data.slug}`));
+    router.push(localize(lang, `/field-notes/${data.slug}`));
   }
 
   if (user === undefined) return <p className="body-copy">{t.checking}</p>;
   if (user === null) {
     return <SignInPrompt>{t.needAccount}</SignInPrompt>;
   }
+  if (sent) return <SentNotice onAnother={() => setSent(false)} />;
   return (
     <>
       <p className="body-copy">
