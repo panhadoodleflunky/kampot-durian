@@ -28,6 +28,7 @@ One student's Khmer Living Archive, built in ICT 340 at AUPP. Every student buil
 - For anything beyond a one-file change, state a short plan before writing code.
 - Explain changes plainly. The student must be able to defend every line in a code review; write code and explanations that make that possible.
 - The student reviews and approves every diff. Expect rejections and make them easy: small steps, clear boundaries.
+- **Commit small and often.** One commit per piece that works on its own (a copy change, a page, a form change, a fix), not one commit when a whole lab or task is done. The commit history is graded each sprint, and small commits are what let you undo one broken step without losing the rest. The site must build at every commit. AI-assisted commits carry `[AI-assisted]` in the subject.
 - **Log the session before you finish, every session, using the full
   template.** At the end of any task that changes content, code, or a rule,
   append to the decision log (§11) of `PROJECT.md`, which sits one level
