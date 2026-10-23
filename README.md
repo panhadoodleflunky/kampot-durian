@@ -85,6 +85,7 @@ app/
   [lang]/contribute/         the form: curator → Field Notes, anyone else → Community
   [lang]/login/ signup/ account/   the front door, and the account page
   [lang]/my-entries/         My notes: your own Community Notes and their review status
+  [lang]/review/             the review queue: pending notes, oldest first (reviewer only)
   [lang]/not-found.js  [lang]/[...rest]/   the 404, in both editions
   api/suggest/[lang]/        the nav search's index, fetched on first open
   sitemap.js  robots.js  globals.css
@@ -92,6 +93,7 @@ components/                  one component per file, ~80 lines or less
   EntrySearch, SearchBox, Pagination, SearchEmpty, EntryCard     browse and search
   EntryForm, FormField, PhotoField, ContributeForm, EditEntryForm, OwnerActions
   SentNotice, MyEntries, MyNote                                   waiting for review
+  ReviewQueue, ReviewItem, ReviewActions, ReviewerBanner, TakeDown   reviewing
   AuthForm, SignupForm, AuthStatus, AccountMenu, AccountPanel, NameForm, PasswordForm, SignInPrompt
   SiteNav, NavMenu, NavSearch, SearchSuggestions, LangSwitch, LangOnly, SiteFooter,
   SectionLabel, DurianGlyph, Reveal, ThemeToggle, Rich (a sentence with links, from copy)
@@ -131,7 +133,10 @@ Enforced by row-level security in the database, not by hiding buttons:
   and the reviewer can see it. Only an account in the `reviewers` table (which
   only the SQL Editor can change) can publish it or send it back, through the
   `review_entry()` database function; a returned note can carry the
-  reviewer's note. Editing a note sends it back to `pending`.
+  reviewer's note. Editing a note sends it back to `pending`. The reviewer
+  works from `/review` (Publish, or Send back with a note) and can take a
+  published note down, which sends it back to its author rather than
+  deleting it.
 
 ### The entry shape
 
