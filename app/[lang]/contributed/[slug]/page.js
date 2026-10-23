@@ -5,6 +5,7 @@ import SiteNav from "../../../../components/SiteNav.js";
 import SiteFooter from "../../../../components/SiteFooter.js";
 import Reveal from "../../../../components/Reveal.js";
 import OwnerActions from "../../../../components/OwnerActions.js";
+import TakeDown from "../../../../components/TakeDown.js";
 import { getContributions } from "../../../../lib/entries.js";
 import { pick, localize } from "../../../../lib/i18n.js";
 import { ui } from "../../../../content/copy/ui.js";
@@ -71,6 +72,7 @@ export default async function CommunityNote({ params }) {
                   slug={note.slug}
                   photoUrl={note.photoUrl}
                 />
+                <TakeDown id={note.id} />
               </Reveal>
 
               {note.image ? (
