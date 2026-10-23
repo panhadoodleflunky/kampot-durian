@@ -6,6 +6,7 @@ import { ui } from "../content/copy/ui.js";
 
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
+import { supabase } from "../lib/use-session.js";
 
 /* The reader's initial in the laptop bar, as a button that opens a small
    panel: who you are, My notes, your account, and Log out. An initial, not
@@ -23,6 +24,19 @@ export default function AccountMenu({ name, onLogOut }) {
   const lang = useLang();
   const t = pick(ui, lang).auth;
   const button = useRef(null);
+  /* The Review queue link, for the reviewer only: asked of the database the
+     first time the panel opens, then remembered. */
+  const [reviewer, setReviewer] = useState(false);
+  const asked = useRef(false);
+
+  useEffect(() => {
+    if (!open || asked.current) return;
+    asked.current = true;
+    supabase()
+      .then((client) => client.rpc("is_reviewer"))
+      .then(({ data }) => setReviewer(data === true))
+      .catch(() => {});
+  }, [open]);
 
   useEffect(() => {
     if (!open) return;
@@ -79,6 +93,11 @@ export default function AccountMenu({ name, onLogOut }) {
           <Link href={localize(lang, "/my-entries")} onClick={() => setOpen(false)}>
             {t.myNotes}
           </Link>
+          {reviewer ? (
+            <Link href={localize(lang, "/review")} onClick={() => setOpen(false)}>
+              {t.review}
+            </Link>
+          ) : null}
           <Link href={localize(lang, "/account")} onClick={() => setOpen(false)}>
             {t.yourAccount}
           </Link>

@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import SignInPrompt from "./SignInPrompt.js";
 import MyNote from "./MyNote.js";
+import ReviewerBanner from "./ReviewerBanner.js";
 import { supabase } from "../lib/use-session.js";
 import { isCurator } from "../lib/roles.js";
 import { saveError } from "../lib/save-error.js";
@@ -47,6 +48,7 @@ export default function MyEntries() {
 
   return (
     <>
+      <ReviewerBanner />
       {state.curator ? <p className="body-copy">{t.curator}</p> : null}
       {state.notes.length === 0 ? (
         <div className="prompt-card">
