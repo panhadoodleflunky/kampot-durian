@@ -31,7 +31,7 @@ export const forms = {
       label: "Photograph (optional)",
       replace: "Replace the photograph (optional)",
       currentAlt: "The entry's current photograph",
-      hint: "Your own photograph. JPEG, PNG or WebP, 5 MB at most.",
+      hint: "Your own photograph: JPEG, PNG or WebP. A big photo is made smaller for you, and the hidden location data a phone adds is removed before it uploads.",
       uploadFailed: "The photo couldn't be uploaded. Check it's a JPEG, PNG or WebP under 5 MB, and try again.",
     },
     save: {
@@ -179,7 +179,7 @@ export const forms = {
       label: "រូបថត (មិន​ចាំបាច់)",
       replace: "ប្តូរ​រូបថត (មិន​ចាំបាច់)",
       currentAlt: "រូបថត​បច្ចុប្បន្ន​របស់​អត្ថបទ",
-      hint: "រូបថត​របស់​អ្នក​ផ្ទាល់⁠។ JPEG, PNG ឬ WebP ធំ​បំផុត ៥ MB។",
+      hint: "រូបថត​របស់​អ្នក​ផ្ទាល់⁠៖ JPEG, PNG ឬ WebP។ រូបថត​ធំ នឹង​ត្រូវ​បាន​បង្រួម​ឲ្យតូច​សម្រាប់​អ្នក ហើយ​ទិន្នន័យ​ទីតាំង​ដែល​ទូរសព្ទ​លាក់​ទុក​ក្នុង​រូបថត នឹង​ត្រូវ​បាន​លុបចេញ មុន​ពេល​ផ្ទុក​ឡើង⁠។",
       uploadFailed: "មិន​អាច​ផ្ទុក​រូបថត​ឡើង​បានទេ⁠។ សូម​ពិនិត្យ​ថា​វា​ជា JPEG, PNG ឬ WebP តូចជាង ៥ MB ហើយ​សាកល្បង​ម្តង​ទៀត⁠។",
     },
     save: {
