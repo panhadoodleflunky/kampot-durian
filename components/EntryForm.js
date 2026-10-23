@@ -46,11 +46,13 @@ export default function EntryForm({ initial = EMPTY, currentPhotoUrl, submitLabe
     const found = validateEntry(trimmed, lang);
 
     /* No file means no photograph on a new entry, and "keep the old one" on
-       an edit. */
+       an edit. What goes up is the checked, redrawn copy, not the original. */
+    let upload = null;
     let kind = null;
     if (photo) {
       const checked = await checkPhoto(photo, lang);
       if (checked.error) found.photo = checked.error;
+      upload = checked.file ?? null;
       kind = checked.kind;
     }
 
@@ -62,7 +64,7 @@ export default function EntryForm({ initial = EMPTY, currentPhotoUrl, submitLabe
 
     setBusy(true);
     try {
-      const failed = await onSave(trimmed, photo, kind);
+      const failed = await onSave(trimmed, upload, kind);
       if (failed) setMessage(failed);
     } catch (thrown) {
       setMessage(saveError("EntryForm", thrown, lang));
