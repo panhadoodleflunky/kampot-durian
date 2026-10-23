@@ -79,6 +79,9 @@ export const forms = {
       delete: "Delete",
       deleting: "Deleting",
       confirm: "Delete this entry? This can't be undone.",
+      takeDown: "Take down",
+      takingDown: "Taking down",
+      takeDownConfirm: "Take this note off the site and send it back to its author? Nothing is deleted: they can edit it and send it again.",
     },
     review: {
       loading: "Loading the notes waiting for review…",
@@ -251,6 +254,9 @@ export const forms = {
       delete: "លុប",
       deleting: "កំពុង​លុប",
       confirm: "លុប​អត្ថបទ​នេះ​មែនទេ? មិន​អាច​យកមកវិញ​បានទេ⁠។",
+      takeDown: "ដកចេញ​ពី​គេហទំព័រ",
+      takingDown: "កំពុង​ដកចេញ",
+      takeDownConfirm: "ដក​កំណត់ចំណាំ​នេះ​ចេញពី​គេហទំព័រ ហើយ​ផ្ញើ​វា​ត្រឡប់ទៅ​អ្នក​សរសេរ​វិញ​មែនទេ? គ្មានអ្វី​ត្រូវ​បាន​លុប​ទេ⁠៖ គេ​អាច​កែ​វា ហើយ​ផ្ញើ​វា​ម្តង​ទៀត​បាន⁠។",
     },
     review: {
       loading: "កំពុង​ផ្ទុក​កំណត់ចំណាំ ដែល​កំពុង​រង់ចាំ​ការពិនិត្យ…",
