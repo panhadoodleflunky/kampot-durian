@@ -55,7 +55,7 @@ export default function OwnerActions({ table = "entries", basePath = "/field-not
       return setMessage(all.save.notSaved);
     }
     /* The entry is gone; its photo goes too if it was in the bucket. */
-    const path = storagePath(photoUrl);
+    const path = storagePath(photoUrl, owner);
     if (path) await client.storage.from("photos").remove([path]);
     /* The delete has already happened. A dropped connection here would
        throw and leave the button on "Deleting" for good; the pages rebuild

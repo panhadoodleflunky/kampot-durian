@@ -71,7 +71,7 @@ export default function ContributeForm() {
 
     if (error) {
       /* The entry never existed, so its photo shouldn't either. */
-      if (photoUrl) await supabase.storage.from("photos").remove([storagePath(photoUrl)]);
+      if (photoUrl) await supabase.storage.from("photos").remove([storagePath(photoUrl, auth.user.id)]);
       return saveError("insert entry", error, lang);
     }
 

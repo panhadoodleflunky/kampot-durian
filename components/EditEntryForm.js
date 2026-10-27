@@ -74,7 +74,7 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
        save failed, the old one if it worked. storagePath is null for the
        original photos in public/, which are never removed. */
     if (photo) {
-      const unused = storagePath(saved ? row.photo_url : photoUrl);
+      const unused = storagePath(saved ? row.photo_url : photoUrl, row.owner);
       if (unused) await supabase.storage.from("photos").remove([unused]);
     }
 
