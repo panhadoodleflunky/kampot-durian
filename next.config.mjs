@@ -14,7 +14,25 @@ const supabaseHost = process.env.NEXT_PUBLIC_SUPABASE_URL
   ? new URL(process.env.NEXT_PUBLIC_SUPABASE_URL).hostname
   : null;
 
+/* Security headers on every page (from a classmate's security review, M5).
+   No other site may show these pages inside a frame, so nobody can lay a
+   fake page over /review or /account and trick a click (frame-ancestors,
+   and X-Frame-Options for older browsers). No plugins, no rewritten <base>,
+   forms post only here; the browser trusts the declared file types; and
+   other sites see only the domain a reader came from. A full script CSP
+   would need a nonce per request and make every static page dynamic, so it
+   is left out. */
+const securityHeaders = [
+  { key: "Content-Security-Policy", value: "frame-ancestors 'none'; object-src 'none'; base-uri 'self'; form-action 'self'" },
+  { key: "X-Frame-Options", value: "DENY" },
+  { key: "X-Content-Type-Options", value: "nosniff" },
+  { key: "Referrer-Policy", value: "strict-origin-when-cross-origin" },
+];
+
 const nextConfig = {
+  async headers() {
+    return [{ source: "/:path*", headers: securityHeaders }];
+  },
   images: {
     formats: ["image/avif", "image/webp"],
     remotePatterns: supabaseHost
