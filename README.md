@@ -113,6 +113,7 @@ content/
   site.js                    the site's base URL
 public/fonts/                the Khmer faces and their licences
 scripts/khmer-breaks.mjs     re-run after editing Khmer: marks where lines may break
+supabase/policies.sql        the live database rules (RLS, grants, constraints, functions), a snapshot
 collection.config.js         archive identity: name, description, curator, source
 entry-sketch.md              what one entry is, as data
 ```
@@ -122,7 +123,8 @@ entry-sketch.md              what one entry is, as data
 
 ### Who may write what
 
-Enforced by row-level security in the database, not by hiding buttons:
+Enforced by row-level security in the database, not by hiding buttons
+(every rule is in `supabase/policies.sql`):
 
 - **Anyone** can read the Field Notes and every *published* Community Note.
 - **The curator** (`role: curator` in the account's app metadata, which a user
