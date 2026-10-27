@@ -33,6 +33,7 @@ export const forms = {
       currentAlt: "The entry's current photograph",
       hint: "Your own photograph: JPEG, PNG or WebP. A big photo is made smaller for you, and the hidden location data a phone adds is removed before it uploads.",
       uploadFailed: "The photo couldn't be uploaded. Check it's a JPEG, PNG or WebP under 5 MB, and try again.",
+      cantPrepare: "This browser couldn't prepare the photo, so it wasn't uploaded. Try a different photo, or another browser.",
     },
     save: {
       offline: "The archive didn't answer. Check your connection and try again.",
@@ -208,6 +209,7 @@ export const forms = {
       currentAlt: "រូបថត​បច្ចុប្បន្ន​របស់​អត្ថបទ",
       hint: "រូបថត​របស់​អ្នក​ផ្ទាល់⁠៖ JPEG, PNG ឬ WebP។ រូបថត​ធំ នឹង​ត្រូវ​បាន​បង្រួម​ឲ្យតូច​សម្រាប់​អ្នក ហើយ​ទិន្នន័យ​ទីតាំង​ដែល​ទូរសព្ទ​លាក់​ទុក​ក្នុង​រូបថត នឹង​ត្រូវ​បាន​លុបចេញ មុន​ពេល​ផ្ទុក​ឡើង⁠។",
       uploadFailed: "មិន​អាច​ផ្ទុក​រូបថត​ឡើង​បានទេ⁠។ សូម​ពិនិត្យ​ថា​វា​ជា JPEG, PNG ឬ WebP តូចជាង ៥ MB ហើយ​សាកល្បង​ម្តង​ទៀត⁠។",
+      cantPrepare: "កម្មវិធី​រុករក​នេះ មិន​អាច​រៀបចំ​រូបថត​បានទេ ដូច្នេះ​រូបថត​មិន​ត្រូវ​បាន​ផ្ទុក​ឡើង​ទេ⁠។ សូម​សាកល្បង​រូបថត​ផ្សេង ឬកម្ម​វិធី​រុករក​ផ្សេង⁠។",
     },
     save: {
       offline: "បណ្ណ​សារ​មិនបាន​ឆ្លើយតប​ទេ⁠។ សូម​ពិនិត្យ​ការ​ភ្ជាប់​អ៊ីនធឺណិត ហើយ​សាកល្បង​ម្តង​ទៀត⁠។",
