@@ -2,6 +2,7 @@ import Link from "next/link";
 import collection from "../collection.config.js";
 import { pick, localize } from "../lib/i18n.js";
 import { ui } from "../content/copy/ui.js";
+import VerifiedName from "./VerifiedName.js";
 
 /* The footer used to print all seven photograph captions in full, on every
    page — a hundred words of repetition under every entry. The credits belong
@@ -14,7 +15,9 @@ export default function SiteFooter({ lang = "en" }) {
     <footer className="foot">
       <div className="foot-inner">
         <div className="foot-bottom">
-          <span>{t.compiledBy(collection.curator)}</span>
+          <span>
+            {t.compiledBy} <VerifiedName name={collection.curator} lang={lang} />
+          </span>
           <span aria-hidden="true">·</span>
           <span>{t.place(collection.province)}</span>
           <span aria-hidden="true">·</span>

@@ -24,8 +24,9 @@ export const ui = {
       langSwitch: "ខ្មែរ",
       langSwitchLabel: "អាន​ជា​ភាសាខ្មែរ — Read in Khmer",
     },
+    verified: "Verified: the guide's real curator",
     footer: {
-      compiledBy: (name) => `Compiled by ${name}`,
+      compiledBy: "Compiled by",
       place: (province) => `${province}, Cambodia`,
       back: "Back to the guide",
     },
@@ -124,8 +125,9 @@ export const ui = {
       langSwitch: "EN",
       langSwitchLabel: "Read in English — អាន​ជា​ភាសាអង់គ្លេស",
     },
+    verified: "អ្នក​ចងក្រង​ពិត​របស់​មគ្គុទ្ទេសក៍​នេះ",
     footer: {
-      compiledBy: (name) => `ចងក្រង​ដោយ ${name}`,
+      compiledBy: "ចងក្រង​ដោយ",
       place: () => "ខេត្ត​កំពត ប្រទេស​កម្ពុជា",
       back: "ត្រឡប់ទៅ​មគ្គុទ្ទេសក៍​វិញ",
     },

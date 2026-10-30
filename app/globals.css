@@ -1169,6 +1169,19 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
   letter-spacing: 1.6px;
 }
 .foot a { color: var(--muted); text-decoration: none; }
+
+/* The curator's tick (VerifiedName): a gold disc with a dark tick, the same
+   fill and ink as the buttons, so it reads in dark and in Stone. */
+.verified-name { white-space: nowrap; }
+.verified-tick {
+  width: 0.95em; height: 0.95em;
+  margin-left: 0.32em; vertical-align: -0.12em;
+  flex: none;
+}
+.verified-tick circle { fill: var(--fill); }
+/* The footer's 11px capitals would shrink it to a dot. */
+.foot .verified-tick { width: 1.3em; height: 1.3em; margin-left: 0.55em; vertical-align: -0.32em; }
+.verified-tick path { fill: none; stroke: var(--on-fill); stroke-width: 1.9; stroke-linecap: round; stroke-linejoin: round; }
 .foot a:hover { color: var(--flesh); }
 
 /* ---------------- reveal ---------------- */

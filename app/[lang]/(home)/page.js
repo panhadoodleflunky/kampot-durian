@@ -10,6 +10,7 @@ import SectionLabel from "../../../components/SectionLabel.js";
 import Rich from "../../../components/Rich.js";
 import { pick, localize, alternates } from "../../../lib/i18n.js";
 import { pages } from "../../../content/copy/pages.js";
+import VerifiedName from "../../../components/VerifiedName.js";
 import { ui, km } from "../../../content/copy/ui.js";
 
 /* Static, rebuilt in the background at most once a minute — see lib/entries.js. */
@@ -21,9 +22,9 @@ export async function generateMetadata({ params }) {
 }
 
 /* Frontispiece facts — the guide's own catalogue header. */
-function masthead(t, place) {
+function masthead(t, place, lang) {
   return [
-    { k: t.masthead.compiledBy, v: collection.curator },
+    { k: t.masthead.compiledBy, v: <VerifiedName name={collection.curator} lang={lang} /> },
     { k: t.masthead.province, v: place },
     { k: t.masthead.method, v: t.masthead.interview },
   ];
@@ -110,7 +111,7 @@ export default async function Home({ params }) {
 
         <div className="inner">
           <dl className="masthead">
-            {masthead(t, pick(ui, lang).footer.place(collection.province)).map((m) => (
+            {masthead(t, pick(ui, lang).footer.place(collection.province), lang).map((m) => (
               <div className="mast-item" key={m.k}>
                 <dt>{m.k}</dt>
                 <dd>{m.v}</dd>
