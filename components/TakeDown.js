@@ -11,9 +11,10 @@ import { forms } from "../content/copy/forms.js";
 
 /* On a published community note, for the reviewer only: take it off the
    site without destroying it. It goes back to its author as "sent back",
-   through the same review_entry door as the queue (which allows returning a
-   published note, never publishing one that isn't pending). Delete stays
-   for abuse; this is the gentle way. */
+   through the same review_entry door as the queue, but as its own decision:
+   'taken-down' acts only on a published note, and the queue's 'returned'
+   only on a pending one, so a stale queue tab can't take down a note that
+   was just published (Lab 11). Delete stays for abuse; this is the gentle way. */
 export default function TakeDown({ id }) {
   const router = useRouter();
   const [reviewer, setReviewer] = useState(false);
@@ -35,7 +36,7 @@ export default function TakeDown({ id }) {
     setBusy(true);
     setMessage("");
     const client = await supabase();
-    const { data, error } = await client.rpc("review_entry", { entry_id: id, decision: "returned", note: null });
+    const { data, error } = await client.rpc("review_entry", { entry_id: id, decision: "taken-down", note: null });
     if (error || data !== true) {
       setBusy(false);
       return setMessage(error ? saveError("take down", error, lang) : all.review.failed);
