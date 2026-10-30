@@ -1,5 +1,5 @@
 -- The database rules this site relies on, as they stand in the live Supabase
--- project on 27 October 2026. A SNAPSHOT for reading and auditing, not a
+-- project on 30 October 2026 (review_entry updated for Lab 11). A SNAPSHOT for reading and auditing, not a
 -- migration: everything below already exists, so running it would fail.
 --
 -- The browser writes straight to Supabase with the public key, so these are
@@ -213,7 +213,12 @@ begin
     update public.contributions
        set status = 'returned',
            review_note = case when public.has_text(note) then note end
-     where id = entry_id and status in ('pending', 'published');
+     where id = entry_id and status = 'pending';
+  elsif decision = 'taken-down' then
+    update public.contributions
+       set status = 'returned',
+           review_note = case when public.has_text(note) then note end
+     where id = entry_id and status = 'published';
   else
     return false;
   end if;
