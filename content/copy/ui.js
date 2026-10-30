@@ -25,15 +25,6 @@ export const ui = {
       langSwitchLabel: "អាន​ជា​ភាសាខ្មែរ — Read in Khmer",
     },
     footer: {
-      fine: [
-        "A student field guide built for ICT 340 — Vibe Coding at the American University of Phnom Penh, Fall 2026. Compiled from interviews with the family who own and work a durian orchard in Teuk Chhou district, Kampot, and one of their neighbours. Photographs by",
-        " ",
-        { curator: true },
-        " and family. Interviews and credits in full on",
-        " ",
-        { href: "/sources", text: "Sources & Credits" },
-        ".",
-      ],
       compiledBy: (name) => `Compiled by ${name}`,
       place: (province) => `${province}, Cambodia`,
       back: "Back to the guide",
@@ -134,15 +125,6 @@ export const ui = {
       langSwitchLabel: "Read in English — អាន​ជា​ភាសាអង់គ្លេស",
     },
     footer: {
-      fine: [
-        "មគ្គុទ្ទេសក៍​ចម្ការ​របស់​និស្សិត​ម្នាក់ ដែល​បង្កើត​ឡើង​សម្រាប់​មុខវិជ្ជា ICT 340 — Vibe Coding នៅ​សាកល​វិទ្យាល័យ​អាមេរិកាំង​ភ្នំពេញ ឆមាស​សរទរដូវ ឆ្នាំ ២០២៦⁠។ ចងក្រង​ចេញពី​ការ​សម្ភាសន៍​ជាមួយ​គ្រួសារ​ដែល​ជា​ម្ចាស់ និង​ជា​អ្នកធ្វើ​ចម្ការ​ធុរេន​មួយ​នៅ​ស្រុក​ទឹកឈូ ខេត្ត​កំពត និង​អ្នកជិតខាង​ម្នាក់​របស់​ពួកគាត់⁠។ រូបថត​ដោយ",
-        " ",
-        { curator: true },
-        " និង​គ្រួសារ⁠។ ការ​សម្ភាសន៍ និង​ឈ្មោះ​អ្នក​ផ្តល់​ទាំងអស់ មាននៅ​លើ​ទំព័រ",
-        " ",
-        { href: "/sources", text: "ប្រភព និង​ការ​ទទួលស្គាល់" },
-        "។",
-      ],
       compiledBy: (name) => `ចងក្រង​ដោយ ${name}`,
       place: () => "ខេត្ត​កំពត ប្រទេស​កម្ពុជា",
       back: "ត្រឡប់ទៅ​មគ្គុទ្ទេសក៍​វិញ",
