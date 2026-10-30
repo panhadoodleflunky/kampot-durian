@@ -1,5 +1,5 @@
 -- The database rules this site relies on, as they stand in the live Supabase
--- project on 30 October 2026 (review_entry updated for Lab 11). A SNAPSHOT for reading and auditing, not a
+-- project on 30 October 2026 (review_entry for Lab 11; the reserved-name check). A SNAPSHOT for reading and auditing, not a
 -- migration: everything below already exists, so running it would fail.
 --
 -- The browser writes straight to Supabase with the public key, so these are
@@ -147,6 +147,7 @@ alter table entries add constraint title_length CHECK (((char_length(TRIM(BOTH F
 -- ── Check constraints: profiles ─────────────────────────────────────────
 
 alter table profiles add constraint display_name_length CHECK (((char_length(TRIM(BOTH FROM display_name)) >= 2) AND (char_length(TRIM(BOTH FROM display_name)) <= 50)));
+alter table profiles add constraint display_name_not_verified CHECK (((display_name !~* '(verified|curator|admin)'::text) AND (display_name !~ '[✓✔☑✅√🗸]'::text)));
 
 
 -- ── Column grants (anon = logged out, authenticated = logged in) ────────
