@@ -1154,7 +1154,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 .foot {
   background: var(--husk-2);
   border-top: 1px solid var(--line);
-  padding: 56px 30px 70px;
+  padding: 36px 30px 44px;
   font-family: var(--mono);
   font-size: 11px;
   line-height: 1.95;
@@ -1163,9 +1163,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 }
 
 .foot-inner { max-width: var(--wrap); margin: 0 auto; }
-.foot-fine { padding-bottom: 24px; border-bottom: 1px solid var(--line); margin: 0; }
 .foot-bottom {
-  padding-top: 24px;
   display: flex; flex-wrap: wrap; gap: 6px 16px; align-items: center;
   text-transform: uppercase;
   letter-spacing: 1.6px;
@@ -1856,7 +1854,10 @@ a.section-count:hover { text-decoration: underline; }
 }
 
 @media (max-width: 734px) {
-  .foot { padding: 44px 22px 58px; }
+  .foot { padding: 32px 22px 40px; }
+  /* One item per line on a phone, so no dot is left hanging at a line end. */
+  .foot-bottom { flex-direction: column; align-items: flex-start; gap: 2px; }
+  .foot-bottom > [aria-hidden] { display: none; }
   .nf { padding: 110px 22px; }
   .specs { gap: 36px 24px; padding-top: 40px; }
 }
@@ -2355,7 +2356,7 @@ html:lang(km) :is(.headline-sm, .stat-num, .tile-value, .entry-title, .entry-nex
   line-height: 1.38;
 }
 html:lang(km) .pull blockquote { line-height: 1.55; }
-html:lang(km) :is(.reading-body, .sub, .body-copy, .biblio-note, .entry-body, .entry-field-hint, .foot-fine) {
+html:lang(km) :is(.reading-body, .sub, .body-copy, .biblio-note, .entry-body, .entry-field-hint) {
   line-height: 1.9;
 }
 
