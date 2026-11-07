@@ -4,9 +4,7 @@ import collection from "../collection.config.js";
    is one kind of source: people who grow durian at Teuk Chhou, asked
    directly. The orchard's owners asked on 12 October 2026 not to be named;
    they are credited as the curator's parents, and the neighbour as he asked. No publication, news report, trade standard, or website is cited
-   anywhere on this site, and none should be added — see AGENTS.md.
-
-   Photo credits mirror public/credits.json. */
+   anywhere on this site, and none should be added — see AGENTS.md. */
 
 export const sourceGroups = [
   {
@@ -40,7 +38,9 @@ export const cautions = [
 
 /* Photograph credits. Most were taken by the compiler at the orchard or
    nearby; the three marked `family` are family photographs, used with
-   permission, and are not claimed as taken in Kampot. */
+   permission, and are not claimed as taken in Kampot. `enhanced`: the
+   picture was upscaled with AI (owner, 12 October 2026), and the credit
+   says so. */
 export const photoCredits = [
   {
     file: "ov-khak-opened.jpg",
@@ -87,18 +87,21 @@ export const photoCredits = [
     caption: "An opened durian, three lobes of deep yellow flesh",
     author: "the curator's family",
     family: true,
+    enhanced: true,
   },
   {
     file: "opened-on-leaf.jpg",
     caption: "An opened durian on a banana leaf, one lobe lifted out",
     author: "the curator's family",
     family: true,
+    enhanced: true,
   },
   {
     file: "fruit-stall.jpg",
     caption: "A durian lifted by its stem from a stall pile",
     author: "the curator's family",
     family: true,
+    enhanced: true,
   },
 ];
 
