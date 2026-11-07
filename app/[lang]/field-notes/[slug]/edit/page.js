@@ -4,11 +4,21 @@ import { pick } from "../../../../../lib/i18n.js";
 import { pages } from "../../../../../content/copy/pages.js";
 import SectionLabel from "../../../../../components/SectionLabel.js";
 import EditEntryForm from "../../../../../components/EditEntryForm.js";
+import { getEntries } from "../../../../../lib/entries.js";
 
 export async function generateMetadata({ params }) {
   const { lang } = await params;
   const t = pick(pages, lang).forms.editEntry;
   return { title: t.title, robots: { index: false } };
+}
+
+/* Built ahead for every entry, like the entry pages themselves, so the
+   shell is static (without this it was rendered on every request). Nothing
+   here reads the session; a new entry's edit page is built on first visit. */
+export async function generateStaticParams({ params }) {
+  const { lang } = await params;
+  const entries = await getEntries(lang);
+  return entries.map((note) => ({ slug: note.slug }));
 }
 
 /* A shell only. Who may edit is decided in the browser for the form and by

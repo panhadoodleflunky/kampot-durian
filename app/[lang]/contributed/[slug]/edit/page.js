@@ -11,6 +11,13 @@ export async function generateMetadata({ params }) {
   return { title: t.title, robots: { index: false } };
 }
 
+/* None built ahead, and nothing here reads the session: each edit page is
+   built on its first visit and served static after, like every other page
+   (without this it was rendered on every request). */
+export async function generateStaticParams() {
+  return [];
+}
+
 /* A shell, like the field-note edit page: the contributions update policy
    decides who may save. */
 export default async function EditCommunityNote({ params }) {
