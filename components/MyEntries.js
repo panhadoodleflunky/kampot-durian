@@ -5,6 +5,8 @@ import Link from "next/link";
 import SignInPrompt from "./SignInPrompt.js";
 import MyNote from "./MyNote.js";
 import ReviewerBanner from "./ReviewerBanner.js";
+import NotesNews from "./NotesNews.js";
+import { readSeen, markSeen, newsFrom } from "../lib/use-note-news.js";
 import { supabase } from "../lib/use-session.js";
 import { isCurator } from "../lib/roles.js";
 import { saveError } from "../lib/save-error.js";
@@ -34,7 +36,12 @@ export default function MyEntries() {
         .order("created_at", { ascending: false });
       if (dropped) return;
       if (error) return setState({ status: "failed", message: saveError("load my notes", error, lang) });
-      setState({ status: "ready", notes: data, curator: isCurator(auth.user) });
+      /* What's new is worked out before this visit counts as seeing it;
+         then every badge on the page clears. */
+      const seen = readSeen(auth.user.id);
+      const fresh = data.filter((n) => n.status === "published" && !seen.includes(n.id)).map((n) => n.id);
+      setState({ status: "ready", notes: data, curator: isCurator(auth.user), news: newsFrom(data, seen), fresh });
+      markSeen(auth.user.id, data.filter((n) => n.status === "published").map((n) => n.id));
     })();
     return () => {
       dropped = true;
@@ -49,6 +56,7 @@ export default function MyEntries() {
   return (
     <>
       <ReviewerBanner />
+      <NotesNews returned={state.news.returned} published={state.news.published} />
       {state.curator ? <p className="body-copy">{t.curator}</p> : null}
       {state.notes.length === 0 ? (
         <div className="prompt-card">
@@ -60,7 +68,7 @@ export default function MyEntries() {
           </div>
         </div>
       ) : (
-        state.notes.map((note) => <MyNote key={note.id} note={note} />)
+        state.notes.map((note) => <MyNote key={note.id} note={note} fresh={state.fresh.includes(note.id)} />)
       )}
     </>
   );

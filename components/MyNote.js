@@ -9,7 +9,7 @@ import { forms } from "../content/copy/forms.js";
    means, and what the author can do next. A returned note shows the
    curator's note, if they left one. Only the review door (review_entry)
    can write that note; the author can't. */
-export default function MyNote({ note }) {
+export default function MyNote({ note, fresh }) {
   const lang = useLang();
   const t = pick(forms, lang).mine;
   const title = (lang === "km" && note.title_km) || note.title;
@@ -17,7 +17,8 @@ export default function MyNote({ note }) {
   const go = (path) => localize(lang, `/contributed/${note.slug}${path}`);
 
   return (
-    <section className="account-block my-note">
+    /* Marked when it needs the reader: sent back, or newly published. */
+    <section className={`account-block my-note${returned || fresh ? " my-note-flag" : ""}`}>
       <div className="my-note-head">
         <h2 className="my-note-title">{title}</h2>
         <span className={`entry-status my-note-status my-note-${note.status}`}>{t.status[note.status] ?? note.status}</span>

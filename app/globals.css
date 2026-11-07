@@ -2445,3 +2445,29 @@ html:lang(km) :is(.entry-tag, .nav-search-hint, .hero-figure figcaption, .foot-b
 @media (prefers-reduced-motion: reduce) {
   .news-badge-corner { animation: none; }
 }
+
+/* My notes: the news line at the top, and a gold rule beside each note
+   that needs the reader (sent back, or newly published). */
+.notes-news {
+  max-width: 560px;
+  margin: 0 0 36px;
+  padding: 18px 22px;
+  border: 1px solid var(--line-2);
+  border-left: 3px solid var(--fill);
+  border-radius: 14px;
+  background: rgba(var(--flesh-rgb), 0.06);
+}
+.notes-news .body-copy { margin: 0; color: var(--cream); }
+.notes-news .body-copy + .body-copy { margin-top: 8px; }
+.my-note-flag { position: relative; }
+.my-note-flag::before {
+  content: "";
+  position: absolute;
+  left: -14px;
+  top: 4px;
+  bottom: 4px;
+  width: 3px;
+  border-radius: 3px;
+  background: var(--fill);
+}
+.my-note + .my-note-flag::before { top: 36px; }
