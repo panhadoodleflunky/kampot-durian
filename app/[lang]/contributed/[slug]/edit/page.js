@@ -1,6 +1,8 @@
+import Link from "next/link";
 import SiteNav from "../../../../../components/SiteNav.js";
 import SiteFooter from "../../../../../components/SiteFooter.js";
-import { pick } from "../../../../../lib/i18n.js";
+import { pick, localize } from "../../../../../lib/i18n.js";
+import { ui } from "../../../../../content/copy/ui.js";
 import { pages } from "../../../../../content/copy/pages.js";
 import SectionLabel from "../../../../../components/SectionLabel.js";
 import EditEntryForm from "../../../../../components/EditEntryForm.js";
@@ -30,6 +32,11 @@ export default async function EditCommunityNote({ params }) {
 
       <header className="page-head">
         <div className="inner">
+          {/* Back to My notes, not to the note: a note waiting for review or
+              sent back has no public page, and My notes always exists. */}
+          <Link className="entry-back" href={localize(lang, "/my-entries")}>
+            {pick(ui, lang).auth.myNotes}
+          </Link>
           <SectionLabel no="01">{t.editNote.label}</SectionLabel>
           <h1 className="headline-sm">{t.editNote.head}</h1>
         </div>
