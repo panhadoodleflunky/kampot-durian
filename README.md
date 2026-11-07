@@ -94,15 +94,17 @@ components/                  one component per file, ~80 lines or less
   EntryForm, FormField, PhotoField, ContributeForm, EditEntryForm, OwnerActions
   SentNotice, MyEntries, MyNote                                   waiting for review
   ReviewQueue, ReviewItem, ReviewActions, ReviewerBanner, TakeDown   reviewing
-  AuthForm, SignupForm, AuthStatus, AccountMenu, AccountPanel, NameForm, PasswordForm, SignInPrompt
+  AuthForm, SignupForm, AuthStatus, AccountMenu, AccountMenuPanel, AccountPanel, NameForm,
+  PasswordForm, SignInPrompt, VerifiedName (the curator's name with the site's tick)
   SiteNav, NavMenu, NavSearch, SearchSuggestions, LangSwitch, LangOnly, SiteFooter,
-  SectionLabel, DurianGlyph, Reveal, ThemeToggle, Rich (a sentence with links, from copy)
+  SectionLabel, DurianGlyph, Reveal, ThemeToggle, LangOnly, Rich (a sentence with links, from copy)
 lib/
   entries.js                 every read: rows → entries, cached static pages
   entry-rules.js  entry-row.js  signup-rules.js   validation and row shaping
-  photo-upload.js  save-error.js  roles.js         uploads, error wording, who may edit
+  photo-upload.js  redraw-photo.js                 uploads; every photo redrawn first (smaller, no GPS)
+  save-error.js  roles.js  use-edit-row.js         error wording, who may edit, the edit page's row
   i18n.js  use-lang.js       the two editions: localize(), pick() with English fallback
-  suggest.js  use-session.js  use-search-handoff.js  actions.js
+  suggest.js  use-session.js  use-search-handoff.js  use-dismiss.js  initial.js  actions.js
   supabase/client.js  supabase/server.js           browser and server clients
 content/
   copy/ui.js pages.js forms.js   every string on the site, { en, km }
@@ -178,7 +180,7 @@ Two things it handles that a naive `includes()` would not:
 |---|---|---|
 | 1 | Browse and search | built |
 | 2 | Contributor accounts, own-your-entries | built |
-| 3 | Submit, review, publish | not started — the curator-as-admin piece was built early, by choice |
+| 3 | Submit, review, publish | built — the gate, My notes, the review queue and take-down |
 
 ## Credits
 
