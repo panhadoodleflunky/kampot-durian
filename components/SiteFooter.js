@@ -4,7 +4,7 @@ import { pick, localize } from "../lib/i18n.js";
 import { ui } from "../content/copy/ui.js";
 import VerifiedName from "./VerifiedName.js";
 
-/* The footer used to print all seven photograph captions in full, on every
+/* The footer used to print every photograph caption in full, on every
    page — a hundred words of repetition under every entry. The credits belong
    on the Sources page, which lists them properly. The paragraph about the
    course and the interviews went too (owner, 30 Oct 2026): the Sources and

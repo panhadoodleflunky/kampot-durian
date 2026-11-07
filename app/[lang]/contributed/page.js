@@ -11,8 +11,8 @@ import { pages } from "../../../content/copy/pages.js";
 /* Static, rebuilt in the background at most once a minute — see lib/entries.js. */
 export const revalidate = 60;
 
-/* Kept out of search engines until Sprint 3 adds review: nothing here has
-   been checked by anyone but its author. */
+/* Kept out of search engines: these are readers' notes, not the orchard's,
+   and the site's search-engine face is the Field Notes. */
 export async function generateMetadata({ params }) {
   const { lang } = await params;
   const t = pick(pages, lang).contributed;
