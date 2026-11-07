@@ -2220,7 +2220,9 @@ textarea#entry-body { min-height: 16em; }
     font-size: 12px;
     color: var(--cream);
   }
-  .gnav-sheet .gnav-sheet-auth a.auth-name::after { content: "  ·  Account \203A"; color: var(--flesh); }
+  /* The words come from the link's data-more (content/copy), so the Khmer
+     edition doesn't show "Account" in English. */
+  .gnav-sheet .gnav-sheet-auth a.auth-name::after { content: attr(data-more); color: var(--flesh); }
   /* A long name wraps instead of widening the sheet past the screen, and
      the grid column may shrink below its content so nothing pushes the
      buttons off the edge. */

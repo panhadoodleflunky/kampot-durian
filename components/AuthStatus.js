@@ -41,7 +41,7 @@ export default function AuthStatus({ variant = "bar" }) {
         </Link>
         {variant === "sheet" ? (
           <>
-            <Link className="auth-email auth-name" href={go("/account")} title={t.yourAccount}>
+            <Link className="auth-email auth-name" href={go("/account")} title={t.yourAccount} data-more={`  ·  ${t.account} ›`}>
               {name || t.account}
             </Link>
             <Link className="auth-btn" href={go("/my-entries")}>
