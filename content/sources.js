@@ -22,14 +22,14 @@ export const sourceGroups = [
       },
       {
         name: "Khmer field vocabulary",
-        note: "The words the growers use in the field, given directly: the knock test, ripe and unripe and overripe, the dry season, dropped and cut fruit, grafting, orchard, grower, middleman, farming community, and the spoken forms of the variety names. This edition is in English and prints one Khmer term, on the disease entry. The rest are recorded in full and will carry the Khmer edition, where they belong in the growers' own script rather than in translation.",
+        note: "The words the growers use in the field, given directly: the knock test, ripe and unripe and overripe, the dry season, dropped and cut fruit, grafting, orchard, grower, middleman, farming community, and the spoken forms of the variety names. The Khmer edition uses these words wherever the translation needs a field term.",
       },
     ],
   },
 ];
 
 /* What travels with the interviews, and is repeated on the entries that lean
-   hardest on each caution. Kept here so the three of them stay worded the
+   hardest on each caution. Kept here so the four of them stay worded the
    same way in every place they appear. */
 export const cautions = [
   "Prices are peak-season farm-gate figures and can fall by roughly half in a tight market.",
