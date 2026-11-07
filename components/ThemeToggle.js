@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { useLang } from "../lib/use-lang.js";
 import { pick } from "../lib/i18n.js";
 import { ui } from "../content/copy/ui.js";
@@ -10,9 +11,19 @@ import { ui } from "../content/copy/ui.js";
 
    Deliberately stateless: both icons are always in the tree and CSS decides
    which shows from html[data-theme], so the server and client render the
-   same markup and there is nothing to hydrate wrongly. */
+   same markup and there is nothing to hydrate wrongly.
+
+   The effect is for the 404: Next sends it as its own error page, without
+   the layout's inline script, so a reader who chose light got a dark 404.
+   On every other page the script has already set the theme and this does
+   nothing. */
 export default function ThemeToggle() {
   const label = pick(ui, useLang()).nav.theme;
+  useEffect(() => {
+    try {
+      if (localStorage.getItem("theme") === "light") document.documentElement.dataset.theme = "light";
+    } catch {}
+  }, []);
   const flip = () => {
     const root = document.documentElement;
     const next = root.dataset.theme === "light" ? "dark" : "light";
