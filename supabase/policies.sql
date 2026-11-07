@@ -1,5 +1,6 @@
 -- The database rules this site relies on, as they stand in the live Supabase
--- project on 30 October 2026 (review_entry for Lab 11; the reserved-name check). A SNAPSHOT for reading and auditing, not a
+-- project on 7 November 2026 (review_entry for Lab 11; the reserved-name check;
+-- the final review's fixes: who may read names, the name fold, slug_shape). A SNAPSHOT for reading and auditing, not a
 -- migration: everything below already exists, so running it would fail.
 --
 -- The browser writes straight to Supabase with the public key, so these are
@@ -69,8 +70,10 @@ create policy "the curator edits their own entries" on public.entries as permiss
 
 -- ── Policies: profiles (display names) ──────────────────────────────────
 
-create policy "anyone can read display names" on public.profiles as permissive for select to anon, authenticated
-  using (true);
+create policy "names of published authors, your own, and the queue's" on public.profiles as permissive for select to anon, authenticated
+  using (((id = ( SELECT auth.uid() AS uid)) OR ( SELECT is_reviewer() AS is_reviewer) OR (EXISTS ( SELECT 1
+   FROM contributions c
+  WHERE ((c.owner = profiles.id) AND (c.status = 'published'::text))))));
 
 create policy "people rename themselves" on public.profiles as permissive for update to authenticated
   using ((( SELECT auth.uid() AS uid) = id))
@@ -106,6 +109,7 @@ alter table contributions add constraint body_length CHECK (((char_length(TRIM(B
 alter table contributions add constraint khmer_name_has_text CHECK (((khmer_name IS NULL) OR has_text(khmer_name)));
 alter table contributions add constraint khmer_name_length CHECK (((khmer_name IS NULL) OR (char_length(TRIM(BOTH FROM khmer_name)) <= 120)));
 alter table contributions add constraint photo_url_ours CHECK (((photo_url IS NULL) OR (photo_url ~~ (('https://<project-ref>.supabase.co/storage/v1/object/public/photos/'::text || (owner)::text) || '/%'::text))));
+alter table contributions add constraint slug_shape CHECK ((slug ~ '^[a-z0-9-]+$'::text));
 alter table contributions add constraint review_note_text CHECK (((review_note IS NULL) OR (has_text(review_note) AND (char_length(review_note) <= 500))));
 alter table contributions add constraint sources_has_text CHECK (has_text(sources));
 alter table contributions add constraint sources_km_has_text CHECK (((sources_km IS NULL) OR has_text(sources_km)));
@@ -149,7 +153,7 @@ alter table entries add constraint title_length CHECK (((char_length(TRIM(BOTH F
 -- ── Check constraints: profiles ─────────────────────────────────────────
 
 alter table profiles add constraint display_name_length CHECK (((char_length(TRIM(BOTH FROM display_name)) >= 2) AND (char_length(TRIM(BOTH FROM display_name)) <= 50)));
-alter table profiles add constraint display_name_not_verified CHECK (((display_name !~* '(verified|curator|admin)'::text) AND (display_name !~ '[✓✔☑✅√🗸]'::text)));
+alter table profiles add constraint display_name_not_verified CHECK (((translate(normalize(display_name, NFKC), 'аеіосԁνοιαАЕІОСМΑΕΙΟΝΜ'::text, 'aeiocdvoiaaeiocmaeionm'::text) !~* '(verified|curator|admin)'::text) AND (display_name !~ '[✓✔☑✅√🗸🗹]'::text)));
 
 
 -- ── Column grants (anon = logged out, authenticated = logged in) ────────
@@ -176,8 +180,8 @@ grant REFERENCES (body, body_km, created_at, fig_number, id, khmer_name, owner, 
 grant UPDATE (display_name) on public.profiles to authenticated;
 grant INSERT (created_at, display_name, id) on public.profiles to anon;
 grant INSERT (created_at, display_name, id) on public.profiles to authenticated;
-grant SELECT (created_at, display_name, id) on public.profiles to anon;
-grant SELECT (created_at, display_name, id) on public.profiles to authenticated;
+grant SELECT (display_name, id) on public.profiles to anon;
+grant SELECT (display_name, id) on public.profiles to authenticated;
 grant REFERENCES (created_at, display_name, id) on public.profiles to anon;
 grant REFERENCES (created_at, display_name, id) on public.profiles to authenticated;
 
