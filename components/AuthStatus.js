@@ -3,6 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import AccountMenu from "./AccountMenu.js";
+import NewsBadge from "./NewsBadge.js";
+import { useNoteNews } from "../lib/use-note-news.js";
 import { supabase, useSession } from "../lib/use-session.js";
 import { useLang } from "../lib/use-lang.js";
 import { pick, localize } from "../lib/i18n.js";
@@ -18,6 +20,7 @@ import { ui } from "../content/copy/ui.js";
 export default function AuthStatus({ variant = "bar" }) {
   const router = useRouter();
   const { userId, name, ready } = useSession();
+  const news = useNoteNews();
   const lang = useLang();
   const t = pick(ui, lang).auth;
   const go = (path) => localize(lang, path);
@@ -44,8 +47,9 @@ export default function AuthStatus({ variant = "bar" }) {
             <Link className="auth-email auth-name" href={go("/account")} title={t.yourAccount} data-more={`  ·  ${t.account} ›`}>
               {name || t.account}
             </Link>
-            <Link className="auth-btn" href={go("/my-entries")}>
+            <Link className="auth-btn" href={go("/my-entries")} aria-label={news.total ? `${t.myNotes} — ${t.news(news.total)}` : undefined}>
               {t.myNotes}
+              <NewsBadge count={news.total} className="news-badge-corner" />
             </Link>
             <button className="auth-btn" type="button" onClick={logOut}>
               {t.logOut}

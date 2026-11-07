@@ -4,11 +4,12 @@ import Link from "next/link";
 import { useLang } from "../lib/use-lang.js";
 import { pick, localize } from "../lib/i18n.js";
 import { ui } from "../content/copy/ui.js";
+import NewsBadge from "./NewsBadge.js";
 
 /* The panel AccountMenu opens: who you are, My notes, the Review queue (for
    the reviewer only), your account, and Log out. Ordinary links and a
    button, so Tab moves through them as usual. Picking any item closes it. */
-export default function AccountMenuPanel({ name, reviewer, onClose, onLogOut }) {
+export default function AccountMenuPanel({ name, reviewer, news, onClose, onLogOut }) {
   const lang = useLang();
   const t = pick(ui, lang).auth;
   return (
@@ -17,8 +18,9 @@ export default function AccountMenuPanel({ name, reviewer, onClose, onLogOut }) 
         {t.signedInAs}
         <strong>{name || t.you}</strong>
       </p>
-      <Link href={localize(lang, "/my-entries")} onClick={onClose}>
+      <Link href={localize(lang, "/my-entries")} onClick={onClose} aria-label={news ? `${t.myNotes} — ${t.news(news)}` : undefined}>
         {t.myNotes}
+        <NewsBadge count={news} />
       </Link>
       {reviewer ? (
         <Link href={localize(lang, "/review")} onClick={onClose}>

@@ -125,6 +125,8 @@ export const forms = {
       edit: "Edit",
       fix: "Edit and send again",
       read: "Read it",
+      newsReturned: (n) => (n === 1 ? "1 note was sent back to you. Fix it below and send it again." : `${n} notes were sent back to you. Fix them below and send them again.`),
+      newsPublished: (n) => (n === 1 ? "1 note was published since you last looked." : `${n} notes were published since you last looked.`),
     },
     login: {
       email: "Email",
@@ -302,6 +304,8 @@ export const forms = {
       edit: "កែ",
       fix: "កែ ហើយ​ផ្ញើ​ម្តង​ទៀត",
       read: "អាន​វា",
+      newsReturned: (n) => `កំណត់ចំណាំ ${km(n)} ត្រូវ​បាន​ផ្ញើ​ត្រឡប់​មក​អ្នក​វិញ⁠។ សូម​កែ​វា​ខាងក្រោម ហើយ​ផ្ញើ​ម្តង​ទៀត⁠។`,
+      newsPublished: (n) => `កំណត់ចំណាំ ${km(n)} ត្រូវ​បាន​ផ្សាយ ចាប់តាំងពី​អ្នកមើល​លើក​មុន⁠។`,
     },
     login: {
       email: "អ៊ីមែល",

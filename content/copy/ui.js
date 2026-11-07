@@ -105,6 +105,7 @@ export const ui = {
       myNotes: "My notes",
       review: "Review queue",
       you: "you",
+      news: (n) => (n === 1 ? "1 update on your notes" : `${n} updates on your notes`),
     },
   },
   km: {
@@ -206,6 +207,7 @@ export const ui = {
       myNotes: "កំណត់ចំណាំ​របស់ខ្ញុំ",
       review: "បញ្ជី​រង់ចាំ​ការពិនិត្យ",
       you: "អ្នក",
+      news: (n) => `មានដំណឹង ${km(n)} អំពី​កំណត់ចំណាំ​របស់​អ្នក`,
     },
   },
 };

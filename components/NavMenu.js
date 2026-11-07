@@ -3,6 +3,8 @@
 import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import AuthStatus from "./AuthStatus.js";
+import NewsBadge from "./NewsBadge.js";
+import { useNoteNews } from "../lib/use-note-news.js";
 import { useLang } from "../lib/use-lang.js";
 import { pick, localize } from "../lib/i18n.js";
 import { ui } from "../content/copy/ui.js";
@@ -24,6 +26,8 @@ export default function NavMenu({ links, current }) {
   const burger = useRef(null);
   const lang = useLang();
   const t = pick(ui, lang).nav;
+  /* On a phone the account lives inside this menu, so its news shows here. */
+  const news = useNoteNews();
 
   /* Escape closes and hands focus back to the burger, and the page behind
      the sheet stops scrolling while it is up — otherwise a stray swipe
@@ -58,11 +62,12 @@ export default function NavMenu({ links, current }) {
         className={`gnav-burger${open ? " is-open" : ""}`}
         aria-expanded={open}
         aria-controls="gnav-sheet"
-        aria-label={open ? t.closeMenu : t.openMenu}
+        aria-label={`${open ? t.closeMenu : t.openMenu}${news.total ? ` — ${pick(ui, lang).auth.news(news.total)}` : ""}`}
         onClick={() => setOpen((v) => !v)}
       >
         <span className="gnav-burger-bar" aria-hidden="true" />
         <span className="gnav-burger-bar" aria-hidden="true" />
+        {open ? null : <NewsBadge count={news.total} className="news-badge-corner" />}
       </button>
 
       {open && (

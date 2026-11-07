@@ -9,6 +9,8 @@ import AccountMenuPanel from "./AccountMenuPanel.js";
 import { supabase } from "../lib/use-session.js";
 import { initial } from "../lib/initial.js";
 import { useDismiss } from "../lib/use-dismiss.js";
+import { useNoteNews } from "../lib/use-note-news.js";
+import NewsBadge from "./NewsBadge.js";
 
 /* The reader's initial in the laptop bar, as a button that opens a small
    panel (AccountMenuPanel): who you are, My notes, your account, Log out.
@@ -30,6 +32,7 @@ export default function AccountMenu({ name, onLogOut }) {
      first time the panel opens, then remembered. */
   const [reviewer, setReviewer] = useState(false);
   const asked = useRef(false);
+  const news = useNoteNews();
 
   useEffect(() => {
     if (!open || asked.current) return;
@@ -50,7 +53,7 @@ export default function AccountMenu({ name, onLogOut }) {
         className="auth-btn account-menu-btn"
         aria-expanded={open}
         aria-controls="account-menu-panel"
-        aria-label={`${t.yourAccount}: ${name || t.you}`}
+        aria-label={`${t.yourAccount}: ${name || t.you}${news.total ? ` — ${t.news(news.total)}` : ""}`}
         title={name || t.account}
         onClick={() => setOpen((v) => !v)}
       >
@@ -68,10 +71,11 @@ export default function AccountMenu({ name, onLogOut }) {
             <path d="M5.5 19.5c1.2-3.3 3.6-5 6.5-5s5.3 1.7 6.5 5" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
           </svg>
         )}
+        <NewsBadge count={news.total} className="news-badge-corner" />
       </button>
 
       {open ? (
-        <AccountMenuPanel name={name} reviewer={reviewer} onClose={() => setOpen(false)} onLogOut={onLogOut} />
+        <AccountMenuPanel name={name} reviewer={reviewer} news={news.total} onClose={() => setOpen(false)} onLogOut={onLogOut} />
       ) : null}
     </div>
   );

@@ -2402,3 +2402,46 @@ html:lang(km) :is(.entry-tag, .nav-search-hint, .hero-figure figcaption, .foot-b
    across the text beside it. Ordinary words still wrap at their spaces. */
 :is(.entry, .entry-main, .entry-side) { overflow-wrap: anywhere; }
 
+
+/* ---------------- note news (NewsBadge) ---------------- */
+
+/* A gold count with the button ink on it: the fill colour, so it reads the
+   same in dark and in Stone. Beside a label it sits inline; on the account
+   button and the phone burger it hangs on the top-right corner, with a slow
+   ring that draws the eye once the page has settled. */
+.news-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 18px;
+  height: 18px;
+  margin-left: 8px;
+  padding: 0 5px;
+  border-radius: 999px;
+  background: var(--fill);
+  color: var(--on-fill);
+  font-family: var(--mono);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: 0;
+  line-height: 1;
+  vertical-align: 1px;
+}
+.account-menu-btn, .gnav-burger, .gnav-sheet-auth .auth-btn { position: relative; }
+.news-badge-corner {
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  margin: 0;
+  box-shadow: 0 0 0 2px var(--husk);
+  animation: news-ring 2.6s ease-out 1s infinite;
+}
+.gnav-burger .news-badge-corner { top: 2px; right: 4px; }
+.gnav-sheet-auth .news-badge-corner { top: -6px; right: -2px; }
+@keyframes news-ring {
+  0% { box-shadow: 0 0 0 2px var(--husk), 0 0 0 2px rgba(var(--flesh-rgb), 0.55); }
+  70%, 100% { box-shadow: 0 0 0 2px var(--husk), 0 0 0 10px rgba(var(--flesh-rgb), 0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .news-badge-corner { animation: none; }
+}
