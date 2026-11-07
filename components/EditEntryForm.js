@@ -4,19 +4,19 @@ import { useLang } from "../lib/use-lang.js";
 import { pick, localize } from "../lib/i18n.js";
 import { forms } from "../content/copy/forms.js";
 
-import { useEffect, useState } from "react";
 import SignInPrompt from "./SignInPrompt.js";
 import { useRouter } from "next/navigation";
 import EntryForm from "./EntryForm.js";
 import { createClient } from "../lib/supabase/client.js";
-import { entryColumns } from "../lib/entry-row.js";
+import { entryColumns, formValues } from "../lib/entry-row.js";
+import { useEditRow } from "../lib/use-edit-row.js";
 import { uploadPhoto, storagePath } from "../lib/photo-upload.js";
 import { saveError } from "../lib/save-error.js";
 import { refreshArchive } from "../lib/actions.js";
-import { canEdit } from "../lib/roles.js";
 
-/* The edit page. It reads the row straight from the table, not from the
-   static page, so the form starts from what is really stored.
+/* The edit page. The row is read straight from the table, not from the
+   static page, so the form starts from what is really stored
+   (lib/use-edit-row.js).
 
    The "not yours" message is politeness only. A stranger who skips this
    page and sends an update from the console is refused by the update policy
@@ -26,24 +26,10 @@ import { canEdit } from "../lib/roles.js";
    note; `basePath` is where that shelf's pages live. */
 export default function EditEntryForm({ table = "entries", basePath = "/field-notes", slug }) {
   const router = useRouter();
-  const [state, setState] = useState({ status: "loading" });
   const lang = useLang();
   const all = pick(forms, lang);
   const t = all.edit;
-
-  useEffect(() => {
-    const supabase = createClient();
-    Promise.all([
-      supabase.auth.getUser(),
-      supabase.from(table).select("id, owner, title, khmer_name, body, sources, tags, title_km, body_km, sources_km, tags_km, photo_url").eq("slug", slug).maybeSingle(),
-    ]).then(([{ data: auth }, { data: row, error }]) => {
-      if (error) return setState({ status: "failed", message: saveError("load entry", error, lang) });
-      if (!row) return setState({ status: "missing" });
-      if (!auth.user) return setState({ status: "logged-out" });
-      if (!canEdit(auth.user, row.owner)) return setState({ status: "not-yours" });
-      setState({ status: "ready", row, userId: auth.user.id });
-    });
-  }, [table, slug, lang]);
+  const state = useEditRow(table, slug);
 
   async function save(fields, photo, kind) {
     const { row, userId } = state;
@@ -98,16 +84,5 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
   if (status === "not-yours") return <p className="body-copy">{t.notYours}</p>;
 
   const { row } = state;
-  const initial = {
-    title: row.title,
-    titleKm: row.title_km ?? "",
-    khmerName: row.khmer_name ?? "",
-    body: row.body,
-    bodyKm: row.body_km ?? "",
-    sources: row.sources,
-    sourcesKm: row.sources_km ?? "",
-    tags: (row.tags ?? []).join(", "),
-    tagsKm: (row.tags_km ?? []).join(", "),
-  };
-  return <EntryForm initial={initial} currentPhotoUrl={row.photo_url} submitLabel={all.entry.saveChanges} onSave={save} />;
+  return <EntryForm initial={formValues(row)} currentPhotoUrl={row.photo_url} submitLabel={all.entry.saveChanges} onSave={save} />;
 }
