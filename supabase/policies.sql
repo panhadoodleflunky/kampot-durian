@@ -18,8 +18,10 @@
 --     (on update) owner and slug, whatever the policy says.
 --   * photo_url_ours: a photo URL must be in the photos bucket, inside the
 --     row owner's own folder.
---   * Storage: each account uploads, sees and deletes only its own folder;
---     the curator may see and delete any photo.
+--   * Storage: each account uploads, lists and deletes only its own
+--     folder; the curator may list and delete any photo. The bucket is
+--     public, so any photo opens by its URL without a login (the URL holds
+--     a random id); a pending or taken-down note's photo is not hidden.
 
 
 -- ── Row-level security ──────────────────────────────────────────────────
