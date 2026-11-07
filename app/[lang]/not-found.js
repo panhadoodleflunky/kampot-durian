@@ -5,6 +5,7 @@ import SectionLabel from "../../components/SectionLabel.js";
 import LangOnly from "../../components/LangOnly.js";
 import { LANGS, pick, localize } from "../../lib/i18n.js";
 import { ui } from "../../content/copy/ui.js";
+import { pages } from "../../content/copy/pages.js";
 
 /* Next hands a not-found page no route params, and anything request-bound
    here (headers(), cookies()) would make every page dynamic, because Next
@@ -16,7 +17,7 @@ import { ui } from "../../content/copy/ui.js";
    still 404). Every other page is fully server-rendered. */
 /* Static, for the same reason: the tab title cannot follow the edition
    without a request-bound read, so it is the English one in both. */
-export const metadata = { title: "Not found — Kampot Durian" };
+export const metadata = { title: pages.en.notFoundTitle };
 
 function NotFoundIn({ lang }) {
   const t = pick(ui, lang).notFound;
