@@ -19,7 +19,8 @@ export const norm = (s) =>
    reader knows the fruit by), the body (where the method lives), the tags and
    fig number (how the guide files things), and the source lines — in a guide
    whose whole claim is traceability, searching a source by name is a real
-   question.
+   question. Also the other edition's title and tags, so a query in either
+   language finds the entry in either edition.
 
    Fields join on a newline, which a single-line input cannot produce, so no
    query can match the separator and return everything. */
@@ -27,6 +28,7 @@ function haystack(note) {
   return [
     note.title,
     note.khmerName,
+    ...(note.otherLanguage || []),
     ...(Array.isArray(note.body) ? note.body : [note.body]),
     note.figNumber,
     ...(note.tags || []),
