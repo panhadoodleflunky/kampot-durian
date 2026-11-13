@@ -10,8 +10,8 @@ import { ui } from "../content/copy/ui.js";
    The copy is the point: an empty result in a research archive is a fact
    about the archive, not an error by the reader, and it says so. */
 
-/* A reader may still type Khmer into the box even though this edition holds
-   no Khmer content, so their query is still tagged for the right font. */
+/* A reader may type Khmer into the English edition's box, so their query is
+   tagged for the right font whichever edition they are in. */
 const KHMER = /[ក-៿]/;
 
 export default function SearchEmpty({ query, total, onClear }) {
@@ -20,7 +20,7 @@ export default function SearchEmpty({ query, total, onClear }) {
     <div className="search-none">
       <p className="search-none-head">
         {t.emptyHead}{" "}
-        <span lang={KHMER.test(query) ? "km" : undefined}>“{query}”</span>.
+        <span lang={KHMER.test(query) ? "km" : undefined}>“{query}”</span>{t.emptyEnd}
       </p>
       <p className="body-copy">
         {t.emptyBody(total)}
