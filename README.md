@@ -427,7 +427,10 @@ Requires Node 18.18 or newer and two environment variables in `.env.local`
 
 Both are public by design — they ship to every browser, and the row-level
 security policies are the protection, not the key. No secret key is used
-anywhere in the app, and nothing secret is committed.
+anywhere in the app, and nothing secret is committed. A third,
+`VERCEL_PROJECT_PRODUCTION_URL`, is set by Vercel itself and gives the site
+its address for the sitemap, robots.txt and page metadata; locally it falls back to
+`http://localhost:3000`.
 
 The site reads a Supabase project with the four tables above and the
 `photos` bucket. `supabase/policies.sql` records the live rules, functions,
