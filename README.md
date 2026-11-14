@@ -440,4 +440,21 @@ migration, so a fresh project needs the tables created first.
 After editing any Khmer text, run `node scripts/khmer-breaks.mjs <file>` to
 restore the markers that tell the browser where a Khmer line may break.
 
-Corrections are welcome.
+## Submission checklist
+
+- Live URL loads logged out and shows published entries only: yes, https://kampot-durian.vercel.app — the API returns `[]` for anything unpublished
+- A stranger cannot publish their own entry through the page or the console: yes, tested from fresh stranger accounts 22 Oct, 30 Oct and 5 Nov 2026 (insert as published, update to published, `review_entry()`, joining `reviewers` — all refused)
+- Logged out, the API returns nothing pending or returned: yes, tested 13 Nov 2026 (`contributions` → `[]`, `reviewers` → `[]`, `review_entry()` → permission denied)
+- Contributors can edit and delete only their own entries: yes — policies "contributors edit their own" and "contributors delete their own" in `supabase/policies.sql`; editing the curator's Field Note from a stranger account changed 0 rows (5 Nov 2026)
+- No secrets anywhere in the repo history: yes, checked 13 Nov 2026 with `git log --all -p` searched for key and token patterns, and a list of every file ever added (no `.env` file, ever)
+- At least eight real entries, each with a credited source: yes, 12 Field Notes, each ending with its sources; see [Sources and credits](#sources-and-credits)
+- Khmer renders on every screen a user meets, including the queue: yes, under `/km` — every page, status word, error message and `/km/review`
+- Works at phone width: yes, all main pages at 390 px in WebKit (13 Nov 2026, no sideways scroll) and on my own phone
+- No test entries, lorem ipsum or TODO comments in shipped pages: yes, searched 13 Nov 2026; the public shelf holds the 12 Field Notes only
+- No console errors on the main pages: yes, 18 pages in both editions, logged out, 13 Nov 2026
+- jesseorndorff is a collaborator on this repo: yes
+- Supabase project restored and awake on (date): *to fill in on submission day*
+- Demo video link opens in a private window: *to fill in*
+- Reflection pasted in the Canvas submission: *to fill in*
+- Posted in the Show Your Archive discussion: *to fill in*
+- Q&A slot booked for (date and time): *to fill in*
