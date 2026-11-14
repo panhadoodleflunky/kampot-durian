@@ -305,6 +305,76 @@ were tried live from fresh stranger accounts (22 and 30 October, 5 November
 - A note changed from the console, not the site's buttons, can leave its old
   public page in the cache for about a minute.
 
+## AI use
+
+I directed this project and decided what went in; most of the code and much
+of the wording were written by AI models at my request. This section is the
+AI-use record for the whole semester. The week-by-week detail is in my
+process logs and Prompt Journals.
+
+### Models, tasks and verdicts
+
+| When | Model, and where | What it did | Verdict |
+|---|---|---|---|
+| Week 1 | ChatGPT, Gemini, DeepSeek V4 (Flash and Pro), in chat | drafted the first design prompt | fine for brainstorming; never trusted with files |
+| Weeks 1–7 | Claude Sonnet, in Claude Code and in chat | the first build and deploy; turning my rough asks into usable prompts; the table design and the first rules | kept for design and first drafts |
+| Weeks 2–6 | Ox Alpha, an NVIDIA model, DeepSeek V4 Flash, through Cline; one more model I tried and dropped | cheap drafts and passes | **the fabrication.** v1 of the site carried invented speakers, quotes and dates and was deleted. The savings weren't worth the checking |
+| Weeks 4–13 | Claude Opus 5 and 5.5, through Claude Code | almost all the code since Sprint 2: the database rules and SQL, the Khmer edition, the gate, the queue, the attack tests, the reviews and their fixes, and drafts of this README | kept; worth the cost for anything I have to defend |
+| Week 9 on | Claude subagents, and Claude in chat | a second model on the first one's work: back-translating the Khmer, reviewing a week's code, checking claims against the live site | kept; most real catches came from this |
+
+The Khmer edition is an AI translation that I checked line by line, using the
+growers' own terms from the interviews; I confirmed every new Khmer word
+before it went live.
+
+### What I kept, and what I rewrote or rejected
+
+- **The content rule came from a failure.** The cheap models invented people
+  and quotes in v1. I deleted it, and the site now takes nothing from the
+  internet: every claim comes from the interviews.
+- **A design I accepted widened an older rule.** On 23 October I accepted a
+  take-down that let Send back act on published notes. Lab 11's two-tab test
+  showed a stale tab could take down a note I had just published. I had it
+  split into its own decision (30 October).
+- **A classmate's security review found holes in AI-written code I had
+  accepted:** the page-refresh action could be called logged out, and the
+  photo delete trusted the path it was given. Fixed 27 October. The same
+  review's suggested upload cap I rejected: Postgres combines policies with OR,
+  so as written it would have capped nothing.
+- **"Cleaned up" wasn't.** In week 9 Claude Code reported test notes removed
+  that were still in the cache; I caught it by checking the live site from a
+  second model.
+- **Smaller misses, caught before shipping:** a look-alike-letter check that
+  missed capital letters; a word written in CSS that escaped the
+  translation check, so the phone menu said "Account" in English on `/km`;
+  a Khmer word that found nothing when typed into the English edition's
+  search (fixed in Lab 13).
+- **Headings:** the AI's Khmer headings ended in ។, which looked wrong to me;
+  I had it removed from every Khmer heading.
+
+### How I checked the work
+
+- Read the diff before accepting; one small commit per change, with the build
+  passing at every commit.
+- Ran the attacks live, not just read the rules: fresh stranger accounts tried
+  to publish their own note, call `review_entry()`, join `reviewers`, edit the
+  curator's entries and read pending notes logged out — all refused.
+- Screenshots of the real pages at 390 px in WebKit and Firefox before calling
+  a visual fix done, and my own phone tests after.
+- Outside eyes: a classmate's code review and security review, review day's
+  checklist, and a full code review before the final.
+- The live database rules are saved in `supabase/policies.sql`, so the claims
+  above can be checked against them.
+
+### How commits are marked
+
+An AI-assisted commit has `[AI-assisted]` in its subject and a
+`Co-Authored-By` line naming the model. Since the `sprint-2` tag, 70 of 72
+commits are marked; the other two are a one-line comment I wrote and an
+empty commit to redeploy. Before that tag I marked them inconsistently: the
+first marked commit is from 3 September, and some AI-assisted commits from
+Sprints 1 and 2 carry no mark. Across the whole history, 115 of 146 commits
+are marked.
+
 ## Sources and credits
 
 Every photograph on this site is the curator's own work, taken in Kampot, or a
