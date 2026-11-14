@@ -219,6 +219,92 @@ Two things it handles that a naive `includes()` would not:
 - **The field separator.** Fields join on a newline, which a single-line input
   cannot produce, so no query can match the separator and return everything.
 
+## Security decisions
+
+### The gate: `review_entry()`
+
+The browser talks to Supabase directly, with a key that is public by design.
+Anyone can open the console, sign in as themselves and call the same API the
+pages call, skipping every check the page makes. So a rule that lives in the
+page is a suggestion; the only place a rule cannot be skipped is the database.
+That is why publishing is a database function, not an `update` from the page.
+
+`review_entry(entry_id, decision, note)` runs inside Postgres
+(`security definer`, with an empty `search_path` so nothing can be swapped in
+under it). It:
+
+1. returns `false` straight away unless the caller is in `reviewers`
+   (`is_reviewer()` reads the caller's own login, not anything the caller
+   sends);
+2. acts only from the right starting state — `published` and `returned` only
+   on a `pending` note, `taken-down` only on a `published` one (which becomes
+   `returned`, with the reviewer's note);
+3. returns `true` only if a row actually changed.
+
+The page counts a review as done only when the answer is exactly `true`. A
+stale tab that tries to send back a note another tab has just published gets
+`false`, and the note stays published (Lab 11, 30 October 2026). Calling it
+logged out is refused outright.
+
+Underneath it, the authors' own policies cannot publish anything: a new note
+must be inserted as `pending` with no review note, and an author's edit must
+leave it `pending`. The `reviewers` table has row-level security on and no
+policies at all, so no account can read it or add itself to it through the
+API; it changes only in the SQL Editor.
+
+**What a hidden button does and doesn't protect.** The Publish and Send back
+buttons appear only for the reviewer, and `/review` shows everyone else a
+"reviewers only" message. That check runs in the browser on purpose — the
+pages are static — and it protects nothing. It is manners: it keeps a button
+away from someone who can't use it. What protects the queue is that a
+stranger who opens `/review` gets only their own notes from the database, and
+a stranger who calls `review_entry()` from the console gets `false`. Both
+were tried live from fresh stranger accounts (22 and 30 October, 5 November
+2026).
+
+### Decisions the briefs left to me
+
+- **What a returned note says.** The contributor sees "Sent back to you" on
+  My notes, with the reviewer's note if one was written (up to 500
+  characters), and a gold count on the account menu until they have seen it.
+  They edit it there and it goes back into the queue.
+- **The reviewer can take down a published note** — but it is sent back to its
+  author as `returned`, with a note, not deleted. The author keeps their work.
+  Take-down is its own decision, so it can never fire on a pending note, and
+  Send back can never fire on a published one.
+- **Search never shows a contributor their own pending notes.** The public
+  shelf and search read published notes only, for everyone. A contributor's
+  pending and returned notes live on My notes, with their status in plain
+  words.
+- **A reviewer approves; a reviewer does not rewrite.** The curator may delete
+  any Community Note but cannot edit someone else's. An author's edit to a
+  published note sends it back to `pending`; only a reviewer's own edit keeps
+  a note published.
+- **Photos.** Every photo is redrawn in the browser before upload, which drops
+  its GPS location and other metadata. A note's photo URL must point inside
+  its author's own folder in the bucket, and an account can delete photos only
+  in its own folder.
+- **Names.** Display names are not unique, on purpose — "Sovanpanha" is a
+  common name. But no name may hold a tick-like symbol or the words
+  "verified", "curator" or "admin", even spelled with look-alike letters, so
+  nobody can pass as the curator.
+- **What is never published:** the farm's location, the water source's
+  location, household income, the neighbour's distance, and the curator's
+  parents' names.
+
+### Left open, on purpose
+
+- Display names can change after a note is published, without review; the
+  credit follows the name.
+- The curator role is read from the login token, which keeps it for up to an
+  hour after it changes.
+- The `photos` bucket is public: a photo opens by its URL without a login (the
+  URL holds a random id), even while its note is pending.
+- There is no cap on how many notes or photos one account can send; every
+  note still waits in the queue.
+- A note changed from the console, not the site's buttons, can leave its old
+  public page in the cache for about a minute.
+
 ## Sources and credits
 
 Every photograph on this site is the curator's own work, taken in Kampot, or a
