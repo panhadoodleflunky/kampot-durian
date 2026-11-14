@@ -376,23 +376,65 @@ carry no mark.
 
 ## Sources and credits
 
-Every photograph on this site is the curator's own work, taken in Kampot, or a
-family photograph used with permission and credited as such. There is no
-stock or licensed image anywhere in it. All of it is listed on
-[`/sources`](https://kampot-durian.vercel.app/sources).
+Every claim on the site comes from three sources, named the way each asked to
+be named. The full record is on
+[`/sources`](https://kampot-durian.vercel.app/sources), in both editions.
+
+- **The orchard's owners** — a second-generation durian family at Teuk Chhou,
+  the curator's parents, who own and work the two hectares. Almost everything
+  in the guide was given by them directly, over three sittings: 1 September
+  2026 (four questions), 4 September 2026 (220 of 221 questions) and
+  12 October 2026, at the farm. At that last sitting they asked not to be
+  named: the numbers are public, the family is not.
+- **A neighbouring grower at Teuk Chhou** — he cleared his native trees for
+  Monthong twenty years ago and asked to be described that way rather than
+  named. His account is on three entries.
+- **Khmer field vocabulary** — the words the growers use in the field, given
+  directly by them. The Khmer edition uses these wherever it needs a field
+  term.
+
+No publication, news report, trade standard, research paper or website is
+cited anywhere, and none was used as background.
+
+**Photographs.** Eight were taken by the curator, Sovanpanha Nonn, at the
+orchard or nearby. Three are family photographs, used with permission,
+credited to "the curator's family", not claimed as taken in Kampot, and
+upscaled with AI — each credit says so. There is no stock or licensed image.
+
+**Fonts.** Hanuman and Battambang, under the SIL Open Font License (the
+licences are in `public/fonts/`).
+
+**Withheld at the family's request:** the farm's location, its water source,
+household income, the neighbour's distance, and the parents' names.
 
 ## Running it locally
 
 ```bash
+git clone https://github.com/panhadoodleflunky/kampot-durian.git
+cd kampot-durian
 npm install
-npm run dev      # http://localhost:3000
-npm run build
+npm run dev                  # http://localhost:3000
+npm run build && npx next start   # the production build, as Vercel serves it
 ```
 
+The repository is private; ask the curator for access.
+
 Requires Node 18.18 or newer and two environment variables in `.env.local`
-(and on Vercel): `NEXT_PUBLIC_SUPABASE_URL` and
-`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Both are public by design — the
-row-level security policies on the tables are the protection, not the key.
-Nothing secret is committed.
+(and on Vercel), by name:
+
+- `NEXT_PUBLIC_SUPABASE_URL`
+- `NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`
+
+Both are public by design — they ship to every browser, and the row-level
+security policies are the protection, not the key. No secret key is used
+anywhere in the app, and nothing secret is committed.
+
+The site reads a Supabase project with the four tables above and the
+`photos` bucket. `supabase/policies.sql` records the live rules, functions,
+grants and constraints for reading and auditing; it is a snapshot, not a
+migration, so a fresh project needs the tables created first.
+
+After editing any Khmer text, run `node scripts/khmer-breaks.mjs <file>` to
+restore the markers that tell the browser where a Khmer line may break.
 
 Corrections are welcome.
