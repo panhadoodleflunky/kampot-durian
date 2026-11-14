@@ -368,12 +368,11 @@ before it went live.
 ### How commits are marked
 
 An AI-assisted commit has `[AI-assisted]` in its subject and a
-`Co-Authored-By` line naming the model. Since the `sprint-2` tag, 70 of 72
-commits are marked; the other two are a one-line comment I wrote and an
-empty commit to redeploy. Before that tag I marked them inconsistently: the
-first marked commit is from 3 September, and some AI-assisted commits from
-Sprints 1 and 2 carry no mark. Across the whole history, 115 of 146 commits
-are marked.
+`Co-Authored-By` line naming the model. Since the `sprint-2` tag every
+commit is marked except two: a one-line comment I wrote and an empty commit
+to redeploy. Before that tag I marked them inconsistently: the first marked
+commit is from 3 September, and some AI-assisted commits from Sprints 1 and 2
+carry no mark.
 
 ## Sources and credits
 
