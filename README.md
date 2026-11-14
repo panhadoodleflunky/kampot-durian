@@ -1,18 +1,23 @@
 # Kampot Durian — a field guide
 
+Live: **https://kampot-durian.vercel.app** · English at the plain addresses,
+Khmer under [`/km`](https://kampot-durian.vercel.app/km).
+
+Built for ICT 340 — Vibe Coding at the American University of Phnom Penh,
+Fall 2026. Compiled by Sovanpanha Nonn. The sections below follow the final
+capstone's order; the submission checklist is the last one.
+
+---
+
+## What this is
+
 A field guide to one durian orchard at Teuk Chhou, Kampot — its varieties, its
 season, how its growers read a fruit for ripeness, what a counterfeit looks
 like on a highway stall, and what the 2024 drought cost them. Every word of it
 came out of interviews with the family who work the land, and one neighbour.
-
-Live: **https://kampot-durian.vercel.app**
-
-Built for ICT 340 — Vibe Coding at the American University of Phnom Penh,
-Fall 2026. Compiled by Sovanpanha Nonn.
-
----
-
-## The rule this site is built on
+A visitor can browse and search twelve Field Notes in English or Khmer; anyone
+with an account can add a Community Note, which waits for the curator's review
+before the public sees it.
 
 **Primary sources only. Real people, asked directly. Nothing off the internet.**
 
@@ -31,47 +36,116 @@ came from a government series or a news report, and one licensed photograph.
 The honest cost is that nothing here can be checked by a reader against an
 outside source. The gain is that nothing here is second-hand, and two things on
 it — the days from petal drop to harvest for four Cambodian varieties, and a
-description of Sadong Kit — do not appear to exist anywhere else.
+description of Sadong Kit — do not appear to exist anywhere else. That is why
+`/about` has a section called "What is missing".
 
-That is why `/about` has a section called "What is missing", and why the Khmer
-edition (under `/km`) uses the growers' own field terms, confirmed by the
-curator, rather than dictionary guesses.
+| Sprint | Feature | State |
+|---|---|---|
+| 1 | Browse and search | built |
+| 2 | Contributor accounts, own-your-entries | built |
+| 3 | Submit, review, publish | built — the gate, My notes, the review queue and take-down |
 
-## Running it
+## Who it's for
 
-```bash
-npm install
-npm run dev      # http://localhost:3000
-npm run build
-```
+Khmer readers first: people in Kampot and elsewhere in Cambodia who grow, buy
+or sell durian, and anyone who wants to know how a Kampot grower judges a
+fruit, in the grower's own words. English readers second. What was done for
+them:
 
-Requires Node 18.18 or newer and two environment variables in `.env.local`
-(and on Vercel): `NEXT_PUBLIC_SUPABASE_URL` and
-`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Both are public by design — the
-row-level security policies on the tables are the protection, not the key.
-Nothing secret is committed.
+- **Khmer is a full edition, not a toggle on some pages.** Every page, button,
+  status word, error message and the review queue exist in Khmer under `/km`.
+  The translation uses the growers' own field terms (the knock test, the
+  variety names as they are said), each confirmed by the curator, not
+  dictionary guesses. Headings drop the Khmer full stop ។ because it looked
+  wrong to Khmer eyes (the curator, 7 November 2026).
+- **Khmer text behaves.** The Khmer fonts (Hanuman, Battambang) are
+  self-hosted subsets, 92 KB together, preloaded only on `/km` pages.
+  `scripts/khmer-breaks.mjs` marks where a Khmer line may break, since Khmer
+  has no spaces between words. Search strips the invisible zero-width spaces
+  some Khmer keyboards type, and a Khmer word finds its entry in either
+  edition.
+- **Phones first.** Every page is built and checked at 390 px wide, with a
+  phone menu; the curator tests on their own phone before calling a change
+  done.
+- **Slow connections.** Pages are static, served ready-made from Vercel's
+  cache and rebuilt in the background at most once a minute. The nav search
+  loads its index only when it is opened. A contributor's photo is redrawn in
+  the browser before upload — long edge at most 2400 px, JPEG, under 5 MB — so
+  it costs less to send and carries no GPS location.
+- **Sources named the way they asked.** Every entry ends with its sources.
+  The orchard's owners asked not to be named and are credited as the curator's
+  parents; the neighbour asked to be described rather than named. The farm's
+  location and its water source are never published.
 
-## The stack
+## How it works
 
-**Two editions.** English at the plain addresses, Khmer under `/km` — same
-pages, same data, a language switch in the nav. `middleware.js` maps English
-addresses onto `app/[lang]/` without changing them; every string comes from
-`content/copy/`. The Khmer is set in Hanuman and Battambang, self-hosted from
-`public/fonts` (SIL Open Font License) and preloaded on Khmer pages.
-
-Next.js 15 (App Router), React 19, plain JavaScript. **Five dependencies**: the
-framework three, plus `@supabase/supabase-js` and `@supabase/ssr`, approved for
-Sprint 2 (see `AGENTS.md`).
+Next.js 15 (App Router) and React 19 on Vercel, plain JavaScript; Supabase
+for accounts, data and photos. **Five dependencies**: the framework three,
+plus `@supabase/supabase-js` and `@supabase/ssr`, approved for Sprint 2 (see
+`AGENTS.md`).
 
 | | |
 |---|---|
 | Styling | one hand-written CSS file, `app/globals.css` — no framework |
 | State | React's own `useState`; no state library |
-| Data | Supabase Postgres: `entries` (the Field Notes), `contributions` (Community Notes), `profiles` (display names), and a `photos` storage bucket |
+| Data | Supabase Postgres, four tables (below), and a `photos` storage bucket |
 | Auth | Supabase email and password |
 | Search | a pure function over an array; no search library |
 
-## How it is laid out
+**Two editions.** English at the plain addresses, Khmer under `/km` — same
+pages, same data. `middleware.js` maps English addresses onto `app/[lang]/`
+without changing them; every string comes from `content/copy/`, with an `en`
+and a `km` side.
+
+### The tables
+
+| Table | What it holds | Who writes it |
+|---|---|---|
+| `entries` | the twelve Field Notes | the curator only |
+| `contributions` | Community Notes from every other account | their authors; status only through `review_entry()` |
+| `profiles` | one display name per account | each person, their own row |
+| `reviewers` | who may review (only the curator) | nobody through the site — the SQL Editor only |
+
+### Statuses
+
+A **Community Note** (`contributions.status`) is always one of three:
+
+- `pending` — every new note, and every note its author edits. Only the author
+  and the reviewer can see it.
+- `published` — the reviewer published it. Everyone can see it.
+- `returned` — the reviewer sent it back, with an optional note saying why;
+  or took a published note down. Only the author and the reviewer can see it.
+  The author edits it, and it goes back to `pending`.
+
+A **Field Note** (`entries.status`) is `published` or `in-progress` (an entry
+with an admitted gap). Anything else stays off the site. Field Notes are the
+curator's own shelf and do not pass through the queue.
+
+### Who may read and write what
+
+Enforced by row-level security in the database, not by hiding buttons. Every
+rule is in [`supabase/policies.sql`](supabase/policies.sql), a snapshot of the
+live database.
+
+- **Logged out:** read the Field Notes and published Community Notes; nothing
+  else. Names are readable only for authors of a published note.
+- **Any account:** add a Community Note, but only as `pending`, in its own
+  name, with no review note. Edit or delete only its own notes; an edit must
+  leave the note `pending`. Upload, list and delete photos only in its own
+  folder of the `photos` bucket. Rename only itself.
+- **Column grants** close what a policy alone would leave open: an author
+  cannot write `review_note` or `created_at`, or change a note's owner or
+  slug.
+- **The reviewer** (a row in `reviewers`, checked by `is_reviewer()`) reads
+  every note, and publishes, returns or takes down through `review_entry()`.
+- **The curator** (`role: curator` in the account's app metadata, which a user
+  cannot set) is the only account that writes Field Notes, and may delete any
+  Community Note, but not rewrite one.
+- **Check constraints** hold the form's rules again in the database: lengths,
+  a known status, a photo URL inside the owner's own folder, a slug of
+  `a-z0-9-` only, and display names that cannot fake the curator's tick.
+
+### How it is laid out
 
 ```
 middleware.js                English addresses → app/[lang]/ (lang "en"); /km as is
@@ -92,17 +166,18 @@ app/
 components/                  one component per file, ~80 lines or less
   EntrySearch, SearchBox, Pagination, SearchEmpty, EntryCard     browse and search
   EntryForm, FormField, PhotoField, ContributeForm, EditEntryForm, OwnerActions
-  SentNotice, MyEntries, MyNote                                   waiting for review
+  SentNotice, MyEntries, MyNote, NotesNews, NewsBadge             waiting for review
   ReviewQueue, ReviewItem, ReviewActions, ReviewerBanner, TakeDown   reviewing
   AuthForm, SignupForm, AuthStatus, AccountMenu, AccountMenuPanel, AccountPanel, NameForm,
   PasswordForm, SignInPrompt, VerifiedName (the curator's name with the site's tick)
   SiteNav, NavMenu, NavSearch, SearchSuggestions, LangSwitch, LangOnly, SiteFooter,
-  SectionLabel, DurianGlyph, Reveal, ThemeToggle, LangOnly, Rich (a sentence with links, from copy)
+  SectionLabel, DurianGlyph, Reveal, ThemeToggle, Rich (a sentence with links, from copy)
 lib/
   entries.js                 every read: rows → entries, cached static pages
   entry-rules.js  entry-row.js  signup-rules.js   validation and row shaping
   photo-upload.js  redraw-photo.js                 uploads; every photo redrawn first (smaller, no GPS)
   save-error.js  roles.js  use-edit-row.js         error wording, who may edit, the edit page's row
+  use-note-news.js           the news badge: notes sent back or newly published
   i18n.js  use-lang.js       the two editions: localize(), pick() with English fallback
   suggest.js  use-session.js  use-search-handoff.js  use-dismiss.js  initial.js  actions.js
   supabase/client.js  supabase/server.js           browser and server clients
@@ -121,50 +196,20 @@ entry-sketch.md              what one entry is, as data
 ```
 
 **Pages never hardcode entry content.** They read the `entries` table through
-`lib/entries.js`. Adding an entry is a row, not a deploy.
-
-### Who may write what
-
-Enforced by row-level security in the database, not by hiding buttons
-(every rule is in `supabase/policies.sql`):
-
-- **Anyone** can read the Field Notes and every *published* Community Note.
-- **The curator** (`role: curator` in the account's app metadata, which a user
-  cannot set) is the only account that writes Field Notes, and may delete
-  (take down) any Community Note, but not rewrite one.
-- **Any other account** can add Community Notes and edit or delete only its own.
-- **Review (Sprint 3).** A new Community Note is `pending` and only its author
-  and the reviewer can see it. Only an account in the `reviewers` table (which
-  only the SQL Editor can change) can publish it or send it back, through the
-  `review_entry()` database function; a returned note can carry the
-  reviewer's note. Editing a note sends it back to `pending`. The reviewer
-  works from `/review` (Publish, or Send back with a note) and can take a
-  published note down, which sends it back to its author rather than
-  deleting it.
-
-### The entry shape
-
-Defined in [`entry-sketch.md`](entry-sketch.md). `slug`, `figNumber`, `title`,
-`body`, and `sources` are required; `khmerName`, `image`, `tags`, and `status`
-are optional.
+`lib/entries.js`. Adding an entry is a row, not a deploy. The entry shape is
+defined in [`entry-sketch.md`](entry-sketch.md).
 
 ### The search
 
 `content/search-index.js` holds it as pure functions — `norm`, `buildIndex`,
 `search` — with no React, because *which fields are searchable* is a decision
-about the entry shape rather than about the box that displays it. It also means
-the search can be reasoned about, and tested, on its own.
+about the entry shape rather than about the box that displays it.
 
-It matches against title, Khmer name, body, fig number, tags, **and source
-lines** — in a guide whose whole claim is traceability, searching a source by
-name is a real question a reader might have.
-Every word of the query must appear somewhere in the entry, so `kampot drought`
-finds the entry about both rather than everything about either.
-
-**Browsing is paged; searching is not.** Four entries to a page when you are
-browsing — each full page one turn of the card-variant cycle — and no pager at all once you type — a query is already the reader
-narrowing the list, and paging their matches would hide results behind a
-control they did not ask for.
+It matches against title, Khmer name, body, fig number, tags, **source
+lines**, and the other edition's title and tags. Every word of the query must
+appear somewhere in the entry, so `kampot drought` finds the entry about both
+rather than everything about either. Browsing is paged, four to a page;
+searching is not, because a query is already the reader narrowing the list.
 
 Two things it handles that a naive `includes()` would not:
 
@@ -174,21 +219,25 @@ Two things it handles that a naive `includes()` would not:
 - **The field separator.** Fields join on a newline, which a single-line input
   cannot produce, so no query can match the separator and return everything.
 
-## Course status
-
-| Sprint | Feature | State |
-|---|---|---|
-| 1 | Browse and search | built |
-| 2 | Contributor accounts, own-your-entries | built |
-| 3 | Submit, review, publish | built — the gate, My notes, the review queue and take-down |
-
-## Credits
+## Sources and credits
 
 Every photograph on this site is the curator's own work, taken in Kampot, or a
 family photograph used with permission and credited as such. There is no
-stock or licensed image anywhere in it — the one Wikimedia
-photograph the site used to carry was removed with the published sources. All
-of it is listed on
+stock or licensed image anywhere in it. All of it is listed on
 [`/sources`](https://kampot-durian.vercel.app/sources).
+
+## Running it locally
+
+```bash
+npm install
+npm run dev      # http://localhost:3000
+npm run build
+```
+
+Requires Node 18.18 or newer and two environment variables in `.env.local`
+(and on Vercel): `NEXT_PUBLIC_SUPABASE_URL` and
+`NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY`. Both are public by design — the
+row-level security policies on the tables are the protection, not the key.
+Nothing secret is committed.
 
 Corrections are welcome.
