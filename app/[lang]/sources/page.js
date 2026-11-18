@@ -69,7 +69,9 @@ export default async function Sources({ params }) {
                   <li key={credit.file}>
                     <span className="biblio-name">{credit.caption}</span>
                     <span className="biblio-note">
-                      {`${t.photoBy} ${credit.author}${credit.family ? t.family : t.kampot}${credit.enhanced ? t.enhanced : ""}`}
+                      {credit.generated
+                        ? t.generated
+                        : `${t.photoBy} ${credit.author}${credit.family ? t.family : credit.kampot === false ? t.end : t.kampot}${credit.enhanced ? t.enhanced : ""}`}
                     </span>
                   </li>
                 ))}

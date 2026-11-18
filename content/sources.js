@@ -37,10 +37,11 @@ export const cautions = [
 ];
 
 /* Photograph credits. Most were taken by the compiler at the orchard or
-   nearby; the three marked `family` are family photographs, used with
-   permission, and are not claimed as taken in Kampot. `enhanced`: the
-   picture was upscaled with AI (owner, 12 October 2026), and the credit
-   says so. */
+   nearby. `generated`: not a photograph at all — an AI-generated image, and
+   the credit and caption say so (owner, 18 November 2026). `family`: a family
+   photograph used with permission (none at present). `enhanced`: the
+   picture was upscaled with AI (owner, 12 October 2026). `kampot: false`:
+   no claim about where it was taken. */
 export const photoCredits = [
   {
     file: "ov-khak-opened.jpg",
@@ -60,7 +61,7 @@ export const photoCredits = [
   {
     file: "durian-flower.jpg",
     caption: "Durian flowers in close-up, open at night for their pollinators",
-    author: collection.curator,
+    generated: true,
   },
   {
     file: "sadong-kit.jpg",
@@ -85,22 +86,18 @@ export const photoCredits = [
   {
     file: "musang-king-opened.jpg",
     caption: "An opened durian, three lobes of deep yellow flesh",
-    author: "the curator's family",
-    family: true,
-    enhanced: true,
+    generated: true,
   },
   {
     file: "opened-on-leaf.jpg",
     caption: "An opened durian on a banana leaf, one lobe lifted out",
-    author: "the curator's family",
-    family: true,
-    enhanced: true,
+    generated: true,
   },
   {
     file: "fruit-stall.jpg",
     caption: "A durian lifted by its stem from a stall pile",
-    author: "the curator's family",
-    family: true,
+    author: collection.curator,
+    kampot: false,
     enhanced: true,
   },
 ];
