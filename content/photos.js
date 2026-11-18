@@ -11,10 +11,10 @@ const photos = {
     height: 724,
     alt: "A cluster of pale green-white durian flowers in close-up, their long stamens hanging down",
     caption:
-      "Durian flowers. The growers observe bats working them at night, and hawk moths alongside.",
+      "Durian flowers. The growers observe bats working them at night, and hawk moths alongside. AI-generated image, not a photograph.",
     km: {
       alt: "ផ្កា​ធុរេន​ពណ៌បៃតង​ស្លេក​លាយស មួយ​ចង្កោម​ថត​ជិត⁠ៗ កេសរ​វែង⁠ៗ​សំយុង​ចុះ",
-      caption: "ផ្កា​ធុរេន⁠។ អ្នក​ដាំ​សង្កេតឃើញ​ប្រចៀវ​មក​លើ​ផ្កា​នៅពេល​យប់ ព្រមទាំង​មេអំបៅ​យប់​ផង​ដែរ⁠។",
+      caption: "ផ្កា​ធុរេន⁠។ អ្នក​ដាំ​សង្កេតឃើញ​ប្រចៀវ​មក​លើ​ផ្កា​នៅពេល​យប់ ព្រមទាំង​មេអំបៅ​យប់​ផង​ដែរ⁠។ រូបភាព​បង្កើត​ដោយ AI មិនមែន​ជា​រូបថត​ទេ⁠។",
     },
   },
   "/tree-in-fruit.jpg": {
@@ -78,10 +78,10 @@ const photos = {
     width: 902,
     height: 818,
     alt: "An opened durian seen from above, three lobes of deep yellow flesh in the white inner husk",
-    caption: "An opened fruit, its flesh deep yellow. Photograph by the curator's family. Resolution enhanced with AI.",
+    caption: "An opened fruit, its flesh deep yellow. AI-generated image, not a photograph.",
     km: {
       alt: "ផ្លែ​ធុរេន​ដែល​បាន​បក មើល​ពីលើ សាច់​ពណ៌លឿង​ចាស់​បី​ក្លែប នៅក្នុង​សំបក​ខាងក្នុង​ពណ៌ស",
-      caption: "ផ្លែ​ដែល​បាន​បក សាច់​ពណ៌លឿង​ចាស់⁠។ រូបថត​ដោយ​គ្រួសារ​របស់​អ្នក​ចងក្រង⁠។ គុណភាព​រូបភាព​ត្រូវ​បាន​ធ្វើឲ្យ​ប្រសើរ​ឡើង​ដោយ AI។",
+      caption: "ផ្លែ​ដែល​បាន​បក សាច់​ពណ៌លឿង​ចាស់⁠។ រូបភាព​បង្កើត​ដោយ AI មិនមែន​ជា​រូបថត​ទេ⁠។",
     },
   },
   "/opened-on-leaf.jpg": {
@@ -89,10 +89,10 @@ const photos = {
     width: 1224,
     height: 864,
     alt: "An opened durian on a banana leaf, its stem still attached, one lobe of flesh lifted out in front",
-    caption: "An opened fruit on a banana leaf, the stem still on. Photograph by the curator's family. Resolution enhanced with AI.",
+    caption: "An opened fruit on a banana leaf, the stem still on. AI-generated image, not a photograph.",
     km: {
       alt: "ផ្លែ​ធុរេន​ដែល​បាន​បក​លើ​ស្លឹកចេក ទង​នៅ​ជាប់ ក្លែប​សាច់​មួយ​ត្រូវ​បាន​លើក​មក​ដាក់​ខាងមុខ",
-      caption: "ផ្លែ​ដែល​បាន​បក​លើ​ស្លឹកចេក ទង​នៅ​ជាប់⁠។ រូបថត​ដោយ​គ្រួសារ​របស់​អ្នក​ចងក្រង⁠។ គុណភាព​រូបភាព​ត្រូវ​បាន​ធ្វើឲ្យ​ប្រសើរ​ឡើង​ដោយ AI។",
+      caption: "ផ្លែ​ដែល​បាន​បក​លើ​ស្លឹកចេក ទង​នៅ​ជាប់⁠។ រូបភាព​បង្កើត​ដោយ AI មិនមែន​ជា​រូបថត​ទេ⁠។",
     },
   },
   "/fruit-stall.jpg": {
@@ -100,10 +100,10 @@ const photos = {
     width: 1308,
     height: 816,
     alt: "A hand lifting a durian by its stem from a heaped stall, the cut stems of the others marked red",
-    caption: "A fruit lifted by its stem from a stall pile. Photograph by the curator's family. Resolution enhanced with AI.",
+    caption: "A fruit lifted by its stem from a stall pile. Resolution enhanced with AI.",
     km: {
       alt: "ដៃ​លើក​ផ្លែ​ធុរេន​តាម​ទង​ពី​គំនរ​នៅ​តូប ទង​នៃ​ផ្លែ​ផ្សេងទៀត​ដែលកាត់​ហើយ ត្រូវ​បាន​គូស​ពណ៌ក្រហម",
-      caption: "ផ្លែ​មួយ​ដែល​លើក​តាម​ទង​ពី​គំនរ​នៅ​តូប⁠។ រូបថត​ដោយ​គ្រួសារ​របស់​អ្នក​ចងក្រង⁠។ គុណភាព​រូបភាព​ត្រូវ​បាន​ធ្វើឲ្យ​ប្រសើរ​ឡើង​ដោយ AI។",
+      caption: "ផ្លែ​មួយ​ដែល​លើក​តាម​ទង​ពី​គំនរ​នៅ​តូប⁠។ គុណភាព​រូបភាព​ត្រូវ​បាន​ធ្វើឲ្យ​ប្រសើរ​ឡើង​ដោយ AI។",
     },
   },
 };
