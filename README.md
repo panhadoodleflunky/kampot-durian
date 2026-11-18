@@ -360,7 +360,7 @@ process logs and Prompt Journals.
 | Weeks 1–7 | Claude Sonnet, in Claude Code and in chat | the first build and deploy; turning my rough asks into usable prompts; the table design and the first rules | kept for design and first drafts |
 | Weeks 2–6 | Ox Alpha, an NVIDIA model, DeepSeek V4 Flash, through Cline; one more model I tried and dropped | cheap drafts and passes | **the fabrication.** v1 of the site carried invented speakers, quotes and dates and was deleted. The savings weren't worth the checking |
 | Weeks 4–13 | Claude Opus 5 and 5.5, through Claude Code | almost all the code since Sprint 2: the database rules and SQL, the Khmer edition, the gate, the queue, the attack tests, the reviews and their fixes, and drafts of this README | kept; worth the cost for anything I have to defend |
-| — | an AI image tool | generated the pictures on entries 01, 02 and 07, and enhanced the fruit stall photo's resolution | kept, but every one is labelled as AI in its caption and credit |
+| — | Google Gemini's image model ("Nano Banana"; exact version not recorded) | generated the pictures on entries 01, 02 and 07, and enhanced the fruit stall photo's resolution | kept, but every one is labelled as AI in its caption and credit |
 | Week 9 on | Claude subagents, and Claude in chat | a second model on the first one's work: back-translating the Khmer, reviewing a week's code, checking claims against the live site | kept; most real catches came from this |
 
 The Khmer edition is an AI translation that I checked line by line, using the
