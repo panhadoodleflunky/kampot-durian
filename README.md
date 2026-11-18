@@ -24,7 +24,8 @@ before the public sees it.
 > Every claim on this site comes from the family who own and work a
 > durian orchard at Teuk Chhou, Kampot, or from the Khmer vocabulary they use
 > in the field. No publication, news report, trade standard, research paper, or
-> website is cited anywhere, and every photograph is the compiler's or the family's own.
+> website is cited anywhere. Every photograph is the compiler's own; three
+> pictures are AI-generated, and each one says so.
 
 This is the third version of the site, and each rule replaced a worse one. v1
 carried fabricated content — invented speakers, invented quotes, invented
@@ -320,6 +321,7 @@ process logs and Prompt Journals.
 | Weeks 1–7 | Claude Sonnet, in Claude Code and in chat | the first build and deploy; turning my rough asks into usable prompts; the table design and the first rules | kept for design and first drafts |
 | Weeks 2–6 | Ox Alpha, an NVIDIA model, DeepSeek V4 Flash, through Cline; one more model I tried and dropped | cheap drafts and passes | **the fabrication.** v1 of the site carried invented speakers, quotes and dates and was deleted. The savings weren't worth the checking |
 | Weeks 4–13 | Claude Opus 5 and 5.5, through Claude Code | almost all the code since Sprint 2: the database rules and SQL, the Khmer edition, the gate, the queue, the attack tests, the reviews and their fixes, and drafts of this README | kept; worth the cost for anything I have to defend |
+| — | an AI image tool | generated the pictures on entries 01, 02 and 07, and enhanced the fruit stall photo's resolution | kept, but every one is labelled as AI in its caption and credit |
 | Week 9 on | Claude subagents, and Claude in chat | a second model on the first one's work: back-translating the Khmer, reviewing a week's code, checking claims against the live site | kept; most real catches came from this |
 
 The Khmer edition is an AI translation that I checked line by line, using the
@@ -396,10 +398,12 @@ be named. The full record is on
 No publication, news report, trade standard, research paper or website is
 cited anywhere, and none was used as background.
 
-**Photographs.** Eight were taken by the curator, Sovanpanha Nonn, at the
-orchard or nearby. Three are family photographs, used with permission,
-credited to "the curator's family", not claimed as taken in Kampot, and
-upscaled with AI — each credit says so. There is no stock or licensed image.
+**Photographs and pictures.** Eight photographs are the curator's own
+(Sovanpanha Nonn): seven taken at the orchard or nearby in Kampot, and the
+fruit stall on entry 11, whose resolution was enhanced with AI. Three
+pictures — on entries 01, 02 and 07 — are **AI-generated images, not
+photographs**; the caption under each and its credit on `/sources` say so, in
+both editions. There is no stock or licensed image.
 
 **Fonts.** Hanuman and Battambang, under the SIL Open Font License (the
 licences are in `public/fonts/`).
