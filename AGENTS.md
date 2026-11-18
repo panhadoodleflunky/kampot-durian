@@ -75,6 +75,9 @@ reporting. Both are gone. The rule now:
   curator's family's, used with their permission and credited to "the
   curator's family" (owner's decision, 12 October 2026). No stock, no
   Wikimedia, no licensed third-party image, however correctly attributed.
+  Three pictures (entries 01, 02, 07) are AI-generated, not photographs; they
+  stay only because every caption and credit says so (owner's decision,
+  18 November 2026). Never add another, and never let one pass as a photo.
 - Never invent a speaker, quote, date, Khmer name, statistic, or photo caption.
   "I don't know" is a valid answer.
 - Where a claim is thin, say what is missing in the entry's own text. An
