@@ -1,11 +1,50 @@
-# Kampot Durian — a field guide
+<div align="center">
 
-Live: **https://kampot-durian.vercel.app** · English at the plain addresses,
-Khmer under [`/km`](https://kampot-durian.vercel.app/km).
+# Kampot Durian
 
-Built for ICT 340 — Vibe Coding at the American University of Phnom Penh,
-Fall 2026. Compiled by Sovanpanha Nonn. The sections below follow the final
-capstone's order; the submission checklist is the last one.
+**A bilingual field guide to one family durian orchard in Kampot, Cambodia —
+built from interviews, not the internet.**
+
+[**Live site**](https://kampot-durian.vercel.app) ·
+[**ខ្មែរ edition**](https://kampot-durian.vercel.app/km) ·
+[**Sources & credits**](https://kampot-durian.vercel.app/sources)
+
+![Next.js 15](https://img.shields.io/badge/Next.js-15-black?logo=nextdotjs)
+![React 19](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
+![Supabase](https://img.shields.io/badge/Supabase-Postgres%20%2B%20Auth-3ECF8E?logo=supabase&logoColor=white)
+![Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?logo=vercel)
+![English + Khmer](https://img.shields.io/badge/languages-English%20%2B%20%E1%9E%81%E1%9F%92%E1%9E%98%E1%9F%82%E1%9E%9A-E9B95A)
+
+<img src="docs/screenshots/home-desktop.jpg" alt="The Kampot Durian home page on a laptop" width="760">
+
+<img src="docs/screenshots/home-khmer-phone.jpg" alt="The Khmer edition's home page on a phone" width="240">
+&nbsp;
+<img src="docs/screenshots/field-notes-phone.jpg" alt="The Field Notes list and search on a phone" width="240">
+
+</div>
+
+Built by **Sovanpanha Nonn** for ICT 340 — Vibe Coding, American University of
+Phnom Penh, Fall 2026.
+
+### Features
+
+- **Browse and search** 12 Field Notes, in English or Khmer, with a search
+  that understands Khmer text.
+- **Accounts:** anyone can sign up and add a Community Note with a photo.
+- **Own your entries:** you can edit and delete only what you wrote.
+- **Review before publish:** every new note waits in the curator's review
+  queue; the database, not the page, decides who can publish.
+
+### Contents
+
+1. [What this is](#what-this-is)
+2. [Who it's for](#who-its-for)
+3. [How it works](#how-it-works)
+4. [Security decisions](#security-decisions)
+5. [AI use](#ai-use)
+6. [Sources and credits](#sources-and-credits)
+7. [Running it locally](#running-it-locally)
+8. [Submission checklist](#submission-checklist) — for the course grader
 
 ---
 
@@ -445,6 +484,9 @@ After editing any Khmer text, run `node scripts/khmer-breaks.mjs <file>` to
 restore the markers that tell the browser where a Khmer line may break.
 
 ## Submission checklist
+
+For the ICT 340 grader. The final brief asks every project to end its README
+with this list, each item answered with where to check it.
 
 - Live URL loads logged out and shows published entries only: yes, https://kampot-durian.vercel.app — the API returns `[]` for anything unpublished
 - A stranger cannot publish their own entry through the page or the console: yes, tested from fresh stranger accounts 22 Oct, 30 Oct and 5 Nov 2026 (insert as published, update to published, `review_entry()`, joining `reviewers` — all refused)
