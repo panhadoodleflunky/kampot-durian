@@ -293,8 +293,9 @@ policies at all, so no account can read it or add itself to it through the
 API; it changes only in the SQL Editor.
 
 **What a hidden button does and doesn't protect.** The Publish and Send back
-buttons appear only for the reviewer, and `/review` shows everyone else a
-"reviewers only" message. That check runs in the browser on purpose — the
+buttons appear only for the reviewer. `/review` asks a logged-out visitor to
+log in, and tells any other account "Only the archive's reviewer can open
+this page." That check runs in the browser on purpose — the
 pages are static — and it protects nothing. It is manners: it keeps a button
 away from someone who can't use it. What protects the queue is that a
 stranger who opens `/review` gets only their own notes from the database, and
