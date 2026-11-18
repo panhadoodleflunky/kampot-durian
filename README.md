@@ -457,4 +457,4 @@ restore the markers that tell the browser where a Khmer line may break.
 - Demo video link opens in a private window: *to fill in*
 - Reflection pasted in the Canvas submission: *to fill in*
 - Posted in the Show Your Archive discussion: *to fill in*
-- Q&A slot booked for (date and time): *to fill in*
+- Q&A slot booked for (date and time): yes, Tuesday 1 December 2026, 8:35 AM
