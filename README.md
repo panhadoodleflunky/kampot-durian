@@ -461,7 +461,6 @@ npm run dev                  # http://localhost:3000
 npm run build && npx next start   # the production build, as Vercel serves it
 ```
 
-The repository is private; ask the curator for access.
 
 Requires Node 18.18 or newer and two environment variables in `.env.local`
 (and on Vercel), by name:
