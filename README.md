@@ -7,7 +7,8 @@ built from interviews, not the internet.**
 
 [**Live site**](https://kampot-durian.vercel.app) ·
 [**ខ្មែរ edition**](https://kampot-durian.vercel.app/km) ·
-[**Sources & credits**](https://kampot-durian.vercel.app/sources)
+[**Sources & credits**](https://kampot-durian.vercel.app/sources) ·
+[**Demo video**](https://youtu.be/4mGu9rXfeF0)
 
 ![Next.js 15](https://img.shields.io/badge/Next.js-15-black?logo=nextdotjs)
 ![React 19](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=black)
@@ -500,7 +501,7 @@ with this list, each item answered with where to check it.
 - No console errors on the main pages: yes, 18 pages in both editions, logged out, 13 Nov 2026
 - jesseorndorff is a collaborator on this repo: yes
 - Supabase project restored and awake on (date): *to fill in on submission day*
-- Demo video link opens in a private window: *to fill in*
+- Demo video link opens in a private window: yes, https://youtu.be/4mGu9rXfeF0 (Unlisted, 4:49; checked logged out 19 Nov 2026)
 - Reflection pasted in the Canvas submission: yes, submitted with the Final Capstone on 19 November 2026
 - Posted in the Show Your Archive discussion: *to fill in*
 - Q&A slot booked for (date and time): yes, Tuesday 1 December 2026, 8:35 AM
