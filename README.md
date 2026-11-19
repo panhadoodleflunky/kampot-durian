@@ -502,6 +502,6 @@ with this list, each item answered with where to check it.
 - jesseorndorff is a collaborator on this repo: yes
 - Supabase project restored and awake on (date): *to fill in on submission day*
 - Demo video link opens in a private window: *to fill in*
-- Reflection pasted in the Canvas submission: *to fill in*
+- Reflection pasted in the Canvas submission: yes, submitted with the Final Capstone on 19 November 2026
 - Posted in the Show Your Archive discussion: *to fill in*
 - Q&A slot booked for (date and time): yes, Tuesday 1 December 2026, 8:35 AM
