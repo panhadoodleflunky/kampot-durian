@@ -496,7 +496,7 @@ with this list, each item answered with where to check it.
 - At least eight real entries, each with a credited source: yes, 12 Field Notes, each ending with its sources; see [Sources and credits](#sources-and-credits)
 - Khmer renders on every screen a user meets, including the queue: yes, under `/km` — every page, status word, error message and `/km/review`
 - Works at phone width: yes, all main pages at 390 px in WebKit (13 Nov 2026, no sideways scroll) and on my own phone
-- No test entries, lorem ipsum or TODO comments in shipped pages: yes, searched 13 Nov 2026; the public shelf holds the 12 Field Notes only
+- No test entries, lorem ipsum or TODO comments in shipped pages: yes, searched 13 Nov 2026; the public shelf holds the 12 Field Notes and one real Community Note (published in the demo video, 19 Nov)
 - No console errors on the main pages: yes, 18 pages in both editions, logged out, 13 Nov 2026
 - jesseorndorff is a collaborator on this repo: yes
 - Supabase project restored and awake on (date): *to fill in on submission day*
