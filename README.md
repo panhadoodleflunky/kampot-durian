@@ -500,7 +500,7 @@ with this list, each item answered with where to check it.
 - No test entries, lorem ipsum or TODO comments in shipped pages: yes, searched 13 Nov 2026; the public shelf holds the 12 Field Notes and one real Community Note (published in the demo video, 19 Nov)
 - No console errors on the main pages: yes, 18 pages in both editions, logged out, 13 Nov 2026
 - jesseorndorff is a collaborator on this repo: yes
-- Supabase project restored and awake on (date): *to fill in on submission day*
+- Supabase project restored and awake on (date): yes, 20 November 2026
 - Demo video link opens in a private window: yes, https://youtu.be/4mGu9rXfeF0 (Unlisted, 4:49; checked logged out 19 Nov 2026)
 - Reflection pasted in the Canvas submission: yes, submitted with the Final Capstone on 19 November 2026
 - Posted in the Show Your Archive discussion: *to fill in*
