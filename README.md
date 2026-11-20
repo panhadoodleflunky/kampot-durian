@@ -503,5 +503,5 @@ with this list, each item answered with where to check it.
 - Supabase project restored and awake on (date): yes, 20 November 2026
 - Demo video link opens in a private window: yes, https://youtu.be/4mGu9rXfeF0 (Unlisted, 4:49; checked logged out 19 Nov 2026)
 - Reflection pasted in the Canvas submission: yes, submitted with the Final Capstone on 19 November 2026
-- Posted in the Show Your Archive discussion: *to fill in*
+- Posted in the Show Your Archive discussion: yes, 20 November 2026 (video link, live URL, two sentences)
 - Q&A slot booked for (date and time): yes, Tuesday 1 December 2026, 8:35 AM
