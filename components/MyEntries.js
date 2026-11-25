@@ -36,7 +36,7 @@ export default function MyEntries() {
       if (!user) return !dropped && setState({ status: "logged-out" });
       const { data, error } = await client
         .from("contributions")
-        .select("id, slug, title, title_km, status, review_note")
+        .select("id, slug, title, title_km, status, review_note, owner, photo_url")
         .eq("owner", user.id)
         .order("created_at", { ascending: false });
       if (dropped) return;
@@ -52,6 +52,9 @@ export default function MyEntries() {
       dropped = true;
     };
   }, [lang]);
+
+  /* A deleted note leaves the list at once. */
+  const gone = (id) => setState((s) => ({ ...s, notes: s.notes.filter((n) => n.id !== id) }));
 
   const { status } = state;
   if (status === "loading") return <LoadingNotes label={t.loading} />;
@@ -73,7 +76,7 @@ export default function MyEntries() {
           </div>
         </div>
       ) : (
-        state.notes.map((note) => <MyNote key={note.id} note={note} fresh={state.fresh.includes(note.id)} />)
+        state.notes.map((note) => <MyNote key={note.id} note={note} fresh={state.fresh.includes(note.id)} onDeleted={() => gone(note.id)} />)
       )}
     </>
   );

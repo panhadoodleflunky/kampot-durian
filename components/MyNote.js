@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import DeleteButton from "./DeleteButton.js";
 import { useLang } from "../lib/use-lang.js";
 import { pick, localize } from "../lib/i18n.js";
 import { forms } from "../content/copy/forms.js";
@@ -8,8 +9,9 @@ import { forms } from "../content/copy/forms.js";
 /* One row on /my-entries: the title, where it stands in review, what that
    means, and what the author can do next. A returned note shows the
    curator's note, if they left one. Only the review door (review_entry)
-   can write that note; the author can't. */
-export default function MyNote({ note, fresh }) {
+   can write that note; the author can't. Delete is here too, in every
+   state, behind the same second-thought box as on the note's page. */
+export default function MyNote({ note, fresh, onDeleted }) {
   const lang = useLang();
   const t = pick(forms, lang).mine;
   const title = (lang === "km" && note.title_km) || note.title;
@@ -39,6 +41,7 @@ export default function MyNote({ note, fresh }) {
         <Link className={returned ? "btn" : "auth-btn"} href={go("/edit")}>
           {returned ? t.fix : t.edit}
         </Link>
+        <DeleteButton table="contributions" id={note.id} owner={note.owner} photoUrl={note.photo_url} title={title} onDeleted={onDeleted} />
       </div>
     </section>
   );
