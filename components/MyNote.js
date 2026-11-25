@@ -5,6 +5,7 @@ import DeleteButton from "./DeleteButton.js";
 import { useLang } from "../lib/use-lang.js";
 import { pick, localize } from "../lib/i18n.js";
 import { forms } from "../content/copy/forms.js";
+import { km } from "../content/copy/ui.js";
 
 /* One row on /my-entries: the title, where it stands in review, what that
    means, and what the author can do next. A returned note shows the
@@ -17,6 +18,9 @@ export default function MyNote({ note, fresh, onDeleted }) {
   const title = (lang === "km" && note.title_km) || note.title;
   const returned = note.status === "returned";
   const go = (path) => localize(lang, `/contributed/${note.slug}${path}`);
+  /* When it was first sent, as a date in the reader's edition (Khmer
+     digits on /km, as everywhere else on that side). */
+  const date = note.created_at ? new Intl.DateTimeFormat(lang === "km" ? "km-KH" : "en-GB", { day: "numeric", month: "long", year: "numeric" }).format(new Date(note.created_at)) : "";
 
   return (
     /* Marked when it needs the reader: sent back, or newly published. */
@@ -25,6 +29,7 @@ export default function MyNote({ note, fresh, onDeleted }) {
         <h2 className="my-note-title">{title}</h2>
         <span className={`entry-status my-note-status my-note-${note.status}`}>{t.status[note.status] ?? note.status}</span>
       </div>
+      {date ? <p className="my-note-date">{t.added(lang === "km" ? km(date) : date)}</p> : null}
       <p className="body-copy">{t.explain[note.status]}</p>
       {returned && note.review_note ? (
         <div className="my-note-review">

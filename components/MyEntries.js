@@ -36,7 +36,7 @@ export default function MyEntries() {
       if (!user) return !dropped && setState({ status: "logged-out" });
       const { data, error } = await client
         .from("contributions")
-        .select("id, slug, title, title_km, status, review_note, owner, photo_url")
+        .select("id, slug, title, title_km, status, review_note, owner, photo_url, created_at")
         .eq("owner", user.id)
         .order("created_at", { ascending: false });
       if (dropped) return;
