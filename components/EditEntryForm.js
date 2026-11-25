@@ -84,5 +84,16 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
   if (status === "not-yours") return <p className="body-copy">{t.notYours}</p>;
 
   const { row } = state;
-  return <EntryForm initial={formValues(row)} currentPhotoUrl={row.photo_url} submitLabel={all.entry.saveChanges} onSave={save} />;
+  /* Discard goes back where the Back link goes: My notes for a community
+     note, the entry itself for a field note. */
+  const back = localize(lang, table === "contributions" ? "/my-entries" : `${basePath}/${slug}`);
+  return (
+    <EntryForm
+      initial={formValues(row)}
+      currentPhotoUrl={row.photo_url}
+      submitLabel={all.entry.saveChanges}
+      onSave={save}
+      onDiscard={() => router.push(back)}
+    />
+  );
 }

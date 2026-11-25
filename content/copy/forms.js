@@ -61,6 +61,10 @@ export const forms = {
       saving: "Saving",
       add: "Add the entry",
       saveChanges: "Save changes",
+      discard: "Discard changes",
+      discardTitle: "Discard your changes?",
+      discardBody: "Everything you changed since you opened this page is thrown away. The saved version stays as it was.",
+      keepEditing: "Keep editing",
     },
     contribute: {
       checking: "Checking who you are…",
@@ -250,6 +254,10 @@ export const forms = {
       saving: "កំពុង​រក្សាទុក",
       add: "បន្ថែម​អត្ថបទ",
       saveChanges: "រក្សាទុក​ការ​ផ្លាស់​ប្តូរ",
+      discard: "បោះបង់​ការ​កែប្រែ",
+      discardTitle: "បោះបង់​ការ​កែប្រែ​របស់​អ្នក មែនទេ?",
+      discardBody: "អ្វី​ដែល​អ្នក​បាន​កែ តាំងពី​បើក​ទំព័រ​នេះ នឹង​ត្រូវ​បោះចោល⁠។ កំណែ​ដែល​បាន​រក្សាទុក នៅ​ដដែល⁠។",
+      keepEditing: "បន្ត​កែ",
     },
     contribute: {
       checking: "កំពុង​ពិនិត្យ​ថា​អ្នកជា​នរណា…",

@@ -7,6 +7,7 @@ import { forms } from "../content/copy/forms.js";
 import { useState } from "react";
 import FormField from "./FormField.js";
 import PhotoField from "./PhotoField.js";
+import DiscardButton from "./DiscardButton.js";
 import { RULES, MAX_TAGS, validateEntry, tidy } from "../lib/entry-rules.js";
 import { checkPhoto } from "../lib/photo-upload.js";
 import { saveError } from "../lib/save-error.js";
@@ -20,8 +21,9 @@ const EMPTY = { title: "", titleKm: "", khmerName: "", body: "", bodyKm: "", sou
 
    Each English box has an optional Khmer box under it (lang="km", so the
    reader's keyboard and the page's Khmer fonts apply). The photograph is
-   optional too. */
-export default function EntryForm({ initial = EMPTY, currentPhotoUrl, submitLabel, onSave }) {
+   optional too. On the edit page, `onDiscard` adds a button that leaves
+   without saving (DiscardButton). */
+export default function EntryForm({ initial = EMPTY, currentPhotoUrl, submitLabel, onSave, onDiscard }) {
   const [values, setValues] = useState(initial);
   const [photo, setPhoto] = useState(null);
   const [errors, setErrors] = useState({});
@@ -99,6 +101,9 @@ export default function EntryForm({ initial = EMPTY, currentPhotoUrl, submitLabe
         <button className="btn auth-submit" type="submit" disabled={busy}>
           {busy ? t.saving : submitLabel}
         </button>
+        {onDiscard ? (
+          <DiscardButton changed={Boolean(photo) || Object.keys(values).some((k) => values[k] !== initial[k])} busy={busy} onDiscard={onDiscard} />
+        ) : null}
       </div>
     </form>
   );
