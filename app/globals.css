@@ -2119,6 +2119,25 @@ textarea#entry-body { min-height: 16em; }
 /* The line above the contribute form explaining the Khmer boxes. */
 .entry-km-note { margin: 0 0 22px; }
 
+/* The "Required" tag beside a label that must be filled in (FormField),
+   and the line at the top of the entry form that explains it. A filled
+   pill in the site's status green, so it reads at a glance. */
+.field-required {
+  display: inline-block;
+  margin-left: 10px;
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: rgba(var(--leaf-rgb), 0.16);
+  color: var(--leaf);
+  font-family: var(--mono);
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  vertical-align: 1px;
+}
+.entry-required-note { margin: 20px 0 10px; font-size: 14px; color: var(--muted); }
+.entry-required-note .field-required { margin: 0 6px 0 0; }
+
 .account-block + .account-block {
   margin-top: 56px;
   padding-top: 40px;

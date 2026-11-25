@@ -33,7 +33,10 @@ export default function EntryForm({ initial = EMPTY, currentPhotoUrl, submitLabe
   const label = all.rules.labels;
   const limit = (name) => t.limit(RULES[name].required, RULES[name].max);
 
+  /* A required box carries the "Required" tag (RULES says which). */
   const field = (name) => ({
+    required: RULES[name]?.required,
+    requiredTag: t.requiredTag,
     value: values[name],
     error: errors[name],
     onChange: (e) => setValues({ ...values, [name]: e.target.value }),
@@ -74,6 +77,9 @@ export default function EntryForm({ initial = EMPTY, currentPhotoUrl, submitLabe
 
   return (
     <form className="auth-form entry-form" onSubmit={onSubmit} noValidate>
+      <p className="entry-required-note">
+        <span className="field-required">{t.requiredTag}</span> {t.requiredNote}
+      </p>
       <p className="entry-field-hint entry-km-note">{t.kmNote}</p>
       <FormField id="entry-title" label={label.title} hint={limit("title")} {...field("title")} />
       <FormField id="entry-title-km" label={label.titleKm} hint={limit("titleKm")} lang="km" {...field("titleKm")} />
