@@ -2193,6 +2193,17 @@ textarea#entry-body { min-height: 16em; }
   color: var(--cream);
 }
 .my-note-status { white-space: nowrap; }
+/* A waiting note shown as readers will see it (NotePreview). */
+.note-preview {
+  margin-top: 20px;
+  padding: 22px 20px;
+  border: 1px solid var(--line-2);
+  border-radius: 16px;
+}
+.note-preview .tile-label:first-child { margin-top: 0; }
+.note-preview .entry-photo-current { display: block; max-width: 100%; height: auto; margin: 0 0 16px; border-radius: 8px; }
+.note-preview .my-note-title { margin-bottom: 12px; }
+.note-preview .body-copy { margin: 0 0 14px; white-space: pre-line; }
 .my-note-date { margin: -4px 0 10px; font-family: var(--mono); font-size: 12px; letter-spacing: 1px; color: var(--dim); }
 .my-note-pending { color: var(--muted); border-color: var(--line-2); }
 .my-note-returned { color: var(--cream); border-color: var(--line-2); }

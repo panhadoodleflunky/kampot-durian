@@ -1,6 +1,8 @@
 "use client";
 
+import { useState } from "react";
 import Link from "next/link";
+import NotePreview from "./NotePreview.js";
 import DeleteButton from "./DeleteButton.js";
 import { useLang } from "../lib/use-lang.js";
 import { pick, localize } from "../lib/i18n.js";
@@ -11,12 +13,15 @@ import { km } from "../content/copy/ui.js";
    means, and what the author can do next. A returned note shows the
    curator's note, if they left one. Only the review door (review_entry)
    can write that note; the author can't. Delete is here too, in every
-   state, behind the same second-thought box as on the note's page. */
+   state, behind the same second-thought box as on the note's page. A note
+   that isn't published has no public page, so it gets Preview instead of
+   Read it (NotePreview). */
 export default function MyNote({ note, fresh, onDeleted }) {
   const lang = useLang();
   const t = pick(forms, lang).mine;
   const title = (lang === "km" && note.title_km) || note.title;
   const returned = note.status === "returned";
+  const [previewing, setPreviewing] = useState(false);
   const go = (path) => localize(lang, `/contributed/${note.slug}${path}`);
   /* When it was first sent, as a date in the reader's edition (Khmer
      digits on /km, as everywhere else on that side). */
@@ -42,12 +47,17 @@ export default function MyNote({ note, fresh, onDeleted }) {
           <Link className="auth-btn" href={go("")}>
             {t.read}
           </Link>
-        ) : null}
+        ) : (
+          <button className="auth-btn" type="button" aria-expanded={previewing} onClick={() => setPreviewing(!previewing)}>
+            {previewing ? t.hidePreview : t.preview}
+          </button>
+        )}
         <Link className={returned ? "btn" : "auth-btn"} href={go("/edit")}>
           {returned ? t.fix : t.edit}
         </Link>
         <DeleteButton table="contributions" id={note.id} owner={note.owner} photoUrl={note.photo_url} title={title} onDeleted={onDeleted} />
       </div>
+      {previewing ? <NotePreview note={note} /> : null}
     </section>
   );
 }
