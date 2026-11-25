@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import SignInPrompt from "./SignInPrompt.js";
 import MyNote from "./MyNote.js";
+import LoadingNotes from "./LoadingNotes.js";
 import ReviewerBanner from "./ReviewerBanner.js";
 import NotesNews from "./NotesNews.js";
 import { readSeen, markSeen, newsFrom } from "../lib/use-note-news.js";
@@ -26,22 +27,26 @@ export default function MyEntries() {
   useEffect(() => {
     let dropped = false;
     (async () => {
+      /* The session this browser already holds, not getUser(), which asks
+         the auth server first: one network trip less before the notes. Safe,
+         because the database checks the login token on the query itself. */
       const client = await supabase();
-      const { data: auth } = await client.auth.getUser();
-      if (!auth.user) return !dropped && setState({ status: "logged-out" });
+      const { data: auth } = await client.auth.getSession();
+      const user = auth.session?.user;
+      if (!user) return !dropped && setState({ status: "logged-out" });
       const { data, error } = await client
         .from("contributions")
         .select("id, slug, title, title_km, status, review_note")
-        .eq("owner", auth.user.id)
+        .eq("owner", user.id)
         .order("created_at", { ascending: false });
       if (dropped) return;
       if (error) return setState({ status: "failed", message: saveError("load my notes", error, lang) });
       /* What's new is worked out before this visit counts as seeing it;
          then every badge on the page clears. */
-      const seen = readSeen(auth.user.id);
+      const seen = readSeen(user.id);
       const fresh = data.filter((n) => n.status === "published" && !seen.includes(n.id)).map((n) => n.id);
-      setState({ status: "ready", notes: data, curator: isCurator(auth.user), news: newsFrom(data, seen), fresh });
-      markSeen(auth.user.id, data.filter((n) => n.status === "published").map((n) => n.id));
+      setState({ status: "ready", notes: data, curator: isCurator(user), news: newsFrom(data, seen), fresh });
+      markSeen(user.id, data.filter((n) => n.status === "published").map((n) => n.id));
     })();
     return () => {
       dropped = true;
@@ -49,7 +54,7 @@ export default function MyEntries() {
   }, [lang]);
 
   const { status } = state;
-  if (status === "loading") return <p className="body-copy">{t.loading}</p>;
+  if (status === "loading") return <LoadingNotes label={t.loading} />;
   if (status === "failed") return <p className="auth-error">{state.message}</p>;
   if (status === "logged-out") return <SignInPrompt>{t.loggedOut}</SignInPrompt>;
 

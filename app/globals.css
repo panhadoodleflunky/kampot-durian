@@ -2135,6 +2135,30 @@ textarea#entry-body { min-height: 16em; }
 }
 .my-note-review .body-copy { margin: 0; white-space: pre-line; }
 
+/* While My notes loads: grey bars in the shape of a note (LoadingNotes). */
+.note-skeleton { display: grid; gap: 14px; }
+.skeleton-bar {
+  display: block;
+  height: 14px;
+  border-radius: 4px;
+  background: var(--line-2);
+  animation: skeleton-pulse 1.4s ease-in-out infinite;
+}
+.skeleton-title { height: 24px; width: 55%; }
+.skeleton-short { width: 35%; }
+@keyframes skeleton-pulse { 50% { opacity: 0.45; } }
+@media (prefers-reduced-motion: reduce) { .skeleton-bar { animation: none; } }
+
+/* Read by a screen reader, not shown. */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 /* /review (Sprint 3): each pending note shown whole, its Khmer side set off
    below the English, then the reviewer's two buttons. */
 .review-item { overflow-wrap: anywhere; }

@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import SignInPrompt from "./SignInPrompt.js";
 import ReviewItem from "./ReviewItem.js";
+import LoadingNotes from "./LoadingNotes.js";
 import { supabase } from "../lib/use-session.js";
 import { saveError } from "../lib/save-error.js";
 import { useLang } from "../lib/use-lang.js";
@@ -25,17 +26,23 @@ export default function ReviewQueue() {
   useEffect(() => {
     let dropped = false;
     (async () => {
+      /* The session this browser holds (no trip to the auth server), then
+         the reviewer question and the notes at the same time. For anyone
+         who isn't a reviewer the notes are thrown away unshown: the select
+         policy would only have given them their own. */
       const client = await supabase();
-      const { data: auth } = await client.auth.getUser();
-      if (!auth.user) return !dropped && setState({ status: "logged-out" });
-      const { data: reviewer } = await client.rpc("is_reviewer");
-      if (reviewer !== true) return !dropped && setState({ status: "not-reviewer" });
-      const { data, error } = await client
-        .from("contributions")
-        .select("*, profiles(display_name)")
-        .eq("status", "pending")
-        .order("created_at", { ascending: true });
+      const { data: auth } = await client.auth.getSession();
+      if (!auth.session) return !dropped && setState({ status: "logged-out" });
+      const [{ data: reviewer }, { data, error }] = await Promise.all([
+        client.rpc("is_reviewer"),
+        client
+          .from("contributions")
+          .select("*, profiles(display_name)")
+          .eq("status", "pending")
+          .order("created_at", { ascending: true }),
+      ]);
       if (dropped) return;
+      if (reviewer !== true) return setState({ status: "not-reviewer" });
       if (error) return setState({ status: "failed", message: saveError("load review queue", error, lang) });
       setState({ status: "ready", notes: data });
     })();
@@ -51,7 +58,7 @@ export default function ReviewQueue() {
   }
 
   const { status } = state;
-  if (status === "loading") return <p className="body-copy">{t.loading}</p>;
+  if (status === "loading") return <LoadingNotes label={t.loading} />;
   if (status === "failed") return <p className="auth-error">{state.message}</p>;
   if (status === "logged-out") return <SignInPrompt>{t.loggedOut}</SignInPrompt>;
   if (status === "not-reviewer") return <p className="body-copy">{t.notReviewer}</p>;
