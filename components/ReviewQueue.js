@@ -70,8 +70,8 @@ export default function ReviewQueue() {
         {flash}
       </p>
       <p className="body-copy review-count">{notes.length === 0 ? t.empty : t.count(notes.length)}</p>
-      {notes.map((note) => (
-        <ReviewItem key={note.id} note={note} onDone={done} />
+      {notes.map((note, i) => (
+        <ReviewItem key={note.id} note={note} place={t.position(i + 1, notes.length)} onDone={done} />
       ))}
     </>
   );

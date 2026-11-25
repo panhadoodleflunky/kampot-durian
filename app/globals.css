@@ -1318,7 +1318,7 @@ html[data-theme="light"] .theme-toggle .icon-moon { display: block; }
 .reading .tile-label { margin-top: 46px; margin-bottom: 14px; }
 .reading > .reveal:first-child .tile-label { margin-top: 0; }
 .reading :is(.prompt-card, .my-note-review, .review-khmer) .tile-label { margin-top: 0; }
-.reading .review-item > .tile-label:first-child { margin-top: 0; }
+.reading .review-item > .review-place + .tile-label { margin-top: 0; }
 
 .note-foot {
   margin-top: 44px;
@@ -2226,8 +2226,26 @@ textarea#entry-body { min-height: 16em; }
 
 /* /review (Sprint 3): each pending note shown whole, its Khmer side set off
    below the English, then the reviewer's two buttons. */
-.review-item { overflow-wrap: anywhere; }
-.review-item + .review-item { margin-top: 40px; padding-top: 32px; }
+/* Each note in its own box, numbered, so two notes never run together. */
+.review-item {
+  overflow-wrap: anywhere;
+  padding: 26px 24px 24px;
+  border: 1px solid var(--line-2);
+  border-radius: 16px;
+  background: rgba(var(--glass-rgb), 0.025);
+}
+.review-item + .review-item { margin-top: 32px; }
+.review-place {
+  margin: 0 0 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--line);
+  font-family: var(--mono);
+  font-size: 11px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--flesh);
+}
+@media (max-width: 560px) { .review-item { padding: 20px 16px; } }
 .review-item .body-copy { margin: 0 0 14px; white-space: pre-line; }
 .review-item .my-note-title { margin: 8px 0 12px; }
 .review-item .entry-photo-current { max-width: 100%; height: auto; }

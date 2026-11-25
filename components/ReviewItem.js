@@ -9,15 +9,18 @@ import { ui } from "../content/copy/ui.js";
 /* One pending note, shown whole: the reviewer approves exactly what will go
    public, so both sides are here, English and Khmer, plus the photo and the
    sources. Nothing on it can be edited from this page: a reviewer publishes
-   or sends back, and never rewrites (Sprint 3 brief). */
-export default function ReviewItem({ note, onDone }) {
+   or sends back, and never rewrites (Sprint 3 brief). Each note is its own
+   box, headed "Note 1 of 2", so two notes never run together; its buttons
+   sit inside its box. */
+export default function ReviewItem({ note, place, onDone }) {
   const lang = useLang();
   const t = pick(forms, lang).review;
   const author = note.profiles?.display_name ?? pick(ui, lang).community.reader;
   const khmer = note.title_km || note.body_km || note.sources_km || note.tags_km?.length;
 
   return (
-    <article className="account-block review-item">
+    <article className="review-item">
+      <p className="review-place">{place}</p>
       <p className="tile-label">{t.by(author)}</p>
       <h2 className="my-note-title">{note.title}</h2>
       {note.khmer_name ? <p className="entry-khmer" lang="km">{note.khmer_name}</p> : null}
