@@ -208,7 +208,8 @@ app/
 components/                  one component per file, ~80 lines or less
   EntrySearch, SearchBox, Pagination, SearchEmpty, EntryCard     browse and search
   EntryForm, FormField, PhotoField, PasswordInput, ContributeForm, EditEntryForm, OwnerActions
-  DeleteButton, DiscardButton, ConfirmDialog (the second-thought box), LoadingNotes
+  DeleteButton, DiscardButton, ConfirmDialog (the second-thought box), LoadingNotes,
+  NotePreview (a waiting note as readers will see it), EditDeadEnd
   SentNotice, MyEntries, MyNote, NotesNews, NewsBadge             waiting for review
   ReviewQueue, ReviewItem, ReviewActions, ReviewerBanner, TakeDown   reviewing
   AuthForm, SignupForm, AuthStatus, AccountMenu, AccountMenuPanel, AccountPanel, NameForm,
