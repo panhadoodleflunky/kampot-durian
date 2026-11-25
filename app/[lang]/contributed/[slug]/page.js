@@ -73,7 +73,7 @@ export default async function CommunityNote({ params }) {
                   photoUrl={note.photoUrl}
                   title={note.title}
                 />
-                <TakeDown id={note.id} />
+                <TakeDown id={note.id} title={note.title} />
               </Reveal>
 
               {note.image ? (
