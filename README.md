@@ -180,8 +180,9 @@ live database.
 - **The reviewer** (a row in `reviewers`, checked by `is_reviewer()`) reads
   every note, and publishes, returns or takes down through `review_entry()`.
 - **The curator** (`role: curator` in the account's app metadata, which a user
-  cannot set) is the only account that writes Field Notes, and may delete any
-  Community Note, but not rewrite one.
+  cannot set) is the only account that writes Field Notes. The database still
+  lets it delete any Community Note, but since 25 November the site offers
+  only Take down on someone else's note, never Delete or Edit.
 - **Check constraints** hold the form's rules again in the database: lengths,
   a known status, a photo URL inside the owner's own folder, a slug of
   `a-z0-9-` only, and display names that cannot fake the curator's tick.
@@ -206,7 +207,8 @@ app/
   sitemap.js  robots.js  globals.css
 components/                  one component per file, ~80 lines or less
   EntrySearch, SearchBox, Pagination, SearchEmpty, EntryCard     browse and search
-  EntryForm, FormField, PhotoField, ContributeForm, EditEntryForm, OwnerActions
+  EntryForm, FormField, PhotoField, PasswordInput, ContributeForm, EditEntryForm, OwnerActions
+  DeleteButton, DiscardButton, ConfirmDialog (the second-thought box), LoadingNotes
   SentNotice, MyEntries, MyNote, NotesNews, NewsBadge             waiting for review
   ReviewQueue, ReviewItem, ReviewActions, ReviewerBanner, TakeDown   reviewing
   AuthForm, SignupForm, AuthStatus, AccountMenu, AccountMenuPanel, AccountPanel, NameForm,
@@ -218,6 +220,8 @@ lib/
   entry-rules.js  entry-row.js  signup-rules.js   validation and row shaping
   photo-upload.js  redraw-photo.js                 uploads; every photo redrawn first (smaller, no GPS)
   save-error.js  roles.js  use-edit-row.js         error wording, who may edit, the edit page's row
+  delete-entry.js            a delete, its photo, and the page refresh, in one place
+  return-to.js  keep-place.js   back to your page after log in; your place kept across a language switch
   use-note-news.js           the news badge: notes sent back or newly published
   i18n.js  use-lang.js       the two editions: localize(), pick() with English fallback
   suggest.js  use-session.js  use-search-handoff.js  use-dismiss.js  initial.js  actions.js
@@ -311,15 +315,18 @@ were tried live from fresh stranger accounts (22 and 30 October, 5 November
   characters), and a gold count on the account menu until they have seen it.
   They edit it there and it goes back into the queue.
 - **The reviewer can take down a published note** — but it is sent back to its
-  author as `returned`, with a note, not deleted. The author keeps their work.
+  author as `returned`, not deleted, and the reviewer must write why (the
+  author reads it on My notes). The author keeps their work.
   Take-down is its own decision, so it can never fire on a pending note, and
   Send back can never fire on a published one.
 - **Search never shows a contributor their own pending notes.** The public
   shelf and search read published notes only, for everyone. A contributor's
   pending and returned notes live on My notes, with their status in plain
   words.
-- **A reviewer approves; a reviewer does not rewrite.** The curator may delete
-  any Community Note but cannot edit someone else's. An author's edit to a
+- **A reviewer approves; a reviewer does not rewrite.** On someone else's
+  note the curator gets only Take down: no Edit, and (since 25 November) no
+  Delete either. Authors can delete their own notes, from the note or from My
+  notes, after a box that names the note and asks first. An author's edit to a
   published note sends it back to `pending`; only a reviewer's own edit keeps
   a note published.
 - **Photos.** Every photo is redrawn in the browser before upload, which drops
