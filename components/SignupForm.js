@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 import FormField from "./FormField.js";
 import { createClient } from "../lib/supabase/client.js";
 import { validateSignup, NAME_MAX, PASSWORD_MIN } from "../lib/signup-rules.js";
+import { returnPath } from "../lib/return-to.js";
 
 const EMPTY = { name: "", email: "", password: "", confirm: "", birthdate: "", agreed: false };
 
@@ -63,7 +64,8 @@ export default function SignupForm() {
       );
     }
     if (!result.session) return setMessage(t.confirmEmail);
-    router.push(localize(lang, "/contribute"));
+    /* Back to the page they were on, as after logging in. */
+    router.push(returnPath(lang));
     router.refresh();
   }
 

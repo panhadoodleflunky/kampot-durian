@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "../lib/supabase/client.js";
 import PasswordInput from "./PasswordInput.js";
+import { returnPath } from "../lib/return-to.js";
 
 /* The login form. Signup has its own form since Lab 7 (SignupForm), with
    the name, birthdate and agreement fields; it keeps the same rule below.
@@ -46,9 +47,9 @@ export default function AuthForm() {
       return;
     }
 
-    /* push then refresh: the header reads the session in the browser, and
+    /* Back to the page they were on (lib/return-to.js). push then refresh: the header reads the session in the browser, and
        without the refresh it would still be showing the logged-out links. */
-    router.push(localize(lang, "/"));
+    router.push(returnPath(lang));
     router.refresh();
   }
 

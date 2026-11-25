@@ -9,6 +9,7 @@ import { supabase, useSession } from "../lib/use-session.js";
 import { useLang } from "../lib/use-lang.js";
 import { pick, localize } from "../lib/i18n.js";
 import { ui } from "../content/copy/ui.js";
+import { rememberPage } from "../lib/return-to.js";
 
 /* Who the reader is, in the nav: their name, linking to /account. Not the
    email: an address in the nav ends up in every screenshot and every
@@ -64,10 +65,10 @@ export default function AuthStatus({ variant = "bar" }) {
 
   return (
     <div className="auth-nav">
-      <Link className="auth-btn" href={go("/login")}>
+      <Link className="auth-btn" href={go("/login")} onClick={rememberPage}>
         {t.logIn}
       </Link>
-      <Link className="auth-btn" href={go("/signup")}>
+      <Link className="auth-btn" href={go("/signup")} onClick={rememberPage}>
         {t.signUp}
       </Link>
     </div>
