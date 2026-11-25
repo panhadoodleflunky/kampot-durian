@@ -1,9 +1,12 @@
+import PasswordInput from "./PasswordInput.js";
+
 /* One labelled input in the entry form, with its rule underneath and the
    message for this field beside it when the rule is broken. The message is
    tied to the input with aria-describedby, so a screen reader announces it
    on focus, and aria-invalid marks the field itself. */
 export default function FormField({ id, label, hint, error, multiline, ...input }) {
-  const Tag = multiline ? "textarea" : "input";
+  /* A password box gets the show/hide eye (PasswordInput). */
+  const Tag = multiline ? "textarea" : input.type === "password" ? PasswordInput : "input";
   const hintId = `${id}-hint`;
   const errorId = `${id}-error`;
 

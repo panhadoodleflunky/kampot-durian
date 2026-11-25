@@ -1931,6 +1931,28 @@ a.section-count:hover { text-decoration: underline; }
   box-sizing: border-box;
 }
 
+/* A password box with its show/hide eye inside the right end (PasswordInput). */
+.password-wrap { position: relative; }
+.password-wrap .auth-input { padding-right: 60px; }
+.password-eye {
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  transform: translateY(-50%);
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  cursor: pointer;
+}
+.password-eye:hover, .password-eye[aria-pressed="true"] { color: var(--cream); }
+.password-eye:focus-visible { outline: 2px solid var(--flesh); outline-offset: 0; }
+
 .auth-label-2 { margin-top: 26px; }
 
 /* Always in the layout, empty or not. Appearing on the first failed attempt

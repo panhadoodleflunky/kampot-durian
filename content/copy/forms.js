@@ -25,6 +25,7 @@ export const forms = {
       birthdate: "Enter a real date between 1900 and today, or leave it empty.",
       agree: "Tick this to create an account.",
     },
+    password: { show: "Show password", hide: "Hide password" },
     photo: {
       choose: "Choose a photograph.",
       tooBig: "That photo is over 5 MB. Choose a smaller one.",
@@ -204,6 +205,7 @@ export const forms = {
       birthdate: "សូម​បញ្ចូល​កាលបរិច្ឆេទ​ពិតប្រាកដ ចន្លោះ​ឆ្នាំ ១៩០០ ដល់​ថ្ងៃនេះ ឬ​ទុកឲ្យ​នៅ​ទទេ⁠។",
       agree: "សូម​ធីក​ប្រអប់​នេះ ដើម្បី​បង្កើត​គណនី⁠។",
     },
+    password: { show: "បង្ហាញ​ពាក្យសម្ងាត់", hide: "លាក់​ពាក្យសម្ងាត់" },
     photo: {
       choose: "សូម​ជ្រើសរើស​រូបថត​មួយ⁠។",
       tooBig: "រូបថត​នោះ​ធំជាង ៥ MB។ សូម​ជ្រើស​រូប​តូចជាង​នេះ⁠។",

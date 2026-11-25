@@ -8,6 +8,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { createClient } from "../lib/supabase/client.js";
+import PasswordInput from "./PasswordInput.js";
 
 /* The login form. Signup has its own form since Lab 7 (SignupForm), with
    the name, birthdate and agreement fields; it keeps the same rule below.
@@ -70,7 +71,7 @@ export default function AuthForm() {
       <label className="search-label auth-label-2" htmlFor="auth-password">
         {t.password}
       </label>
-      <input
+      <PasswordInput
         id="auth-password"
         className="search-input auth-input"
         type="password"
