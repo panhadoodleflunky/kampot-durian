@@ -82,6 +82,7 @@ export const forms = {
       missing: "There's no entry at this address.",
       loggedOut: "Log in to edit your entries.",
       notYours: "Only the person who added this entry can edit it.",
+      backToEntry: "Back to the entry",
     },
     owner: {
       edit: "Edit",
@@ -280,6 +281,7 @@ export const forms = {
       missing: "គ្មាន​អត្ថបទ​នៅ​អាសយដ្ឋាន​នេះ​ទេ⁠។",
       loggedOut: "សូម​ចូល​គណនី ដើម្បី​កែ​អត្ថបទ​របស់​អ្នក⁠។",
       notYours: "មានតែ​អ្នក​ដែល​បាន​បន្ថែម​អត្ថបទ​នេះ​ប៉ុណ្ណោះ ដែល​អាច​កែ​វា​បាន⁠។",
+      backToEntry: "ត្រឡប់ទៅ​អត្ថបទ​វិញ",
     },
     owner: {
       edit: "កែ",

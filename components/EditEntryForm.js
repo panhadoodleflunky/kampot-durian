@@ -5,6 +5,7 @@ import { pick, localize } from "../lib/i18n.js";
 import { forms } from "../content/copy/forms.js";
 
 import SignInPrompt from "./SignInPrompt.js";
+import EditDeadEnd from "./EditDeadEnd.js";
 import { useRouter } from "next/navigation";
 import EntryForm from "./EntryForm.js";
 import { createClient } from "../lib/supabase/client.js";
@@ -79,9 +80,10 @@ export default function EditEntryForm({ table = "entries", basePath = "/field-no
   const { status } = state;
   if (status === "loading") return <p className="body-copy">{t.loading}</p>;
   if (status === "failed") return <p className="auth-error">{state.message}</p>;
-  if (status === "missing") return <p className="body-copy">{t.missing}</p>;
   if (status === "logged-out") return <SignInPrompt>{t.loggedOut}</SignInPrompt>;
-  if (status === "not-yours") return <p className="body-copy">{t.notYours}</p>;
+  if (status === "missing" || status === "not-yours") {
+    return <EditDeadEnd status={status} table={table} basePath={basePath} slug={slug} />;
+  }
 
   const { row } = state;
   /* Discard goes back where the Back link goes: My notes for a community
