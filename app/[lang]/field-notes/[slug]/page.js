@@ -97,6 +97,7 @@ export default async function FieldNote({ params }) {
                   owner={note.owner}
                   slug={note.slug}
                   photoUrl={note.photoUrl}
+                  title={note.title}
                 />
               </Reveal>
 

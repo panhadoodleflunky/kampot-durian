@@ -71,6 +71,7 @@ export default async function CommunityNote({ params }) {
                   owner={note.owner}
                   slug={note.slug}
                   photoUrl={note.photoUrl}
+                  title={note.title}
                 />
                 <TakeDown id={note.id} />
               </Reveal>
