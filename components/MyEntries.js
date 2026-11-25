@@ -65,19 +65,22 @@ export default function MyEntries() {
     <>
       <ReviewerBanner />
       <NotesNews returned={state.news.returned} published={state.news.published} />
+      {/* The curator's own entries are Field Notes, never community notes,
+          so "you haven't added a note yet" would only mislead them. */}
       {state.curator ? <p className="body-copy">{t.curator}</p> : null}
-      {state.notes.length === 0 ? (
-        <div className="prompt-card">
-          <p className="body-copy">{t.empty}</p>
+      {state.curator && state.notes.length === 0 ? null : (
+        <div className={state.notes.length === 0 ? "prompt-card" : "my-notes-add"}>
+          {state.notes.length === 0 ? <p className="body-copy">{t.empty}</p> : null}
           <div className="auth-actions">
             <Link className="btn" href={localize(lang, "/contribute")}>
               {t.add}
             </Link>
           </div>
         </div>
-      ) : (
-        state.notes.map((note) => <MyNote key={note.id} note={note} fresh={state.fresh.includes(note.id)} onDeleted={() => gone(note.id)} />)
       )}
+      {state.notes.map((note) => (
+        <MyNote key={note.id} note={note} fresh={state.fresh.includes(note.id)} onDeleted={() => gone(note.id)} />
+      ))}
     </>
   );
 }

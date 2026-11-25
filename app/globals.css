@@ -2172,6 +2172,9 @@ textarea#entry-body { min-height: 16em; }
    beside the title. Published in the leaf green the site uses for status;
    waiting is quiet; sent back is the one that asks for something, so it
    reads in the main text colour. */
+/* "Add a note" above the list, once there are notes. */
+.my-notes-add { margin-bottom: 40px; }
+.my-notes-add .auth-actions { margin-top: 0; }
 .my-note { overflow-wrap: anywhere; }
 .my-note + .my-note { margin-top: 40px; padding-top: 32px; }
 .my-note-head {
