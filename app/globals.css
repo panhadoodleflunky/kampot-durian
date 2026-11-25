@@ -2206,7 +2206,7 @@ textarea#entry-body { min-height: 16em; }
   display: block;
   height: 14px;
   border-radius: 4px;
-  background: var(--line-2);
+  background: var(--line);
   animation: skeleton-pulse 1.4s ease-in-out infinite;
 }
 .skeleton-title { height: 24px; width: 55%; }
