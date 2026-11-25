@@ -5,8 +5,10 @@ import PasswordInput from "./PasswordInput.js";
    tied to the input with aria-describedby, so a screen reader announces it
    on focus, and aria-invalid marks the field itself.
    `required` puts a "Required" tag beside the label (its words come from
-   the form, `requiredTag`) and marks the input aria-required. */
-export default function FormField({ id, label, hint, error, multiline, required, requiredTag, ...input }) {
+   the form, `requiredTag`) and marks the input aria-required. `hideLabel`
+   keeps the label for screen readers only, where a heading above already
+   says the same word. */
+export default function FormField({ id, label, hint, error, multiline, required, requiredTag, hideLabel, ...input }) {
   /* A password box gets the show/hide eye (PasswordInput). */
   const Tag = multiline ? "textarea" : input.type === "password" ? PasswordInput : "input";
   const hintId = `${id}-hint`;
@@ -14,7 +16,7 @@ export default function FormField({ id, label, hint, error, multiline, required,
 
   return (
     <div className="entry-field">
-      <label className="search-label" htmlFor={id}>
+      <label className={`search-label${hideLabel ? " sr-only" : ""}`} htmlFor={id}>
         {label}
         {required ? <span className="field-required">{requiredTag}</span> : null}
       </label>

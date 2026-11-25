@@ -61,6 +61,7 @@ export default function NameForm({ userId, current }) {
       <FormField
         id="acct-name"
         label={t.nameLabel}
+        hideLabel
         hint={t.nameHint(NAME_MAX)}
         autoComplete="name"
         value={name}

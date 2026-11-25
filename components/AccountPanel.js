@@ -82,8 +82,9 @@ export default function AccountPanel() {
         <PasswordForm email={user.email} />
       </section>
 
+      {/* No heading here: the button says it, and "Log out" twice read
+          as a stutter. */}
       <section className="account-block">
-        <h2 className="tile-label">{t.logOut}</h2>
         <div className="auth-actions">
           <button className="auth-btn prompt-alt" type="button" onClick={logOut}>
             {t.logOut}
